@@ -17,14 +17,25 @@ const welcomeWords = () => {
 
 
   words.map((v, i, arr) => {
-      setInterval(function(){
+      setInterval(() => {
           document.querySelector('.words').innerHTML = arr[Math.floor(Math.random()*arr.length)].word;
-      }, 3000)
+      }, 10000)
   });
+
+  const bgColor = document.querySelector('.progress-color');   
+  let width = 1;
+
+  setInterval(() => {
+    if (width >= 100) {
+      width = 1;
+    } else {
+      width++; 
+      bgColor.style.width = width + '%'; 
+    }
+  }, 100);
+  
 }
 
-
-
 window.onload = () => {
-  welcomeWords()
+  welcomeWords();
 }
