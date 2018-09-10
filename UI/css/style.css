@@ -1,6 +1,7 @@
 body, .welcome {
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 
 .welcome {
@@ -9,7 +10,6 @@ body, .welcome {
   background-repeat: no-repeat;
   min-height: 100vh;
   position: relative;
-  display: flex;
 }
 
 .welcome-content {
@@ -19,8 +19,21 @@ body, .welcome {
   top: 0;
   left: 0;
   position: absolute;
+  color: #fff;
+  display: flex;
+  justify-content: space-around;
 }
 
 .welcome-content img {
   transform: scaleX(-1);
+  width: 100%;
+  height: auto;
+  margin-top: 50px;
+}
+
+.words {
+  font-size: 30px;
+  text-align: center;
+  width: 500px;
+  padding-top: 200px;
 }
