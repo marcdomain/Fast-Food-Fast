@@ -1,0 +1,26 @@
+body, .welcome {
+  padding: 0;
+  margin: 0;
+}
+
+.welcome {
+  background-image: url('../img/bg-image.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+}
+
+.welcome-content {
+  background: rgba(36, 40, 38, 0.8);
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.welcome-content img {
+  transform: scaleX(-1);
+}
