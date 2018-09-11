@@ -165,7 +165,7 @@ body {
   color: #fff;
 }
 
-#close {
+.close {
   float: right; 
   box-shadow: 1px 1px 1px 1px gray; 
   border: 1px solid gray; 
