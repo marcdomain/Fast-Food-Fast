@@ -31,8 +31,8 @@
         </div>
 
         <div class="auth-btn">
-          <input type="button" value="I'm new here">
-          <input type="button" value="Login" class="login">
+          <input type="button" value="I'm new here" id="signup">
+          <input type="button" value="Login" class="login" id="login">
         </div>
 
       </div>
@@ -40,7 +40,7 @@
     <div class="modal">
       <center>
 
-        <div class="auth-form signup">
+        <div class="auth-form">
           <form action="">
             <span id="close">&#10062;</span> <br>
             <legend class="form-title">Signup</legend>
@@ -52,8 +52,9 @@
             <input type="text" name="phone" id="phone" required placeholder="Phone (080.....)">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required placeholder="Create password">
-            <input type="submit" value="Submit" id="signup">
+            <input type="submit" value="Submit">
           </form>
+          <p>Have an account? <span id="login1">Login</span></p>
         </div>
 
         <div class="auth-form">
@@ -64,13 +65,15 @@
             <input type="email" name="email" id="email" required placeholder="example@domain.com">
             <label for="password">Password</label>
             <input type="password" id="password1" name="password" required placeholder="Input your password">
-            <input type="submit" value="Submit" id="login">
+            <input type="submit" value="Submit">
           </form>
+          <p>I'm new here. <span id="signup1">Signup</span></p>
         </div>
 
       </center>
     </div>
   </div>
+  <script src="js/toggle.js"></script>
 </body>
 
 </html>

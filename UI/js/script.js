@@ -11,11 +11,12 @@ const welcomeWords = () => {
     }
   ];
   
+  // open on window load (0 sec)
   words.map((v, i, arr) => {
       document.querySelector('.words').innerHTML = arr[Math.floor(Math.random()*arr.length)].word;
   });
 
-
+  // start after 10 sec 
   words.map((v, i, arr) => {
       setInterval(() => {
           document.querySelector('.words').innerHTML = arr[Math.floor(Math.random()*arr.length)].word;
@@ -24,7 +25,7 @@ const welcomeWords = () => {
 
   const bgColor = document.querySelector('.progress-color');   
   let width = 1;
-
+  // repeat every 10 sec
   setInterval(() => {
     if (width >= 100) {
       width = 1;

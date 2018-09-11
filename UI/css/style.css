@@ -100,6 +100,7 @@ body {
   outline: none;
   display: inline-block;
   margin-left: 5%;
+  box-shadow: 1px 1px 1px 1px #404040;
 }
 
 .login {
@@ -113,6 +114,7 @@ body {
 
 .modal {
   z-index: 2;
+  display: none;
 }
 
 .auth-form {
@@ -123,6 +125,7 @@ body {
   border-radius: 10px;
   margin-top: 10%;
   box-sizing: border-box;
+  display: none;
 }
 
 .auth-form form label{
