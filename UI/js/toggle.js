@@ -1,18 +1,29 @@
 
 const authForm = () => {
-  const selectForm = document.querySelectorAll('.auth-form');
+  const selectDiv = document.querySelectorAll('.auth-form');
+  const selectForm = document.querySelectorAll('form');
   const displayModal = document.querySelector('.modal');
-
+  
   const toggleForm = (event) => {
       if(event.target.id === 'login'){
-          selectForm[0].style.display = 'none';
-          selectForm[1].style.display = 'block';
+          selectDiv[0].style.display = 'none';
+          selectDiv[1].style.display = 'block';
           displayModal.style.display = 'block';
+
+          setInterval(() => {
+            selectForm[1].removeAttribute('class');
+            selectForm[1].setAttribute('class', 'form-after-click');
+          }, 100);
       }
       if (event.target.id === 'signup') {
-          selectForm[1].style.display = 'none';
-          selectForm[0].style.display = 'block';
+          selectDiv[1].style.display = 'none';
+          selectDiv[0].style.display = 'block';
           displayModal.style.display = 'block';
+          
+          setInterval(() => {
+            selectForm[0].removeAttribute('class');
+            selectForm[0].setAttribute('class', 'form-after-click');
+          }, 100);
       }
   }
   const signup = document.querySelector('#signup');
