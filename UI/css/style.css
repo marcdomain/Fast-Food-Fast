@@ -1,54 +1,78 @@
-body, .welcome {
+body {
   padding: 0;
   margin: 0;
-  overflow-x: hidden;
+  font-family: fantasy;
+  font-size: 20px;
+}
+
+.page-title span {
+  font-style: italic
 }
 
 .welcome {
   background-image: url('../img/bg-image.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  min-height: 100vh;
+  height: 100vh;
   position: relative;
 }
 
 .welcome-content {
   background: rgba(36, 40, 38, 0.8);
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   top: 0;
   left: 0;
   position: absolute;
   color: #fff;
-  display: flex;
-  justify-content: space-around;
 }
 
-.welcome-content img {
-  transform: scaleX(-1);
-  width: 100%;
-  height: auto;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center
+}
+
+.intro, .auth-btn, .words {
+  display: block;
+}
+
+.intro{
+  height: 350px;
   margin-top: 50px;
 }
 
-.intro {
-  display: flex;
-  flex-direction: column;
+.intro-content {
+  display: inline-block;
+  width: 40%;
+  margin-left: 5%;
 }
 
-.words {
-  font-size: 30px;
-  text-align: center;
-  width: 500px;
-  padding-top: 200px;
+.delivery-girl{
+  float: left;
+}
+
+.delivery-girl img{
+  width: 60%;
+  height: 100%;
+  transform: scaleX(-1);
+  float: left;
+}
+
+.intro-words{
+  padding-top: 10%;
+}
+
+.words{
+  height: 100px;
 }
 
 .progress-bar {
   width: 100%;
-  height: 3px;
+  height: 2px;
   border: 1px solid gray;
   border-radius: 10px;
-  padding: 3px;
+  padding: 0.4px;
   margin-top: 15px;
 }
 
@@ -57,4 +81,118 @@ body, .welcome {
   width: 1%;
   height: 100%;
   border-radius: 10px;
+}
+
+.auth-btn input {
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  background: green;
+  color: #fff;
+  border: none;
+  font-size: 17px;
+  font-family: fantasy;
+  outline: none;
+  display: inline-block;
+  margin-left: 5%;
+}
+
+#login {
+  margin-left: 20px;
+}
+
+.auth-btn input:hover {
+  font-weight: bold;
+  box-shadow: 1px 3px 2px 1px #000;
+}
+
+@media(max-width:875px) {
+  .auth-btn input{
+    margin-left: 0;
+  }
+}
+
+@media(max-width:600px) {
+  .delivery-girl img{
+    width: 80%;
+  }
+}
+
+@media(max-width:500px) {
+  .auth-btn input{
+    width: 150px;
+  }
+  .intro{
+    height: 300px;
+  }
+}
+
+@media(max-width:460px) {
+  .auth-btn input{
+    width: 150px;
+  }
+  .intro{
+    height: 260px;
+  }
+  .words{
+    height: 120px;
+  }
+}
+
+@media(max-width:420px) {
+  .words{
+    height: 130px;
+  }
+}
+
+@media(max-width:380px) {
+  .intro-words{
+    padding-top: 5%;
+  }
+}
+
+@media(max-width:355px) {
+  .auth-btn input{
+    width: 120px;
+  }
+  .words{
+    height: 185px;
+  }
+  .intro-words{
+    padding-top: 0;
+  }
+}
+
+@media(max-width:275px) {
+  .auth-btn input{
+    display: block;
+    margin-bottom: 10px;
+  }
+  #login{
+    margin-left: 0;
+  }
+  .auth-btn{
+    margin-left: 25%
+  }
+  .words{
+    height: 220px;
+  }
+}
+
+@media(max-height: 600px) {
+  .welcome{
+    height: 120vh;
+  }
+}
+
+@media(max-height: 495px) {
+  .welcome{
+    height: 130vh;
+  }
+}
+
+@media(max-height: 455px) {
+  .welcome{
+    height: 140vh;
+  }
 }
