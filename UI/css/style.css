@@ -116,20 +116,19 @@ body {
 }
 
 .auth-form {
+  background: rgba(122, 56, 36, 0.4);
   width: 500px;
-  padding: 20px;
+  padding: 40px;
   border: 1px solid white;
   border-radius: 10px;
-  margin-top: 10%
-}
-
-form {
-  padding: 20px
+  margin-top: 10%;
+  box-sizing: border-box;
 }
 
 .auth-form form label{
   display: block;
   float: left;
+  padding: 5px;
 }
 
 .auth-form input{
@@ -138,15 +137,27 @@ form {
   outline: none;
   border: none;
   margin-bottom: 15px;
-  height: 20px;
   padding: 10px;
+  box-sizing: border-box;
 }
 
 .auth-form form input[type=submit]{
   background: green;
   color: #fff;
-  width: 120%
+}
 
+#close {
+  float: right; 
+  box-shadow: 1px 1px 1px 1px gray; 
+  border: 1px solid gray; 
+  padding: 0 3px; 
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-title {
+  display: block; 
+  font-weight: bold
 }
 
 @media(max-width:875px) {
