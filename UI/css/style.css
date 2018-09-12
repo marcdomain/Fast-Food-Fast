@@ -4,6 +4,7 @@ body {
   font-family: fantasy;
   font-size: 20px;
   overflow-x: hidden;
+  background: #efefef;
 }
 
 header {
@@ -326,8 +327,9 @@ nav ul li a:hover {
 }
 
 .food {
-  height: 300px;
+  height: 200px;
   border: #000 1px solid;
+  margin: 30px 0;
 }
 
 .scroll-top {
@@ -341,6 +343,48 @@ nav ul li a:hover {
   border-radius: 50%;
   background: #efefef;
   box-shadow: 1px 1px 2px 1px #004466;
+}
+
+.food-items {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.category {
+  border: #000 1px solid;
+  display: flex;
+  height: 100%;
+}
+
+.category-image {
+  flex: 1;
+  border: #000 1px solid;
+}
+
+.items {
+  flex: 3;
+  border: #000 1px solid;
+  display: flex;
+}
+
+.item {
+  border: #000 1px solid;
+  flex: 1;
+}
+
+.local-img {
+  background-image: url('../img/banner2.jpg');
+  background-size: cover;
+
+}
+
+.footer {
+  min-height: 30px;
+  background: #e65c00;
+  bottom: 0;
+  text-align: center;
+  padding-top: 20px;
+  color: #fff;
 }
 
 @media(max-width:875px) {

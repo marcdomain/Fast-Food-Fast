@@ -8,7 +8,7 @@ const scrollPage = () => {
   const pizzaBtn = document.querySelector('.pizza');
   const localBtn = document.querySelector('.local');
   const riceBtn = document.querySelector('.rice');
-  const snacksBtn = document.querySelector('.pizza');
+  const snacksBtn = document.querySelector('.snacks');
   const othersBtn = document.querySelector('.others');
 
   const scrollTopBtn = document.querySelector('.scroll-top');
