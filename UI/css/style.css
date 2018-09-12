@@ -3,6 +3,7 @@ body {
   margin: 0;
   font-family: fantasy;
   font-size: 20px;
+  overflow-x: hidden;
 }
 
 header {
@@ -45,9 +46,9 @@ nav ul li {
 }
 
 .dropdown-content {
-  height: 0;
   display: none;
   position: absolute;
+  z-index: 2;
 }
 
 .dropdown:hover .dropdown-content {
@@ -73,6 +74,36 @@ nav ul li a {
 
 nav ul li a:hover {
   background: #e65c00;
+}
+
+.banner {
+  height: 500px;
+  display: flex;
+  width: 100vw;
+  position: absolute;
+}
+
+.banner1 {
+  flex: 60%;
+  background-image: url('../img/banner1.jpg');
+}
+
+.banner2 {
+  background-image: url('../img/banner2.jpg');
+  background-size: cover;
+  flex: 40%;
+}
+
+.food-advert {
+  position: absolute;
+  left: 35%; 
+  top: 35%;
+  color: #fff;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+  width: 400px;
+  background: rgba(36, 40, 38, 0.8);
 }
 
 .page-title span {

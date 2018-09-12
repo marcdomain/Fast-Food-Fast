@@ -8,6 +8,9 @@ const welcomeWords = () => {
     },
     {
         word: `Our service is swift. <br>The restaurant is kept meticulously clean, comfortable and air-conditioned.`
+    },
+    {
+      word: `Order from a wide range of delicacies. <br><em>Local delicacies, Snacks, Rice, Turkey, and Others</em>.`
     }
   ];
   
