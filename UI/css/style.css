@@ -9,6 +9,7 @@ body {
 header {
   background: #e65c00;
   height: 60px;
+  color: #004466;
 }
 
 .nav-bar .logo {
@@ -32,6 +33,10 @@ nav ul {
 nav ul li {
   float: left;
   margin-left: 20px;
+}
+
+nav .username {
+  font-weight: bold;
 }
 
 .dropdown {
@@ -69,7 +74,7 @@ nav ul li {
 nav ul li a {
   display: block;
   text-decoration: none;
-  color: #000;
+  color: #004466;
 }
 
 nav ul li a:hover {
@@ -323,6 +328,19 @@ nav ul li a:hover {
 .food {
   height: 300px;
   border: #000 1px solid;
+}
+
+.scroll-top {
+  color: #e65c00; 
+  font-size: 20px; 
+  position: fixed; 
+  bottom: 20px; 
+  right: 30px;
+  cursor: pointer;
+  padding: 0 7px;
+  border-radius: 50%;
+  background: #efefef;
+  box-shadow: 1px 1px 2px 1px #004466;
 }
 
 @media(max-width:875px) {
