@@ -2,9 +2,8 @@ body {
   padding: 0;
   margin: 0;
   font-family: fantasy;
-  font-size: 20px;
+  font-size: 17px;
   overflow-x: hidden;
-  background: #efefef;
 }
 
 header {
@@ -67,9 +66,9 @@ nav .username {
 }
 
 .dropdown-content a {
-  margin-top: 10px;
+  margin-top: 15px;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 nav ul li a {
@@ -350,6 +349,10 @@ nav ul li a:hover {
   margin: 0 auto;
 }
 
+.food-advert .words {
+  padding-top: 40px;
+}
+
 .category {
   border: #000 1px solid;
   display: flex;
@@ -365,11 +368,22 @@ nav ul li a:hover {
   flex: 3;
   border: #000 1px solid;
   display: flex;
+  background: #efefef;
 }
 
 .item {
   border: #000 1px solid;
   flex: 1;
+}
+
+.item .item-title {
+  background: #004466; 
+  width: 80%; 
+  margin: 0 auto; 
+  text-align: center; 
+  border-radius: 5px; 
+  padding: 5px; 
+  color: #fff;
 }
 
 .local-img {
