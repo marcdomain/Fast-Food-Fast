@@ -389,7 +389,26 @@ nav ul li a:hover {
 .local-img {
   background-image: url('../img/banner2.jpg');
   background-size: cover;
+}
 
+.snacks-img {
+  background-image: url('../img/snacks.jpg');
+  background-size: cover;
+}
+
+.rice-img {
+  background-image: url('../img/rice.jpg');
+  background-size: cover;
+}
+
+.pizza-img {
+  background-image: url('../img/pizza.jpg');
+  background-size: cover;
+}
+
+.others-img {
+  background-image: url('../img/others.jpg');
+  background-size: cover;
 }
 
 .footer {
