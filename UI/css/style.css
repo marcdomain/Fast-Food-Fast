@@ -120,6 +120,10 @@ nav ul li a:hover {
   width:45px;
 }
 
+.page-title {
+  text-align: center
+}
+
 .welcome {
   background-image: url('../img/bg-image.jpg');
   background-size: cover;
@@ -556,6 +560,66 @@ nav ul li a:hover {
   text-decoration-style: double;
 }
 
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  margin: 20px auto;
+  border: #cccccc 1px solid;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.order-history {
+  border: gray 1px solid;
+  display: flex;
+}
+
+.order-column {
+  flex: 1;
+  padding: 10px;
+}
+
+.order2, .order4 {
+  background: #efefef;
+}
+
+.order-history-title {
+  margin-top: 520px;
+}
+
+.column-head {
+  background: #cccccc;
+}
+
+.order-mobile {
+  display: flex;
+  flex-direction: column;
+  border: #cccccc 1px solid;
+  max-width: 960px;
+  margin: 20px auto;
+  display: none;
+}
+
+.mobile {
+  border: #cccccc 1px solid;
+  display: flex;
+}
+
+.view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.order1-mobile {
+  background: #efefef;
+}
+
+.order3-mobile {
+  background: #efefef;
+}
+
 .footer {
   min-height: 30px;
   background: #e65c00;
@@ -655,6 +719,15 @@ nav ul li a:hover {
 @media(max-width: 580px) {
   .food-advert {
     left: 15%;
+  }
+}
+
+@media(max-width: 560px) {
+  .orders-list {
+    display: none;
+  }
+  .order-mobile {
+    display: block;
   }
 }
 
