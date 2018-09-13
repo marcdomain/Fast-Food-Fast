@@ -138,6 +138,10 @@ nav ul li a:hover {
   color: #fff;
 }
 
+.welcome-content {
+  position: fixed;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -220,7 +224,8 @@ nav ul li a:hover {
 
 .modal {
   z-index: 2;
-  display: none;
+  position: fixed;
+  /* display: none; */
 }
 
 .auth-form {
@@ -384,6 +389,11 @@ nav ul li a:hover {
   color: #fff;
 }
 
+.item .item-title em {
+  color: #e65c00;
+  font-weight: bold;
+}
+
 .local-img {
   background-image: url('../img/banner2.jpg');
   background-size: cover;
@@ -474,6 +484,73 @@ nav ul li a:hover {
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+.order-summary {
+  border: 1px solid #fff;
+  height: 400px;
+  width: 500px;
+  background: #fff;
+  border-radius: 10px;
+  margin: 50px auto;
+  color: #000;
+}
+
+.okay-order {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.order-summary  input {
+  width: 100%;
+  padding: 5px;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 10px;
+  background: green;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 1px 1px 2px 1px gray;
+}
+
+.order-summary h4 {
+  text-align: center;
+  text-decoration: underline;
+  padding-top: 25px;
+}
+
+.order-summary img {
+  transform: scaleX(-1);
+  height: 200px;
+  width: 200px;
+  flex: 1;
+}
+
+.complete-order {
+  display: flex;
+}
+
+.order-info {
+  display: flex;
+  flex: 1;
+}
+
+.parameter, .amount {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.total {
+  font-weight:bold
+}
+
+.total-amount {
+  font-weight:bold; 
+  text-decoration-line: underline; 
+  text-decoration-style: double;
 }
 
 .footer {
