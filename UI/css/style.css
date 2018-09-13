@@ -571,8 +571,7 @@ nav ul li a:hover {
 }
 
 .order-history {
-  border: #000 1px solid;
-  /* padding: 10px; */
+  border: gray 1px solid;
   display: flex;
 }
 
@@ -581,8 +580,43 @@ nav ul li a:hover {
   padding: 10px;
 }
 
+.order2, .order4 {
+  background: #efefef;
+}
+
+.order-history-title {
+  margin-top: 520px;
+}
+
 .column-head {
   background: #cccccc;
+}
+
+.order-mobile {
+  display: flex;
+  flex-direction: column;
+  border: #cccccc 1px solid;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.mobile {
+  border: #cccccc 1px solid;
+  display: flex;
+}
+
+.view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.order1-mobile {
+  background: #efefef;
+}
+
+.order3-mobile {
+  background: #efefef;
 }
 
 .footer {
@@ -684,6 +718,12 @@ nav ul li a:hover {
 @media(max-width: 580px) {
   .food-advert {
     left: 15%;
+  }
+}
+
+@media(max-width: 560px) {
+  .orders-list {
+    display: none;
   }
 }
 
