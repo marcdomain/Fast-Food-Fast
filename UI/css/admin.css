@@ -13,7 +13,6 @@ body {
 
 .dashboard-menu{
   flex: 1;
-  border: #000 1px solid;
   background: #004466;
   display: flex;
   flex-direction: column;
@@ -21,7 +20,6 @@ body {
 
 .dashboard-content {
   flex: 4;
-  border: #000 1px solid;
 }
 
 .menu-bottom {
@@ -60,4 +58,50 @@ body {
 .menu-top img {
   height: 60px;
   width:45px;
+}
+
+.add-item {
+  box-shadow: 1px 1px 2px 1px #004466;
+  padding: 20px;
+  max-width: 400px;
+  border-radius: 10px;
+  margin: 10% auto;
+  background: #e65c00;
+}
+
+form legend {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input, #category {
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.sub-total {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-total input {
+  flex: 1;
+}
+
+input[type='submit'] {
+  background: green;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 1px 1px 2px 1px #004466
 }

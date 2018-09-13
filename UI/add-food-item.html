@@ -21,7 +21,29 @@
       </div>
       <div class="menu-bottom">bottom</div>
     </div>
-    <div class="dashboard-content">2</div>
+    <div class="dashboard-content">
+      <div class="add-item">
+        <form action="">
+          <legend>ADD FOOD ITEM</legend>
+          <label for="item name">Item-name</label>
+          <input type="text" required placeholder="Enter item name">
+          <label for="item category">Category</label>
+          <select name="category" id="category">
+            <option value="select" selected>select category</option>
+            <option value="local">Local delicacy</option>
+            <option value="snacks">Snacks</option>
+            <option value="rice">Rice</option>
+            <option value="pizza">Pizza</option>
+            <option value="others">others</option>
+          </select>
+          <div class="sub-total">
+            <input type="number" required placeholder="Qty">
+            <input type="text" required placeholder="Enter price">
+          </div>
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+    </div>
   </div>
 </body>
 </html>
