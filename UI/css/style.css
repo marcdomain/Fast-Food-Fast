@@ -332,7 +332,6 @@ nav ul li a:hover {
 
 .food {
   height: 200px;
-  border: #000 1px solid;
   margin: 30px 0;
 }
 
@@ -359,26 +358,29 @@ nav ul li a:hover {
 }
 
 .category {
-  border: #000 1px solid;
   display: flex;
   height: 100%;
 }
 
 .category-image {
   flex: 1;
-  border: #000 1px solid;
 }
 
 .items {
   flex: 3;
-  border: #000 1px solid;
   display: flex;
   background: #efefef;
 }
 
 .item {
-  border: #000 1px solid;
+  border: #cccccc 0.5px solid;
   flex: 1;
+}
+
+.item:hover {
+  box-shadow: 1px 1px 2px 1px gray;
+  border: none;
+  transform: scale(1.01);
 }
 
 .item .item-title {
@@ -534,6 +536,7 @@ nav ul li a:hover {
 .order-info {
   display: flex;
   flex: 1;
+  justify-content: space-between;
 }
 
 .parameter, .amount {
@@ -568,9 +571,30 @@ nav ul li a:hover {
   }
 }
 
+@media(max-width: 1160px) {
+  .item-description {
+    margin-top: 5px;
+  }
+  .order-input {
+    margin-top: 5px;
+  }
+}
+
+@media(max-width: 980px) {
+  .orderNow {
+    font-size: 14px;
+  }
+}
+
 @media(max-width: 960px) {
   .banner2 {
     display: none;
+  }
+}
+
+@media(max-width: 920px) {
+  .order-input select.location {
+    width: 100px;
   }
 }
 
@@ -586,9 +610,39 @@ nav ul li a:hover {
   }
 }
 
+@media(max-width: 807px) {
+  .orderNow {
+    font-size: 10px;
+  }
+  .item-description {
+    margin-top: 0;
+  }
+  .order-input {
+    margin-top: 3px;
+  }
+}
+
 @media(max-width: 770px) {
   .food-advert {
     left: 20%;
+  }
+  .order-input select.location {
+    width: 70px;
+  }
+}
+
+@media(max-width: 760px) {
+  .category {
+    flex-direction: column;
+  }
+  .food {
+    height: 600px;
+  }
+  .category {
+    flex: 1;
+  }
+  .items {
+    flex: 1;
   }
 }
 
@@ -598,7 +652,7 @@ nav ul li a:hover {
   }
 }
 
-@media(max-width: 900px) {
+@media(max-width: 580px) {
   .food-advert {
     left: 15%;
   }
@@ -607,6 +661,12 @@ nav ul li a:hover {
 @media(max-width: 550px) {
   .food-advert {
     left: 10%;
+  }
+}
+
+@media(max-width: 515px) {
+  .locate-div {
+    padding: 10px;
   }
 }
 
@@ -652,6 +712,13 @@ nav ul li a:hover {
   }
 }
 
+@media(max-width: 430px) {
+  .locate-div {
+    padding: 5px;
+    font-size: 14px;
+  }
+}
+
 @media(max-width: 427px) {
   .food-advert {
     width: 300px;
@@ -662,6 +729,12 @@ nav ul li a:hover {
 @media(max-width:420px) {
   .words{
     height: 130px;
+  }
+}
+
+@media(max-width:410px) {
+  .items {
+    flex-direction: column;
   }
 }
 
@@ -688,16 +761,43 @@ nav ul li a:hover {
     width: 120px;
   }
   .words{
-    height: 185px;
+    height: 90px;
   }
   .intro-words{
     padding-top: 0;
+  }
+  .food {
+    height: 800px;
   }
 }
 
 @media(max-width: 345px) {
   .food-advert {
-    left: 3%;
+    left: 5%;
+    width: 280px;
+    height: 150px;
+  }
+}
+
+@media(max-width: 325px) {
+  .food-advert {
+    left: 8%;
+    width: 250px;
+    height: 150px;
+  }
+}
+
+@media(max-width: 312px) {
+  .food-advert {
+    left: 8%;
+    width: 230px;
+  }
+}
+
+@media(max-width: 285px) {
+  .food-advert {
+    left: 6%;
+    width: 230px;
   }
 }
 
@@ -714,6 +814,34 @@ nav ul li a:hover {
   }
   .words{
     height: 220px;
+  }
+  .food-advert {
+    left: 7%;
+    width: 220px;
+  }
+  .food-advert .words {
+    height: 90px;
+  }
+  .locate-div {
+    padding: 2px;
+  }
+}
+
+@media(max-width: 270px) {
+  .food-advert {
+    left: 2%;
+  }
+}
+
+@media(max-width: 257px) {
+  .food-advert {
+    left: 1.5%;
+  }
+}
+
+@media(max-width: 244px) {
+  .food-advert {
+    left: 0;
   }
 }
 
