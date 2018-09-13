@@ -76,7 +76,7 @@
                   <option value="300">Mushin #300</option>
                   <option value="1000">Ipaja #1000</option>
                 </select>
-                <input type="submit" value="Send">
+                <input type="submit" value="Send" class="send-order">
               </div>
             </div>
           </div>
@@ -420,10 +420,10 @@
     </section>
   </div>
 
- 
+
   <div class="modal">
     <div class="order-summary">
-      <span class="close" style="color: #e65c00;">&#10062;</span> <br>
+      <span class="close" id="closeOrder" style="color: #e65c00;">&#10062;</span> <br>
       <h4>MEAT PIE</h4>
       <div class="complete-order">
         <img src="img/delivery-boy.jpg" alt="delivery-boy" class="delivery-boy">
@@ -456,7 +456,8 @@
 
   <script src="js/script.js"></script>
   <script src="js/scroll.js"></script>
-  <script src="js/toggle.js"></script>
+  <!-- <script src="js/toggle.js"></script> -->
+  <script src="js/order.js"></script>
 </body>
 
 </html>

@@ -53,11 +53,12 @@ const authForm = () => {
   signupModal.addEventListener('click', toggleForm);
   closeSignup.addEventListener('click', toggleForm);
   closeLogin.addEventListener('click', toggleForm);
-
+  
   window.onclick = (event) => {
     if (event.target === displayModal) {
       displayModal.style.display = 'none';
     }
   }
 };
+
 window.load = authForm();

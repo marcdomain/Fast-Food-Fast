@@ -225,7 +225,7 @@ nav ul li a:hover {
 .modal {
   z-index: 2;
   position: fixed;
-  /* display: none; */
+  display: none;
 }
 
 .auth-form {
