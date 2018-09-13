@@ -117,7 +117,7 @@ input[type='submit'] {
 }
 
 .order-history {
-  border: gray 1px solid;
+  border: gray 1px #cccccc;
   display: flex;
 }
 
@@ -151,4 +151,14 @@ input[type='submit'] {
 
 .delete {
   color: red;
+}
+
+.status {
+  cursor: pointer;
+  color: #e65c00;
+  font-weight: bold;
+}
+
+.status:hover {
+  box-shadow: 1px 1px 2px 1px #cccccc;
 }
