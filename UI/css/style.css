@@ -120,6 +120,10 @@ nav ul li a:hover {
   width:45px;
 }
 
+.page-title {
+  text-align: center
+}
+
 .welcome {
   background-image: url('../img/bg-image.jpg');
   background-size: cover;
@@ -554,6 +558,31 @@ nav ul li a:hover {
   font-weight:bold; 
   text-decoration-line: underline; 
   text-decoration-style: double;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  margin: 20px auto;
+  border: #cccccc 1px solid;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.order-history {
+  border: #000 1px solid;
+  /* padding: 10px; */
+  display: flex;
+}
+
+.order-column {
+  flex: 1;
+  padding: 10px;
+}
+
+.column-head {
+  background: #cccccc;
 }
 
 .footer {
