@@ -377,11 +377,9 @@ nav ul li a:hover {
 }
 
 .item .item-title {
-  background: #004466; 
-  width: 80%; 
+  background: #004466;
   margin: 0 auto; 
-  text-align: center; 
-  border-radius: 5px; 
+  text-align: center;
   padding: 5px; 
   color: #fff;
 }
@@ -409,6 +407,73 @@ nav ul li a:hover {
 .others-img {
   background-image: url('../img/others.jpg');
   background-size: cover;
+}
+
+.item-description {
+  margin-top: 15px; 
+  padding: 0 10px;
+}
+
+.order-elements {
+  text-align: center;
+}
+
+.orderNow {
+  background: #e65c00;
+  color: #fff;
+  padding: 3px;
+  border-radius: 10px;
+  width: 30%;
+  margin: 0 auto;
+}
+
+.item:hover .orderNow {
+  box-shadow: 1px 1px 2px 1px gray;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.order-input {
+  display: flex;
+  margin: 20px auto;
+  max-width: 90%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  display: none;
+}
+
+.order-input input {
+  border-radius: 5px;
+  padding: 5px;
+  max-width: 150px;
+  outline: none;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: 1px 1px 2px 1px gray;
+}
+
+.order-input input.quantity {
+  width: 50px;
+  border-radius: 5px;
+  background: #fff
+}
+
+.order-input select.location {
+  width: 160px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  padding: 5px;
+  background: #fff;
+  box-shadow: 1px 1px 2px 1px gray;
+}
+
+.order-input input[type='submit'] {
+  background: green;
+  color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .footer {

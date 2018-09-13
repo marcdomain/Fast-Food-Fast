@@ -40,6 +40,20 @@ const welcomeWords = () => {
   
 }
 
+const orderHandler = () => {
+  const orderNowBtn = document.querySelector('.orderNow');
+  const inputDiv = document.querySelector('.order-input');
+
+  const showInput = (event) => {
+    if (event.target === orderNowBtn) {
+      inputDiv.style.display = 'block';
+    }
+  }
+
+  orderNowBtn.addEventListener('click', showInput);
+}
+
 window.onload = () => {
   welcomeWords();
+  orderHandler();
 }
