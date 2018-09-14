@@ -192,6 +192,45 @@ input[type='submit'] {
   background: #efefef;
 }
 
+.modal {
+  background: rgba(36, 40, 38, 0.8);
+  min-height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  color: #fff;
+  z-index: 2;
+  display: none;
+}
+
+.specific-order-div {
+  max-width: 500px;
+  margin: 50px auto;
+  background: #fff;
+  height: 500px;
+  border-radius: 10px;
+  color: #000;
+}
+
+.close {
+  color: #e65c00; 
+  box-shadow: 1px 1px 2px 1px gray; 
+  border-radius: 10px; 
+  padding: 5px; 
+  float: right;
+  cursor: pointer;
+}
+
+.specific-order {
+  display: flex;
+}
+
+.fields, .values {
+  flex-direction: column;
+  flex: 1;
+}
+
 @media(max-width: 1215px) {
   .menu {
     padding: 5px;
@@ -253,6 +292,21 @@ input[type='submit'] {
     display: none;
   }
   .order-mobile {
+    display: block;
+  }
+  .admin-orders {
+    display: block;
+  }
+  .admin-mobile-item {
+    display: none
+  }
+}
+
+@media(max-width: 490px) {
+  .admin-orders {
+    display: none;
+  }
+  .admin-mobile-item {
     display: block;
   }
 }
