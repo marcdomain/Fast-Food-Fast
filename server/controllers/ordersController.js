@@ -7,6 +7,7 @@ class OrderHandler {
     } = request.body;
     const id = orders.length;
     const total = quantity * price;
+    const status = 'pending';
 
     const sendOrder = {
       id,
@@ -15,7 +16,8 @@ class OrderHandler {
       item,
       price,
       quantity,
-      total
+      total,
+      status
     };
 
     orders.push(sendOrder);

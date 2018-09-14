@@ -1,6 +1,6 @@
 
 class OrderValidators {
-  static placeOrderValidator (request, response, next) {
+  static placeOrderValidator(request, response, next) {
     let {
       email, phone, item, price, quantity
     } = request.body;
@@ -86,7 +86,7 @@ class OrderValidators {
     }
 
     item = item.trim();
-    if (phone.length < 4 || phone.length > 30) {
+    if (item.length < 4 || item.length > 30) {
       return response.status(400)
         .json({
           status: 'Fail',
