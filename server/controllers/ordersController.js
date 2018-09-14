@@ -21,7 +21,7 @@ class OrderHandler {
     orders.push(sendOrder);
     return response.status(201)
       .json({
-        message: 'Thanks. order has been placed successfully',
+        message: 'Thanks! order has been placed successfully',
         sendOrder,
       });
   }

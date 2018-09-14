@@ -3,6 +3,6 @@ import ordersController from '../controllers/ordersController';
 
 const orderRouter = express.Router();
 
-orderRouter.post('/api/v1', ordersController.placeOrder);
+orderRouter.post('/orders', ordersController.placeOrder);
 
 export default orderRouter;
