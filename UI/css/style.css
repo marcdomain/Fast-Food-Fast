@@ -495,7 +495,7 @@ nav ul li a:hover {
 .order-summary {
   border: 1px solid #fff;
   height: 400px;
-  width: 500px;
+  max-width: 500px;
   background: #fff;
   border-radius: 10px;
   margin: 50px auto;
@@ -857,6 +857,12 @@ nav ul li a:hover {
     left: 8%;
     width: 250px;
     height: 150px;
+  }
+  .complete-order {
+    flex-direction: column;
+  }
+  .order-summary h4 {
+    padding-top: 5px;
   }
 }
 
