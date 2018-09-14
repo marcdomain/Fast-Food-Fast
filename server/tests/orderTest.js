@@ -12,7 +12,7 @@ describe('Test Homepage API Endpoint', () => {
       .get('/api/v1')
       .end((error, response) => {
         expect(response).to.have.status(200);
-        expect(response.body.message).to.equal('Welcom to Fast-Food-Fast');
+        expect(response.body.message).to.equal('Welcome to Fast-Food-Fast');
         done();
       });
   });
