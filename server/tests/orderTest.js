@@ -8,6 +8,7 @@ import {
   emptyPrice, invalidPriceLength, invalidPriceCharacter, undefinedQuantity,
   emptyQuantity, invalidQuantityLength, invalidQuantityCharacter
 } from './orderMock';
+import orders from '../in-memoryData/orders';
 
 const { expect } = chai;
 
@@ -39,11 +40,13 @@ describe('Test Invalid URL', () => {
 
 describe('Test for POST order', () => {
   it('Should return 201 for success', (done) => {
+    const orderLengthUpdate = orders.length + 1;
     chai.request(app)
       .post('/api/v1/orders')
       .send(successOrder)
       .end((error, response) => {
         expect(response).to.have.status(201);
+        expect(orders).to.have.length(orderLengthUpdate);
         expect(response.body.message).to.equal('Thanks! order has been placed successfully');
         done();
       });
