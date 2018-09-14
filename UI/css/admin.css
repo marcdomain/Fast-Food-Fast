@@ -255,4 +255,19 @@ input[type='submit'] {
   .order-mobile {
     display: block;
   }
+  .admin-orders {
+    display: block;
+  }
+  .admin-mobile-item {
+    display: none
+  }
+}
+
+@media(max-width: 490px) {
+  .admin-orders {
+    display: none;
+  }
+  .admin-mobile-item {
+    display: block;
+  }
 }
