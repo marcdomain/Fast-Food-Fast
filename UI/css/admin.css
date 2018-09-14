@@ -4,6 +4,7 @@ body {
   font-family: fantasy;
   font-size: 17px;
   overflow-x: hidden;
+  height: 100vh;
 }
 
 .dashboard {
@@ -161,4 +162,97 @@ input[type='submit'] {
 
 .status:hover {
   box-shadow: 1px 1px 2px 1px #cccccc;
+}
+
+.order-mobile {
+  display: flex;
+  flex-direction: column;
+  border: #cccccc 1px solid;
+  max-width: 960px;
+  margin: 20px auto;
+  display: none;
+}
+
+.mobile {
+  border: #cccccc 1px solid;
+  display: flex;
+}
+
+.view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.order1-mobile {
+  background: #efefef;
+}
+
+.order3-mobile {
+  background: #efefef;
+}
+
+@media(max-width: 1215px) {
+  .menu {
+    padding: 5px;
+  }
+}
+
+@media(max-width: 1160px) {
+  .welcome {
+    flex-direction: column;
+  }
+  .welcome img {
+    padding-left: 40px;
+  }
+  .menu {
+    margin-top: 20px;
+    position: relative;
+  }
+  .menu-bottom {
+    display: none;
+  }
+}
+
+@media(max-width: 1060px) {
+  .welcome img {
+    padding-left: 25px;
+  }
+}
+
+@media(max-width: 880px) {
+  .welcome img {
+    padding-left: 25px;
+  }
+  .menu-top {
+    margin: 10px 20px;
+  }
+}
+
+@media(max-width: 835px) {
+  .welcome img {
+    padding-left: 20px;
+  }
+  .menu-top {
+    margin: 10px 10px;
+  }
+}
+
+@media(max-width: 855px) {
+  .dashboard {
+    flex-direction: column;
+  }
+  .welcome {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+}
+
+@media(max-width: 721px) {
+  .orders-list {
+    display: none;
+  }
+  .order-mobile {
+    display: block;
+  }
 }
