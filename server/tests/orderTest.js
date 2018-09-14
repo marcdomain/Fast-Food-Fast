@@ -17,3 +17,15 @@ describe('Test Homepage API Endpoint', () => {
       });
   });
 });
+
+describe('Test Invalid URL', () => {
+  it('Should return status code 404', (done) => {
+    chai.request(app)
+      .get('/invalid/undefined/route')
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body.message).to.equal('oooop! This page does not exist');
+        done();
+      });
+  });
+});
