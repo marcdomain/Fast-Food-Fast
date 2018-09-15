@@ -36,6 +36,15 @@ class OrderHandler {
         allOrder
       });
   }
+
+  static fetchSpecificOrder(request, response) {
+    const { fetchedOrder } = request.body;
+    return response.status(200)
+      .json({
+        message: 'Order fetched successfully',
+        fetchedOrder
+      });
+  }
 }
 
 export default OrderHandler;

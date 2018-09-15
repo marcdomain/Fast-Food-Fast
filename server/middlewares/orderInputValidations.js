@@ -1,3 +1,4 @@
+import orders from '../in-memoryData/orders';
 
 class OrderValidators {
   static placeOrderValidator(request, response, next) {
@@ -174,6 +175,27 @@ class OrderValidators {
     request.body.item = item;
     request.body.email = email;
     request.body.phone = phone;
+    next();
+  }
+
+  static fetchSpecificOrderValidator(request, response, next) {
+    const { orderId } = request.params;
+    if (!Number(orderId)) {
+      return response.status(404)
+        .json({
+          status: 'Fail',
+          message: 'Oooops! Invalid URL'
+        });
+    }
+    const fetchedOrder = orders.find(order => order.id === Number(orderId));
+    if (!fetchedOrder) {
+      return response.status(404)
+        .json({
+          status: 'Fail',
+          message: 'This order does not exist'
+        });
+    }
+    request.body.fetchedOrder = fetchedOrder;
     next();
   }
 }
