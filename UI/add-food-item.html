@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Fast-Food-Fast | Add Item</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="dashboard">
+    <div class="dashboard-menu">
+      <div class="menu-top">
+        <div class="welcome">
+          <img src="img/logo.png" alt="logo">
+          <span>Fast-Food-Fast</span>
+        </div>
+        <div class="menu menu1">Add Food Item</div>
+        <div class="menu menu2">View All Orders</div>
+        <div class="menu menu3">View All Items</div>
+      </div>
+      <div class="menu-bottom"></div>
+    </div>
+    <div class="dashboard-content">
+      <div class="add-item">
+        <form action="">
+          <legend>ADD FOOD ITEM</legend>
+          <label for="item name">Item-name</label>
+          <input type="text" required placeholder="Enter item name">
+          <label for="item category">Category</label>
+          <select name="category" id="category">
+            <option value="select" selected>select category</option>
+            <option value="local">Local delicacy</option>
+            <option value="snacks">Snacks</option>
+            <option value="rice">Rice</option>
+            <option value="pizza">Pizza</option>
+            <option value="others">others</option>
+          </select>
+          <div class="sub-total">
+            <input type="number" required placeholder="Qty">
+            <input type="text" required placeholder="Enter price">
+          </div>
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
