@@ -181,7 +181,7 @@ class OrderValidators {
   static fetchSpecificOrderValidator(request, response, next) {
     const { orderId } = request.params;
     if (!Number(orderId)) {
-      return response.status(404)
+      return response.status(400)
         .json({
           status: 'Fail',
           message: 'Oooops! Invalid URL'

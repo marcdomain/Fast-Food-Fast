@@ -275,4 +275,22 @@ describe('Test for FETCH SPECIFIC ORDER', () => {
         done();
       });
   });
+  it('should return status code 400 for invalid URL', (done) => {
+    chai.request(app)
+      .get('/api/v1/orders/abcd')
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Oooops! Invalid URL');
+        done();
+      });
+  });
+  it('return 404 for orderId number that does not exist', (done) => {
+    chai.request(app)
+      .get('/api/v1/orders/50')
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body.message).to.equal('This order does not exist');
+        done();
+      });
+  });
 });
