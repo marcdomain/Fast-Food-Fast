@@ -254,12 +254,24 @@ describe('Test for POST order', () => {
 });
 
 describe('Test for GET ALL ORDERS', () => {
-  it('should return status code for success', (done) => {
+  it('should return status code 200 for success', (done) => {
     chai.request(app)
       .get('/api/v1/orders')
       .end((error, response) => {
         expect(response).to.have.status(200);
         expect(response.body.message).to.equal('List of all orders');
+        done();
+      });
+  });
+});
+
+describe('Test for FETCH SPECIFIC ORDER', () => {
+  it('should return status code 200 for success', (done) => {
+    chai.request(app)
+      .get('/api/v1/orders/1')
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body.message).to.equal('Order fetched successfully');
         done();
       });
   });
