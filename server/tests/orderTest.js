@@ -6,7 +6,8 @@ import {
   emptyPhone, invalidPhoneFormat, invalidPhoneLength,
   undefinedItem, emptyItem, invalidItemLength, invalidItemCharacter, undefinedPrice,
   emptyPrice, invalidPriceLength, invalidPriceCharacter, undefinedQuantity,
-  emptyQuantity, invalidQuantityLength, invalidQuantityCharacter
+  emptyQuantity, invalidQuantityLength, invalidQuantityCharacter,
+  acceptOrder, declineOrder, completeOrder
 } from './orderMock';
 import orders from '../in-memoryData/orders';
 
@@ -290,6 +291,39 @@ describe('Test for FETCH SPECIFIC ORDER', () => {
       .end((error, response) => {
         expect(response).to.have.status(404);
         expect(response.body.message).to.equal('This order does not exist');
+        done();
+      });
+  });
+});
+
+describe('Test for UPDATE ORDER STATUS', () => {
+  it('message should indicate accepted', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/1')
+      .send(acceptOrder)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body.message).to.equal('Order accepted');
+        done();
+      });
+  });
+  it('message should indicate declined', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/1')
+      .send(declineOrder)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body.message).to.equal('Order declined');
+        done();
+      });
+  });
+  it('message should indicate completed', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/1')
+      .send(completeOrder)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body.message).to.equal('Order completed');
         done();
       });
   });
