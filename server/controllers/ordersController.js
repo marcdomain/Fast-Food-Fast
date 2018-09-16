@@ -48,6 +48,14 @@ class OrderHandler {
 
   static updateOrder(request, response) {
     const { fetchedOrder } = request.body;
+
+    if (request.body.status === undefined) {
+      return response.status(200)
+        .json({
+          status: 'Fail',
+          message: 'Status cannot be undefined'
+        });
+    }
     fetchedOrder.status = request.body.status.toLowerCase();
 
     if (request.body.status.toLowerCase() === 'accepted') {
