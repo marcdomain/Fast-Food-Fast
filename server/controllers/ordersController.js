@@ -5,11 +5,11 @@ class OrderHandler {
     const {
       email, phone, item, price, quantity
     } = request.body;
-    const id = orders.length;
+    const id = orders[orders.length - 1].id + 1;
     const total = quantity * price;
     const status = 'pending';
 
-    const sendOrder = {
+    const newOrder = {
       id,
       email,
       phone,
@@ -20,11 +20,11 @@ class OrderHandler {
       status
     };
 
-    orders.push(sendOrder);
+    orders.push(newOrder);
     return response.status(201)
       .json({
         message: 'Thanks! order has been placed successfully',
-        sendOrder,
+        newOrder,
       });
   }
 
@@ -92,7 +92,7 @@ class OrderHandler {
     return response.status(200)
       .json({
         message: 'Order deleted successfully'
-      })
+      });
   }
 }
 
