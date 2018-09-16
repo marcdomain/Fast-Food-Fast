@@ -257,11 +257,21 @@ const completeOrder = {
   status: 'completed'
 };
 
+const undefinedStatus = {
+  id: 1,
+  email: 'marcus2cu@gmail.com',
+  phone: '08082300954',
+  item: 'rice and turkey',
+  price: '500',
+  quantity: '3',
+  total: '7500'
+};
+
 export {
   successOrder, undefinedEmail, emptyEmail, invalidEmailFormat, invalidEmailLength, undefinedPhone,
   emptyPhone, invalidPhoneFormat, invalidPhoneLength,
   undefinedItem, emptyItem, invalidItemLength, invalidItemCharacter, undefinedPrice,
   emptyPrice, invalidPriceLength, invalidPriceCharacter, undefinedQuantity,
   emptyQuantity, invalidQuantityLength, invalidQuantityCharacter, acceptOrder, declineOrder,
-  completeOrder
+  completeOrder, undefinedStatus
 };

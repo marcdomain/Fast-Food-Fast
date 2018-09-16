@@ -7,7 +7,7 @@ import {
   undefinedItem, emptyItem, invalidItemLength, invalidItemCharacter, undefinedPrice,
   emptyPrice, invalidPriceLength, invalidPriceCharacter, undefinedQuantity,
   emptyQuantity, invalidQuantityLength, invalidQuantityCharacter,
-  acceptOrder, declineOrder, completeOrder
+  acceptOrder, declineOrder, completeOrder, undefinedStatus
 } from './orderMock';
 import orders from '../in-memoryData/orders';
 
@@ -324,6 +324,16 @@ describe('Test for UPDATE ORDER STATUS', () => {
       .end((error, response) => {
         expect(response).to.have.status(200);
         expect(response.body.message).to.equal('Order completed');
+        done();
+      });
+  });
+  it('Should return 400 for undefined status', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/1')
+      .send(undefinedStatus)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Status cannot be undefined');
         done();
       });
   });

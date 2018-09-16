@@ -50,7 +50,7 @@ class OrderHandler {
     const { fetchedOrder } = request.body;
 
     if (request.body.status === undefined) {
-      return response.status(200)
+      return response.status(400)
         .json({
           status: 'Fail',
           message: 'Status cannot be undefined'
