@@ -233,7 +233,7 @@ const acceptOrder = {
   quantity: '3',
   total: '7500',
   status: 'accepted'
-}
+};
 
 const declineOrder = {
   id: 1,
@@ -244,7 +244,7 @@ const declineOrder = {
   quantity: '3',
   total: '7500',
   status: 'declined'
-}
+};
 
 const completeOrder = {
   id: 1,
@@ -255,12 +255,13 @@ const completeOrder = {
   quantity: '3',
   total: '7500',
   status: 'completed'
-}
+};
 
 export {
   successOrder, undefinedEmail, emptyEmail, invalidEmailFormat, invalidEmailLength, undefinedPhone,
   emptyPhone, invalidPhoneFormat, invalidPhoneLength,
   undefinedItem, emptyItem, invalidItemLength, invalidItemCharacter, undefinedPrice,
   emptyPrice, invalidPriceLength, invalidPriceCharacter, undefinedQuantity,
-  emptyQuantity, invalidQuantityLength, invalidQuantityCharacter, acceptOrder, declineOrder, completeOrder
+  emptyQuantity, invalidQuantityLength, invalidQuantityCharacter, acceptOrder, declineOrder,
+  completeOrder
 };

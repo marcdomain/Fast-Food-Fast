@@ -45,6 +45,38 @@ class OrderHandler {
         fetchedOrder
       });
   }
+
+  static updateOrder(request, response) {
+    const { fetchedOrder } = request.body;
+    fetchedOrder.status = request.body.status.toLowerCase();
+
+    if (request.body.status.toLowerCase() === 'accepted') {
+      return response.status(200)
+        .json({
+          message: 'Order accepted',
+          fetchedOrder
+        });
+    }
+    if (request.body.status.toLowerCase() === 'declined') {
+      return response.status(200)
+        .json({
+          message: 'Order declined',
+          fetchedOrder
+        });
+    }
+    if (request.body.status.toLowerCase() === 'completed') {
+      return response.status(200)
+        .json({
+          message: 'Order completed',
+          fetchedOrder
+        });
+    }
+    return response.status(400)
+      .json({
+        status: 'Fail',
+        message: 'Invalid order status'
+      });
+  }
 }
 
 export default OrderHandler;
