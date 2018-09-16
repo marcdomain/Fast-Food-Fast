@@ -2,12 +2,18 @@ import express from 'express';
 import ordersController from '../controllers/ordersController';
 import validators from '../middlewares/orderInputValidations';
 
+const {
+  placeOrder, getAllOrders, fetchSpecificOrder, updateOrder, deleteOrder
+} = ordersController;
+
+const { placeOrderValidator, fetchSpecificOrderValidator } = validators;
+
 const orderRouter = express.Router();
 
-orderRouter.post('/orders', validators.placeOrderValidator, ordersController.placeOrder);
-orderRouter.get('/orders', ordersController.getAllOrders);
-orderRouter.get('/orders/:orderId', validators.fetchSpecificOrderValidator, ordersController.fetchSpecificOrder);
-orderRouter.put('/orders/:orderId', validators.fetchSpecificOrderValidator, ordersController.updateOrder);
-orderRouter.delete('/orders/:orderId', validators.fetchSpecificOrderValidator, ordersController.deleteOrder);
+orderRouter.post('/orders', placeOrderValidator, placeOrder);
+orderRouter.get('/orders', getAllOrders);
+orderRouter.get('/orders/:orderId', fetchSpecificOrderValidator, fetchSpecificOrder);
+orderRouter.put('/orders/:orderId', fetchSpecificOrderValidator, updateOrder);
+orderRouter.delete('/orders/:orderId', fetchSpecificOrderValidator, deleteOrder);
 
 export default orderRouter;

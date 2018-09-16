@@ -29,11 +29,10 @@ class OrderHandler {
   }
 
   static getAllOrders(request, response) {
-    const allOrder = orders.reverse();
     return response.status(200)
       .json({
         message: 'List of all orders',
-        allOrder
+        orders
       });
   }
 
