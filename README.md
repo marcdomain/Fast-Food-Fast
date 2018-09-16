@@ -33,6 +33,7 @@ Below are the features of Fast-Food-Fast Application at this point
     status:
   }
 ```
+- Delete a specific order
 <br/>
 
 ## API Endpoints
@@ -47,7 +48,9 @@ Below are the features of Fast-Food-Fast Application at this point
 
 <tr><td>GET</td> <td>api/v1/orders/:orderId</td>  <td>Get a specific order</td></tr>
 
-<tr><td>PUT</td> <td>api/v1/orders/:orderId</td> <td>Update an order</td></tr>
+<tr><td>PUT</td> <td>api/v1/orders/:orderId</td> <td>Update an order status</td></tr>
+
+<tr><td>DELETE</td> <td>api/v1/orders/:orderId</td> <td>Delete an order</td></tr>
 
 </table>
 
