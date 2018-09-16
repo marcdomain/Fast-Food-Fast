@@ -338,3 +338,15 @@ describe('Test for UPDATE ORDER STATUS', () => {
       });
   });
 });
+
+describe('DELETE order API endpoint', () => {
+  it('should return 200 for success', (done) => {
+    chai.request(app)
+      .delete('/api/v1/orders/1')
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body.message).to.equal('Order deleted successfully');
+        done();
+      });
+  });
+});
