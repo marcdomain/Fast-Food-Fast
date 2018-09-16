@@ -85,6 +85,15 @@ class OrderHandler {
         message: 'Invalid order status'
       });
   }
+
+  static deleteOrder(request, response) {
+    const { fetchedOrder } = request.body;
+    orders.splice(fetchedOrder.id - 1, 1);
+    return response.status(200)
+      .json({
+        message: 'Order deleted successfully'
+      })
+  }
 }
 
 export default OrderHandler;

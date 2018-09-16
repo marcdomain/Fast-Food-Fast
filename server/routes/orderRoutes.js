@@ -8,5 +8,6 @@ orderRouter.post('/orders', validators.placeOrderValidator, ordersController.pla
 orderRouter.get('/orders', ordersController.getAllOrders);
 orderRouter.get('/orders/:orderId', validators.fetchSpecificOrderValidator, ordersController.fetchSpecificOrder);
 orderRouter.put('/orders/:orderId', validators.fetchSpecificOrderValidator, ordersController.updateOrder);
+orderRouter.delete('/orders/:orderId', validators.fetchSpecificOrderValidator, ordersController.deleteOrder);
 
 export default orderRouter;
