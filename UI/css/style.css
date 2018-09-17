@@ -142,10 +142,6 @@ nav ul li a:hover {
   color: #fff;
 }
 
-.welcome-content {
-  position: fixed;
-}
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -164,7 +160,7 @@ nav ul li a:hover {
 .intro-content {
   display: inline-block;
   width: 40%;
-  margin-left: 5%;
+  margin-left: 0;
 }
 
 .delivery-girl{
@@ -175,7 +171,6 @@ nav ul li a:hover {
   width: 60%;
   height: 100%;
   transform: scaleX(-1);
-  float: left;
 }
 
 .intro-words{
@@ -213,7 +208,6 @@ nav ul li a:hover {
   font-family: fantasy;
   outline: none;
   display: inline-block;
-  margin-left: 5%;
   box-shadow: 1px 1px 1px 1px #404040;
 }
 
@@ -668,7 +662,7 @@ nav ul li a:hover {
   }
 }
 
-@media(max-width:875px) {
+@media(max-width:898px) {
   .auth-btn input{
     margin-left: 0;
   }
@@ -708,6 +702,9 @@ nav ul li a:hover {
   .items {
     flex: 1;
   }
+  .delivery-girl img{
+    width: 65%;
+  }
 }
 
 @media(max-width:600px) {
@@ -729,6 +726,9 @@ nav ul li a:hover {
   .order-mobile {
     display: block;
   }
+  h1.page-title {
+    font-size: 25px;
+  }
 }
 
 @media(max-width: 550px) {
@@ -748,10 +748,33 @@ nav ul li a:hover {
     width: 150px;
   }
   .intro{
-    height: 300px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
   }
   .food-advert {
     left: 7%;
+  }
+  .intro-content, .delivery-girl {
+    display: block;
+    width: 100%;
+  }
+  .words {
+    height: 50px;
+  }
+  .delivery-girl img {
+    width: 35%;
+  }
+  .intro-content {
+    padding-top: 3px;
+    margin: 0 auto;
+  }
+  .progress-bar {
+    width: 70%;
+    margin-left: 15%;
+  }
+  .auth-btn {
+    padding-top: 50px;
   }
 }
 
@@ -765,17 +788,14 @@ nav ul li a:hover {
   .auth-btn input{
     width: 150px;
   }
-  .intro{
-    height: 260px;
-  }
-  .words{
-    height: 120px;
-  }
 }
 
 @media(max-width: 450px) {
   .food-advert {
     left: 3%;
+  }
+  .delivery-girl img {
+    width: 40%;
   }
 }
 
@@ -799,15 +819,12 @@ nav ul li a:hover {
   }
 }
 
-@media(max-width:420px) {
-  .words{
-    height: 130px;
-  }
-}
-
 @media(max-width:410px) {
   .items {
     flex-direction: column;
+  }
+  h1.page-title {
+    font-size: 20px;
   }
 }
 
@@ -829,15 +846,15 @@ nav ul li a:hover {
   }
 }
 
+@media(max-width: 365px) {
+  .words {
+    height: 80px;    
+  }
+}
+
 @media(max-width:355px) {
   .auth-btn input{
     width: 120px;
-  }
-  .words{
-    height: 90px;
-  }
-  .intro-words{
-    padding-top: 0;
   }
   .food {
     height: 800px;
@@ -849,6 +866,9 @@ nav ul li a:hover {
     left: 5%;
     width: 280px;
     height: 150px;
+  }
+  .delivery-girl img {
+    width: 50%;
   }
 }
 
@@ -871,12 +891,31 @@ nav ul li a:hover {
     left: 8%;
     width: 230px;
   }
+  h1.page-title span {
+    display: block;
+  }
+  h1.page-title span img {
+    height: 30px;
+    width: 25px;
+  }
+}
+
+@media(max-width: 288px) {
+  h1.page-title {
+    font-size: 17px;
+  }
 }
 
 @media(max-width: 285px) {
   .food-advert {
     left: 6%;
     width: 230px;
+  }
+}
+
+@media(max-width: 280px) {
+  .words {
+    height: 70px;
   }
 }
 
@@ -890,9 +929,6 @@ nav ul li a:hover {
   }
   .auth-btn{
     margin-left: 25%
-  }
-  .words{
-    height: 220px;
   }
   .food-advert {
     left: 7%;
@@ -916,11 +952,51 @@ nav ul li a:hover {
   .food-advert {
     left: 1.5%;
   }
+  .words {
+    height: 100px;
+  }
+  .auth-btn{
+    margin-left: 22%
+  }
 }
 
 @media(max-width: 244px) {
   .food-advert {
     left: 0;
+  }
+  
+}
+
+@media(max-width: 200px) {
+  .auth-btn{
+    margin-left: 15%
+  }
+}
+
+@media (max-height: 1366px) and (min-height: 1024px) {
+  .intro{
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .delivery-girl, .intro-content {
+    width: 100%;
+  }
+  .delivery-girl img {
+    width: 25%;
+  }
+  .intro-content {
+    padding-top: 3px;
+  }
+  .words {
+    font-size: 30px;
+  }
+  .progress-bar {
+    width: 80%;
+    margin-left: 10%;
+  }
+  .auth-btn {
+    margin-top: 25%;
   }
 }
 
@@ -939,5 +1015,17 @@ nav ul li a:hover {
 @media(max-height: 455px) {
   .welcome{
     height: 140vh;
+  }
+}
+
+@media(max-height: 376px) {
+  .welcome{
+    height: 150vh;
+  }
+}
+
+@media(max-height: 325px) {
+  .welcome{
+    height: 170vh;
   }
 }
