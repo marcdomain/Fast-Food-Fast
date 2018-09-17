@@ -222,7 +222,6 @@ nav ul li a:hover {
 
 .modal {
   z-index: 2;
-  position: fixed;
   display: none;
 }
 
@@ -1015,18 +1014,18 @@ nav ul li a:hover {
 
 @media(max-height: 455px) {
   .welcome{
-    height: 140vh;
+    height: 160vh;
   }
 }
 
 @media(max-height: 376px) {
   .welcome{
-    height: 150vh;
+    height: 180vh;
   }
 }
 
 @media(max-height: 325px) {
   .welcome{
-    height: 170vh;
+    height: 200vh;
   }
 }
