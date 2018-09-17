@@ -95,4 +95,15 @@ class OrderHandler {
   }
 }
 
-export default OrderHandler;
+const {
+  placeOrder, getAllOrders, fetchSpecificOrder,
+  updateOrder, deleteOrder
+} = OrderHandler;
+
+export {
+  placeOrder,
+  getAllOrders,
+  fetchSpecificOrder,
+  updateOrder,
+  deleteOrder
+};

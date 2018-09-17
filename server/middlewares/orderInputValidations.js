@@ -200,4 +200,12 @@ class OrderValidators {
   }
 }
 
-export default OrderValidators;
+const {
+  placeOrderValidator,
+  fetchSpecificOrderValidator
+} = OrderValidators;
+
+export {
+  placeOrderValidator,
+  fetchSpecificOrderValidator
+};

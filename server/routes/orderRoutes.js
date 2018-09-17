@@ -1,12 +1,15 @@
 import express from 'express';
-import ordersController from '../controllers/ordersController';
-import validators from '../middlewares/orderInputValidations';
-
-const {
-  placeOrder, getAllOrders, fetchSpecificOrder, updateOrder, deleteOrder
-} = ordersController;
-
-const { placeOrderValidator, fetchSpecificOrderValidator } = validators;
+import {
+  placeOrder,
+  getAllOrders,
+  fetchSpecificOrder,
+  updateOrder,
+  deleteOrder
+} from '../controllers/ordersController';
+import {
+  placeOrderValidator,
+  fetchSpecificOrderValidator
+} from '../middlewares/orderInputValidations';
 
 const orderRouter = express.Router();
 
