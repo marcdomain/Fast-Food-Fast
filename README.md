@@ -16,7 +16,6 @@ Below are the features of Fast-Food-Fast Application at this point
 ```
     Required Inputs
     {
-      id: 1,
       email:
       phone:
       item:
@@ -67,9 +66,11 @@ cd Fast-Food-Fast
 ```
 npm install
 ```
-4. Use postman to test all endpoints
+4. Run "npm start" to start the app
 
-5. Run "npm test" to test all endpoints
+5. Use Postman to test all endpoints
+
+6. Run "npm test" to test all endpoints
 
 
 ## Technologies
