@@ -227,14 +227,14 @@ nav ul li a:hover {
 }
 
 .auth-modal-content {
-  margin: 0 auto;
-  max-width: 600px;
+  margin: 20px auto 0;
+  max-width: 500px;
 }
 
 .auth-form {
   background: rgba(122, 56, 36, 0.4);
   max-width: 500px;
-  padding: 40px;
+  padding: 20px;
   border: 1px solid white;
   border-radius: 10px;
   margin-top: 10%;
@@ -626,12 +626,6 @@ nav ul li a:hover {
   color: #fff;
 }
 
-@media(max-width: 1366px) {
-  .auth-modal-content {
-    padding-left: 10%;
-  }
-}
-
 @media(max-width: 1300px) {
   .food-advert {
     left: 30%;
@@ -675,9 +669,6 @@ nav ul li a:hover {
   .auth-btn input{
     margin-left: 0;
   }
-  .auth-modal-content {
-    padding-left: 15%;
-  }
 }
 
 @media(max-width: 807px) {
@@ -719,33 +710,9 @@ nav ul li a:hover {
   }
 }
 
-@media(max-width: 700px) {
-  .auth-modal-content {
-    padding-left: 12%;
-  }
-}
-
-@media(max-width: 655px) {
-  .auth-modal-content {
-    padding-left: 10%;
-  }
-}
-
-@media(max-width: 615px) {
-  .auth-modal-content {
-    padding-left: 8%;
-  }
-}
-
 @media(max-width:600px) {
   .delivery-girl img{
     width: 80%;
-  }
-}
-
-@media(max-width: 585px) {
-  .auth-modal-content {
-    padding-left: 6%;
   }
 }
 
@@ -765,9 +732,6 @@ nav ul li a:hover {
   h1.page-title {
     font-size: 25px;
   }
-  .auth-modal-content {
-    padding-left: 3%;
-  }
 }
 
 @media(max-width: 550px) {
@@ -777,24 +741,15 @@ nav ul li a:hover {
 }
 
 @media(max-width: 530px) {
-  .auth-modal-content {
-    padding-left: 2%;
-  }
 }
 
 @media(max-width: 515px) {
   .locate-div {
     padding: 10px;
   }
-  .auth-modal-content {
-    padding-left: 1%;
-  }
 }
 
 @media(max-width:500px) {
-  .auth-modal-content {
-    padding-left: 0;
-  }
   .auth-btn input{
     width: 150px;
   }
