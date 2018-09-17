@@ -142,10 +142,6 @@ nav ul li a:hover {
   color: #fff;
 }
 
-.welcome-content {
-  position: fixed;
-}
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -850,6 +846,12 @@ nav ul li a:hover {
   }
 }
 
+@media(max-width: 365px) {
+  .words {
+    height: 80px;    
+  }
+}
+
 @media(max-width:355px) {
   .auth-btn input{
     width: 120px;
@@ -972,6 +974,33 @@ nav ul li a:hover {
   }
 }
 
+@media (max-height: 1366px) and (min-height: 1024px) {
+  .intro{
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .delivery-girl, .intro-content {
+    width: 100%;
+  }
+  .delivery-girl img {
+    width: 25%;
+  }
+  .intro-content {
+    padding-top: 3px;
+  }
+  .words {
+    font-size: 30px;
+  }
+  .progress-bar {
+    width: 80%;
+    margin-left: 10%;
+  }
+  .auth-btn {
+    margin-top: 25%;
+  }
+}
+
 @media(max-height: 600px) {
   .welcome{
     height: 120vh;
@@ -987,5 +1016,17 @@ nav ul li a:hover {
 @media(max-height: 455px) {
   .welcome{
     height: 140vh;
+  }
+}
+
+@media(max-height: 376px) {
+  .welcome{
+    height: 150vh;
+  }
+}
+
+@media(max-height: 325px) {
+  .welcome{
+    height: 170vh;
   }
 }
