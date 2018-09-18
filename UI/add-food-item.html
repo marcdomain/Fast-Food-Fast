@@ -1,49 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Fast-Food-Fast | Add Item</title>
-  <link rel="stylesheet" href="css/admin.css">
+  <title>Fast-Food-Fast | Orders</title>
+  <link rel="stylesheet" href="css/orders.css">
+  <link rel="icon" type="image/png" href="img/logo.png">
 </head>
+
 <body>
   <div class="dashboard">
     <div class="dashboard-menu">
       <div class="menu-top">
         <div class="welcome">
-          <img src="img/logo.png" alt="logo">
-          <span>Fast-Food-Fast</span>
+          <a href="food-items.html"><img src="img/logo.png" alt="logo"></a>
+          <span><a href="food-items.html">Fast Food Fast</a> </span>
         </div>
-        <div class="menu menu1">Add Food Item</div>
-        <div class="menu menu2">View All Orders</div>
-        <div class="menu menu3">View All Items</div>
+        <div class="menu menu1" id="pending">Add Item &#10148;</div>
+        <div class="menu menu1" id="accepted">All Food Items &#10148;</div>
+        <div class="menu menu2" id="declined">All orders &#10148;</div>
       </div>
       <div class="menu-bottom"></div>
     </div>
     <div class="dashboard-content">
-      <div class="add-item">
-        <form action="">
-          <legend>ADD FOOD ITEM</legend>
-          <label for="item name">Item-name</label>
-          <input type="text" required placeholder="Enter item name">
-          <label for="item category">Category</label>
-          <select name="category" id="category">
-            <option value="select" selected>select category</option>
-            <option value="local">Local delicacy</option>
-            <option value="snacks">Snacks</option>
-            <option value="rice">Rice</option>
-            <option value="pizza">Pizza</option>
-            <option value="others">others</option>
-          </select>
-          <div class="sub-total">
-            <input type="number" required placeholder="Qty">
-            <input type="text" required placeholder="Enter price">
-          </div>
-          <input type="submit" value="Submit">
-        </form>
+      <div class="dashboard-content-bg">
+        <div class="page-title">ADD FOOD ITEM</div>
+        <div class="add-food-item">
+          <form action="admin-food-items.html">
+            <label for="item">Food item</label>
+            <input type="text" placeholder="Food item">
+            <label for="description">Description</label>
+            <input type="text" placeholder="Describe item">
+            <div class="sub-input">
+              <div class="price">
+                <label for="price">Price</label>
+                <input type="text" placeholder="price">
+              </div>
+              <div class="quantity">
+                <label for="quantity">Quantity</label>
+                <input type="number" placeholder="Available quantity">
+              </div>
+            </div>
+            <label for="category">Category</label>
+            <input type="text" placeholder="category">
+            <input type="submit" value="Submit">
+          </form>
+
+        </div>
+
       </div>
+
     </div>
   </div>
+  <div class="scroll-top">&#9652;</div>
+
+  <footer class="footer">
+    &copy; <script>
+      document.write(new Date().getFullYear());
+    </script> <strong>Fast-Food-Fast</strong> developed & designed by <em>Marcdomain</em>
+  </footer>
+
+  <script src="js/scroll.js"></script>
+  <script src="js/status.js"></script>
 </body>
+
 </html>
