@@ -322,7 +322,7 @@ nav ul li a {
   font-weight: bold
 }
 
-.scroll-div {
+/* .scroll-div {
   margin-top: 500px;
   display: flex;
   color: #fff;
@@ -341,7 +341,7 @@ nav ul li a {
 
 .locate-div:hover {
   transform: scale(1.05);
-}
+} */
 
 .food {
   height: 200px;
