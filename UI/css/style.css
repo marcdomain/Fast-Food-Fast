@@ -7,9 +7,10 @@ body {
 }
 
 header {
-  background: #e65c00;
+  background: #203961;
   height: 60px;
-  color: #004466;
+  color: #fff;
+  font-size: 20px;
 }
 
 .nav-bar .logo {
@@ -39,7 +40,7 @@ nav .username {
   font-weight: bold;
 }
 
-.dropdown {
+/* .dropdown {
   position: relative;
   display: inline-block;
 }
@@ -79,7 +80,7 @@ nav ul li a {
 
 nav ul li a:hover {
   background: #e65c00;
-}
+} */
 
 .banner {
   height: 500px;
