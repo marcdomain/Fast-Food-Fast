@@ -7,7 +7,7 @@ body {
 }
 
 header {
-  background: #203961;
+  background: rgb(31, 56, 95);
   height: 60px;
   color: #fff;
   font-size: 20px;
@@ -17,14 +17,27 @@ header {
   float: left;
 }
 
+.nav-bar a {
+  display: flex;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-bar .logo a span {
+  color: #fff;
+  font-weight: bold;
+  line-height: 65px;
+}
+
 .nav-bar {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 nav {
   float: right;
-  margin-top: 5px
+  margin-top: 5px;
+  margin-right: 10px;
 }
 
 nav ul {
@@ -36,19 +49,33 @@ nav ul li {
   margin-left: 20px;
 }
 
-nav .username {
-  font-weight: bold;
+nav .username a {
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
 }
 
-/* .dropdown {
+nav .username sup {
+  font-weight: bold;
+  line-height: 5px;
+  font-size: 14px;
+  color: #e59400;
+  text-decoration: underline
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.dropdown {
   position: relative;
-  display: inline-block;
+  display: none;
 }
 
 .dropdown span {
-  text-shadow: 1px 2px #404040;
-  color: #fff;
-  line-height: 5px;
+  line-height: 0;
+  font-size: 50px;
 }
 
 .dropdown-content {
@@ -58,10 +85,10 @@ nav .username {
 }
 
 .dropdown:hover .dropdown-content {
-  background: rgba(215, 92, 44, 0.5);
+  background: rgba(31, 56, 95, 0.5);
   padding: 10px;
-  height: 100px;
-  width: 120px;
+  height: 90px;
+  width: 80px;
   display: block;
   right: 0;
 }
@@ -70,46 +97,26 @@ nav .username {
   margin-top: 15px;
   padding: 5px;
   border-radius: 10px;
+  background: rgb(31, 56, 95);
+  font-size: 16px;
 }
 
-nav ul li a {
-  display: block;
-  text-decoration: none;
-  color: #004466;
+.dropdown-content a sup {
+  color: #e59400;
+  font-size: 12px;
 }
-
-nav ul li a:hover {
-  background: #e65c00;
-} */
 
 .banner {
-  height: 500px;
-  display: flex;
-  width: 100vw;
-  position: absolute;
+  height: 550px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .banner1 {
-  flex: 60%;
   background-image: url('../img/banner1.jpg');
-}
-
-.banner2 {
-  background-image: url('../img/banner2.jpg');
-  background-size: cover;
-  flex: 40%;
-}
-
-.food-advert {
-  position: absolute;
-  left: 35%; 
-  top: 35%;
-  color: #fff;
-  text-align: center;
-  border-radius: 10px;
-  padding: 10px;
-  width: 400px;
-  background: rgba(36, 40, 38, 0.8);
+  background-size: 100% 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .page-title span {
@@ -225,6 +232,10 @@ nav ul li a:hover {
   z-index: 2;
   display: none;
   text-align: center;
+}
+
+.my-order {
+  position: fixed;
 }
 
 .auth-modal-content {
@@ -355,10 +366,6 @@ nav ul li a:hover {
   margin: 0 auto;
 }
 
-.food-advert .words {
-  padding-top: 40px;
-}
-
 .category {
   display: flex;
   height: 100%;
@@ -394,7 +401,6 @@ nav ul li a:hover {
 }
 
 .item .item-title em {
-  color: #e65c00;
   font-weight: bold;
 }
 
@@ -423,6 +429,26 @@ nav ul li a:hover {
   background-size: cover;
 }
 
+.category-label {
+  height: 0;
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+}
+
+.category-label div {
+  padding-top: 30%;
+  font-weight: bold;
+}
+
+.category-image:hover .category-label {
+  opacity: 1;
+  height: 100%;
+  transition: 1s;
+  transition-timing-function: ease-out;
+  background: rgba(36, 40, 38, 0.5);
+}
+
 .item-description {
   margin-top: 15px; 
   padding: 0 10px;
@@ -433,7 +459,7 @@ nav ul li a:hover {
 }
 
 .orderNow {
-  background: #e65c00;
+  background: #e59400;
   color: #fff;
   padding: 3px;
   border-radius: 10px;
@@ -463,6 +489,7 @@ nav ul li a:hover {
   outline: none;
   box-sizing: border-box;
   border: none;
+  margin-top: 5px;
   box-shadow: 1px 1px 2px 1px gray;
 }
 
@@ -620,17 +647,11 @@ nav ul li a:hover {
 
 .footer {
   min-height: 30px;
-  background: #e65c00;
+  background: #203961;
   bottom: 0;
   text-align: center;
   padding-top: 20px;
   color: #fff;
-}
-
-@media(max-width: 1300px) {
-  .food-advert {
-    left: 30%;
-  }
 }
 
 @media(max-width: 1160px) {
@@ -639,6 +660,9 @@ nav ul li a:hover {
   }
   .order-input {
     margin-top: 5px;
+  }
+  .banner {
+    height: 500px;
   }
 }
 
@@ -652,17 +676,20 @@ nav ul li a:hover {
   .banner2 {
     display: none;
   }
+  .banner {
+    height: 480px;
+  }
+  .food {
+    height: 220px;
+  }
 }
 
 @media(max-width: 920px) {
   .order-input select.location {
     width: 100px;
   }
-}
-
-@media(max-width: 900px) {
-  .food-advert {
-    left: 25%;
+  .banner {
+    height: 450px;
   }
 }
 
@@ -672,24 +699,30 @@ nav ul li a:hover {
   }
 }
 
-@media(max-width: 807px) {
-  .orderNow {
-    font-size: 10px;
+@media(max-width: 820px) {
+  .banner {
+    height: 420px;
   }
+}
+
+@media(max-width: 807px) {
   .item-description {
     margin-top: 0;
   }
   .order-input {
     margin-top: 3px;
   }
+  .orderNow {
+    width: 40%;
+  }
 }
 
 @media(max-width: 770px) {
-  .food-advert {
-    left: 20%;
-  }
   .order-input select.location {
     width: 70px;
+  }
+  .banner {
+    height: 400px;
   }
 }
 
@@ -711,15 +744,18 @@ nav ul li a:hover {
   }
 }
 
+@media(max-width: 690px) {
+  .banner {
+    height: 360px;
+  }
+}
+
 @media(max-width:600px) {
   .delivery-girl img{
     width: 80%;
   }
-}
-
-@media(max-width: 580px) {
-  .food-advert {
-    left: 15%;
+  .banner {
+    height: 340px;
   }
 }
 
@@ -735,13 +771,10 @@ nav ul li a:hover {
   }
 }
 
-@media(max-width: 550px) {
-  .food-advert {
-    left: 10%;
+@media(max-width: 520px) {
+  .banner {
+    height: 300px;
   }
-}
-
-@media(max-width: 530px) {
 }
 
 @media(max-width: 515px) {
@@ -758,9 +791,6 @@ nav ul li a:hover {
     margin: 20px auto;
     display: flex;
     flex-direction: column;
-  }
-  .food-advert {
-    left: 7%;
   }
   .intro-content, .delivery-girl {
     display: block;
@@ -783,11 +813,23 @@ nav ul li a:hover {
   .auth-btn {
     padding-top: 50px;
   }
+  .items {
+    flex-direction: column;
+  }
+  .food {
+    height: 800px;
+  }
 }
 
 @media(max-width: 475px) {
-  .food-advert {
-    left: 5%;
+  .banner {
+    height: 270px;
+  }
+  .username, .logout {
+    display: none;
+  }
+  .dropdown {
+    display: inline-block;
   }
 }
 
@@ -798,17 +840,14 @@ nav ul li a:hover {
 }
 
 @media(max-width: 450px) {
-  .food-advert {
-    left: 3%;
-  }
   .delivery-girl img {
     width: 40%;
   }
 }
 
 @media(max-width: 435px) {
-  .food-advert {
-    left: 1%;
+  .banner {
+    height: 230px;
   }
 }
 
@@ -819,37 +858,21 @@ nav ul li a:hover {
   }
 }
 
-@media(max-width: 427px) {
-  .food-advert {
-    width: 300px;
-    left: 10%;
-  }
-}
-
 @media(max-width:410px) {
-  .items {
-    flex-direction: column;
-  }
   h1.page-title {
     font-size: 20px;
   }
 }
 
 @media(max-width: 385px) {
-  .food-advert {
-    left: 7%;
+  .banner {
+    height: 200px;
   }
 }
 
 @media(max-width:380px) {
   .intro-words{
     padding-top: 5%;
-  }
-}
-
-@media(max-width: 365px) {
-  .food-advert {
-    left: 5%;
   }
 }
 
@@ -863,28 +886,15 @@ nav ul li a:hover {
   .auth-btn input{
     width: 120px;
   }
-  .food {
-    height: 800px;
-  }
 }
 
 @media(max-width: 345px) {
-  .food-advert {
-    left: 5%;
-    width: 280px;
-    height: 150px;
-  }
   .delivery-girl img {
     width: 50%;
   }
 }
 
 @media(max-width: 325px) {
-  .food-advert {
-    left: 8%;
-    width: 250px;
-    height: 150px;
-  }
   .complete-order {
     flex-direction: column;
   }
@@ -894,16 +904,16 @@ nav ul li a:hover {
 }
 
 @media(max-width: 312px) {
-  .food-advert {
-    left: 8%;
-    width: 230px;
-  }
   h1.page-title span {
     display: block;
   }
   h1.page-title span img {
     height: 30px;
     width: 25px;
+  }
+
+  .banner {
+    height: 170px;
   }
 }
 
@@ -913,16 +923,25 @@ nav ul li a:hover {
   }
 }
 
-@media(max-width: 285px) {
-  .food-advert {
-    left: 6%;
-    width: 230px;
-  }
-}
-
 @media(max-width: 280px) {
   .words {
     height: 70px;
+  }
+  .nav-bar .logo a span {
+    font-size: 16px;
+  }
+  .nav-bar .logo img {
+    height: 40px;
+    width: 25px;
+  }
+  header {
+    height: 45px;
+  }
+  nav ul li {
+    margin-left: 5px;
+  }
+  .food {
+    height: 850px;
   }
 }
 
@@ -937,28 +956,18 @@ nav ul li a:hover {
   .auth-btn{
     margin-left: 25%
   }
-  .food-advert {
-    left: 7%;
-    width: 220px;
-  }
-  .food-advert .words {
-    height: 90px;
-  }
   .locate-div {
     padding: 2px;
   }
 }
 
 @media(max-width: 270px) {
-  .food-advert {
-    left: 2%;
+  .banner {
+    height: 130px;
   }
 }
 
 @media(max-width: 257px) {
-  .food-advert {
-    left: 1.5%;
-  }
   .words {
     height: 100px;
   }
@@ -967,16 +976,33 @@ nav ul li a:hover {
   }
 }
 
-@media(max-width: 244px) {
-  .food-advert {
-    left: 0;
+@media(max-width: 251px) {
+  .food {
+    height: 880px;
   }
-  
+}
+
+@media(max-width: 215px) {
+  nav ul li {
+    margin-left: 0;
+  }
+  .food {
+    height: 900px;
+  }
 }
 
 @media(max-width: 200px) {
   .auth-btn{
     margin-left: 15%
+  }
+  .banner {
+    height: 100px;
+  }
+  .food {
+    height: 920px;
+  }
+  .orderNow {
+    width: 50%;
   }
 }
 
