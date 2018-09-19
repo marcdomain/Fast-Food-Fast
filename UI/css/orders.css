@@ -122,7 +122,7 @@ body {
 }
 
 .id, .qty {
-  flex: 0.5
+  flex: 0.2
 }
 
 .order1, .order3 {
@@ -230,12 +230,22 @@ form input[type='submit'] {
   cursor: pointer;
 }
 
-.edit {
+.thumbs-down, .thumbs-up, .mark-complete {
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.edit, .mark-complete {
   color: green;
 }
 
-.delete {
+.delete, .thumbs-down {
   color: red;
+}
+
+.thumbs-up {
+  color: #004466;
 }
 
 .scroll-top {
