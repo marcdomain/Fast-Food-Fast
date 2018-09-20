@@ -25,13 +25,21 @@ const createOrdersTable = `DROP TABLE IF EXISTS orders;
     order_id SERIAL PRIMARY KEY NOT NULL,
     food_id INTEGER NOT NULL,
     owner_id INTEGER NOT NULL,
-    FOREIGN KEY (food_id) REFERENCES menus (menu_id),
-    FOREIGN KEY (owner_id) REFERENCES users (user_id),
     quantity INTEGER NOT NULL,
     price INTEGER NOT NULL,
     location CHARACTER VARYING(50) NOT NULL,
     status CHARACTER VARYING(10) NOT NULL DEFAULT ('new')
 )`;
 
-const insertAdmin = `insert into users (name, email, phone, password, user_type) 
-  values ('Admin', 'admin@gmail.com', '08082300954', 'adminuser', 'admin')`;
+pool.query(createUsersTable)
+  .then(result => console.log(`usersTable: ${result[0].command}PED and ${result[1].command}D`))
+  .catch(error => console.log(`users table ${error}`));
+
+pool.query(createMenusTable)
+  .then(result => console.log(`menusTable: ${result[0].command}PED and ${result[1].command}D`))
+  .catch(error => console.log(`menus table ${error}`));
+
+pool.query(createOrdersTable)
+  .then(result => console.log(`ordersTable: ${result[0].command}PED and ${result[1].command}D`))
+  .catch(error => console.log(`orders table ${error}`));
+
