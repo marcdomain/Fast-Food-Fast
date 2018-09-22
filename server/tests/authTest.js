@@ -23,7 +23,8 @@ describe('Test for Signup User', () => {
       .send(correctUser)
       .end((error, response) => {
         expect(response).to.have.status(201);
-        expect(response.body.message).to.equal('Signed up successfully');
+        expect(response.body.message).to.be.a('string');
+        expect(response.body).to.have.property('grabYourToken');
         done();
       });
   });
@@ -256,6 +257,7 @@ describe('Tests for user Login API', () => {
       .send(correctLogin)
       .end((error, response) => {
         expect(response).to.have.status(200);
+        expect(response.body).to.have.property('grabYourToken');
         expect(response.body.message).to.be.a('string');
         done();
       });
