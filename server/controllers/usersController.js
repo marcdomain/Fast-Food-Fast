@@ -1,6 +1,6 @@
-import bcrypt from 'bcrypt';
+import bcrypt, { compareSync } from 'bcrypt';
 import pool from '../db/connection';
-import { createUser } from '../db/sqlQueries';
+import { createUser, queryUsersByEmail } from '../db/sqlQueries';
 
 class UserHandler {
   static userSignup(request, response) {
@@ -22,8 +22,43 @@ class UserHandler {
           message: error.message
         }));
   }
+
+  static userLogin(request, response) {
+    const variable = [request.body.email];
+    pool.query(queryUsersByEmail, variable)
+      .then((result) => {
+        if (result.rowCount !== 0) {
+          const comparePassword = compareSync(request.body.password, result.rows[0].password);
+          if (comparePassword) {
+            const username = variable[0].split('@')[0];
+            return response.status(200)
+              .json({
+                message: `Welcome back ${username}`
+              });
+          }
+          response.status(401)
+            .json({
+              status: 'Fail',
+              message: 'Incorrect password. Please input your correct password',
+            });
+        }
+        if (result.rowCount === 0) {
+          response.status(404)
+            .json({
+              status: 'Fail',
+              message: 'Email not found. Please signup',
+            });
+        }
+      })
+      .catch((error) => {
+        response.json({
+          status: 'Fail',
+          message: error.message,
+        });
+      });
+  }
 }
 
-const { userSignup } = UserHandler;
+const { userSignup, userLogin } = UserHandler;
 
-export default userSignup;
+export { userSignup, userLogin };

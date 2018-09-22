@@ -197,11 +197,11 @@ const nonExistingEmail = {
 };
 
 const undefinedPasswordLogin = {
-  email: 'marcman@gmial.com'
+  email: 'marcus2cu@yahoo.com'
 };
 
 const emptyPasswordLogin = {
-  email: 'marcman@gmial.com',
+  email: 'marcus2cu@yahoo.com',
   password: ''
 };
 

@@ -189,8 +189,60 @@ class UserValidationHandler {
           message: error.message
         }));
   }
+
+  static loginValidator(request, response, next) {
+    let { email, password } = request.body;
+    if (email === undefined) {
+      return response.status(400)
+        .json({
+          status: 'Fail',
+          message: 'Email is undefined. Input your email',
+        });
+    }
+    email = email.toLowerCase().trim();
+    if (email === '') {
+      return response.status(400)
+        .json({
+          status: 'Fail',
+          message: 'Email cannot be empty. Input a valid email',
+        });
+    }
+    pool.query(queryUsersByEmail, [email])
+      .then((result) => {
+        if (result.rowCount === 0) {
+          return response.status(404)
+            .json({
+              status: 'Fail',
+              message: 'Email not found. Please signup',
+            });
+        }
+        if (password === undefined) {
+          return response.status(400)
+            .json({
+              status: 'Fail',
+              message: 'Password is undefined. Please input your password',
+            });
+        }
+        password = password.trim();
+        if (password === '') {
+          return response.status(400)
+            .json({
+              status: 'Fail',
+              message: 'Password is empty. Please input your password',
+            });
+        }
+
+        request.body.password = password;
+        request.body.email = email;
+        next();
+      })
+      .catch(error => response.status(500)
+        .json({
+          message: error.message
+        }));
+  }
 }
 
-const { signupValidator } = UserValidationHandler;
+const { signupValidator, loginValidator } = UserValidationHandler;
 
-export default signupValidator;
+export { signupValidator, loginValidator };
