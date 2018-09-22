@@ -1,6 +1,9 @@
 {
   "name": "fast-food-fast",
   "version": "1.0.0",
+  "engines": {
+    "node": "9.11.1"
+  },
   "description": "a food delivery service app for a restaurant",
   "main": "app.js",
   "scripts": {
