@@ -2,12 +2,13 @@ import pool from '../connection';
 
 const createUsersTable = `DROP TABLE IF EXISTS users CASCADE;
   CREATE TABLE users (
-    user_id SERIAL PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
     name CHARACTER VARYING(50) NOT NULL,
     email CHARACTER VARYING(50) UNIQUE NOT NULL,
     phone CHARACTER VARYING(13) UNIQUE NOT NULL,
+    address CHARACTER VARYING(100) NOT NULL,
     password CHARACTER VARYING(255) NOT NULL,
-    user_type CHARACTER VARYING(5) NOT NULL DEFAULT ('user')
+    usertype CHARACTER VARYING(5) NOT NULL DEFAULT ('user')
 )`;
 
 class UserTableHandler {

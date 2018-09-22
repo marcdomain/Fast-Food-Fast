@@ -6,7 +6,5 @@ import createAdmin from './insertAdmin';
 usersTable()
   .then(() => createAdmin()
     .then(() => menusTable()
-      .then(() => ordersTable())
-      .catch(error => console.log(error)))
-    .catch(error => console.log(error)))
+      .then(() => ordersTable())))
   .catch(error => console.log(error));

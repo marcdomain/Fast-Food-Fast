@@ -1,24 +1,26 @@
 import bcrypt from 'bcrypt';
 import pool from '../db/connection';
-import createUser from '../db/sqlQueries';
+import { createUser } from '../db/sqlQueries';
 
 class UserHandler {
   static userSignup(request, response) {
-    const { name, email, phone } = request.body;
     const variables = [
-      name,
-      email,
-      phone,
+      request.body.name,
+      request.body.email,
+      request.body.phone,
+      request.body.address,
       bcrypt.hashSync(request.body.password, 10)
     ];
     pool.query(createUser, variables)
-      .then((result) => {
-        console.log('CREATE USER RESULT', result);
-        return response.status(201)
-          .json({
-            message: 'Signed up successfully'
-          });
-      });
+      .then(() => response.status(201)
+        .json({
+          message: 'Signed up successfully'
+        }))
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
   }
 }
 

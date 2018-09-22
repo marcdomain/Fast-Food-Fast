@@ -1,7 +1,7 @@
 import pool from '../connection';
 
-const insertAdmin = `insert into users (name, email, phone, password, user_type) 
-values ('Admin', 'admin@gmail.com', '08082300954', 'adminuser', 'admin')`;
+const insertAdmin = `insert into users (name, email, phone, address, password, usertype) 
+values ('Admin', 'admin@gmail.com', '08082300954', 'Andela EPIC Tower', 'adminuser', 'admin')`;
 
 class InsertAdminHandler {
   static createAdmin() {
