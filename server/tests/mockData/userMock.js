@@ -177,10 +177,45 @@ const invalidAddressCharacter = {
   password: 'marcpass'
 };
 
+const correctLogin = {
+  email: 'marcus2cu@yahoo.com',
+  password: 'marcpass'
+};
+
+const undefinedEmailLogin = {
+  password: 'marcpass'
+};
+
+const emptyEmailLogin = {
+  email: '',
+  password: 'marcpass'
+};
+
+const nonExistingEmail = {
+  email: 'marcman@gmial.com',
+  password: 'marcpass'
+};
+
+const undefinedPasswordLogin = {
+  email: 'marcman@gmial.com'
+};
+
+const emptyPasswordLogin = {
+  email: 'marcman@gmial.com',
+  password: ''
+};
+
+const correctEmailIncorrectPassword = {
+  email: 'marcus2cu@yahoo.com',
+  password: 'marc#@pass!'
+};
+
 export {
   correctUser, undefinedName, emptyName, invalidNameLength, invalidNameCharacter,
   undefinedEmail, emptyEmail, invalidEmailLength, invalidEmailCharacter, existingEmail,
   undefinedPhone, emptyPhone, invalidPhoneLength, invalidPhoneCharacter, existingPhone,
   undefinedPassword, emptyPassword, invalidPasswordLength, undefinedAddress, emptyAddress,
-  invalidAddressLength, invalidAddressCharacter, whitespacePassword
+  invalidAddressLength, invalidAddressCharacter, whitespacePassword, correctLogin,
+  undefinedEmailLogin, emptyEmailLogin, nonExistingEmail, undefinedPasswordLogin,
+  emptyPasswordLogin, correctEmailIncorrectPassword
 };

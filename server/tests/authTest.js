@@ -8,7 +8,8 @@ import {
   existingEmail, undefinedPhone, emptyPhone, invalidPhoneLength,
   invalidPhoneCharacter, existingPhone, undefinedPassword, emptyPassword,
   invalidPasswordLength, undefinedAddress, emptyAddress, invalidAddressLength,
-  invalidAddressCharacter, whitespacePassword
+  invalidAddressCharacter, whitespacePassword, correctLogin, undefinedEmailLogin, emptyEmailLogin,
+  nonExistingEmail, undefinedPasswordLogin, emptyPasswordLogin, correctEmailIncorrectPassword
 } from './mockData/userMock';
 
 const { expect } = chai;
@@ -243,6 +244,79 @@ describe('Test for Signup User', () => {
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body.message).to.equal('Address should be 5 to 100 alphanumeric characters and whitespace');
+        done();
+      });
+  });
+});
+
+describe('Tests for user Login API', () => {
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(correctLogin)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body.message).to.be.a('string');
+        done();
+      });
+  });
+  it('Should return 400 for an undefined email', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(undefinedEmailLogin)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Email is undefined. Input your email');
+        done();
+      });
+  });
+  it('Should return 400 for an empty email', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(emptyEmailLogin)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Email cannot be empty. Input a valid email');
+        done();
+      });
+  });
+  it('Should return 404 for a non-existing email', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(nonExistingEmail)
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body.message).to.equal('Email not found. Please signup');
+        done();
+      });
+  });
+  it('Should return 400 for undefined password', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(undefinedPasswordLogin)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Password is undefined. Please input your password');
+        done();
+      });
+  });
+  it('Should return 400 for an empty password field', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(emptyPasswordLogin)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Password is empty. Please input your password');
+        done();
+      });
+  });
+  it('Should return 401 for a comibination of correct email and incorrect password', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(correctEmailIncorrectPassword)
+      .end((error, response) => {
+        expect(response).to.have.status(401);
+        expect(response.body.message).to.equal('Incorrect password. Please input your correct password');
         done();
       });
   });
