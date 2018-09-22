@@ -1,5 +1,6 @@
 import bcrypt, { compareSync } from 'bcrypt';
 import pool from '../db/connection';
+import createToken from '../middlewares/authorization';
 import { createUser, queryUsersByEmail } from '../db/sqlQueries';
 
 /**
@@ -30,10 +31,17 @@ class UserHandler {
       bcrypt.hashSync(request.body.password, 10)
     ];
     pool.query(createUser, variables)
-      .then(() => response.status(201)
-        .json({
-          message: 'Signed up successfully'
-        }))
+      .then((data) => {
+        const authUser = data.rows[0];
+        const username = authUser.email.split('@')[0];
+        console.log('AUTH USER', authUser);
+        const token = createToken(authUser);
+        return response.status(201)
+          .json({
+            message: `Hey ${username}, welcome to Marcus Fast-Food-Fast`,
+            grabYourToken: token
+          });
+      })
       .catch(error => response.status(500)
         .json({
           status: 'Fail',
