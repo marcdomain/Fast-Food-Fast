@@ -1,7 +1,26 @@
 import pool from '../db/connection';
 import { queryUsersByEmail, queryUsersByPhone } from '../db/sqlQueries';
 
+/**
+  * @description class representing Validations of user input
+  *
+  * @class UserValidationHandler
+  */
+
 class UserValidationHandler {
+  /**
+  * @description - This method is responsible for validating signup inputs
+  *
+  * @static
+  * @param {object} request - Request sent to the middleware
+  * @param {object} response - Response sent from the middleware
+  * @param {object} next - callback function to transfer to the next method
+  *
+  * @returns {object} - status and object representing fail message
+  *
+  * @memberof UserValidationHandler
+  */
+
   static signupValidator(request, response, next) {
     let {
       name, email, phone, address, password
@@ -189,6 +208,19 @@ class UserValidationHandler {
           message: error.message
         }));
   }
+
+  /**
+  * @description - This method is responsible for validating login inputs
+  *
+  * @static
+  * @param {object} request - Request sent to the middleware
+  * @param {object} response - Response sent from the middleware
+  * @param {object} next - callback function to transfer to the next method
+  *
+  * @returns {object} - status and object representing fail message
+  *
+  * @memberof UserValidationHandler
+  */
 
   static loginValidator(request, response, next) {
     let { email, password } = request.body;

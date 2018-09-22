@@ -13,6 +13,7 @@ Below are the features of Fast-Food-Fast Application at this point
 
 ###
 - User can Signup <br>
+- User can Login <br>
 - User can Post Orders to the app:
 ```
     Required Inputs
@@ -45,7 +46,14 @@ Below are the features of Fast-Food-Fast Application at this point
 <tr>
 <td>POST</td> <td>api/v1/auth/signup</td>  <td>Signup user</td>
 <td>
-{<br> name: "string",<br>email: "string",<br>phone: "string",<br> address: "string",<br>password: "string"}
+{<br> name: "string",<br>email: "string",<br>phone: "string",<br> address: "string",<br>password: "string"<br>}
+</td>
+</tr>
+
+<tr>
+<td>POST</td> <td>api/v1/auth/login</td>  <td>Login user</td>
+<td>
+{<br> email: "string",<br>password: "string"<br>}
 </td>
 </tr>
 

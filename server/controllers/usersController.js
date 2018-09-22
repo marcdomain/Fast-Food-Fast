@@ -2,7 +2,25 @@ import bcrypt, { compareSync } from 'bcrypt';
 import pool from '../db/connection';
 import { createUser, queryUsersByEmail } from '../db/sqlQueries';
 
+/**
+  * @description class representing User Authentication
+  *
+  * @class UserHandler
+  */
+
 class UserHandler {
+  /**
+  * @description - This method is responsible for creating new users
+  *
+  * @static
+  * @param {object} request - Request sent to the router
+  * @param {object} response - Response sent from the controller
+  *
+  * @returns {object} - status and object representing response message
+  *
+  * @memberof UserHandler
+  */
+
   static userSignup(request, response) {
     const variables = [
       request.body.name,
@@ -22,6 +40,18 @@ class UserHandler {
           message: error.message
         }));
   }
+
+  /**
+  * @description - This method is responsible for loggin in users
+  *
+  * @static
+  * @param {object} request - Request sent to the router
+  * @param {object} response - Response sent from the controller
+  *
+  * @returns {object} - status and object representing response message
+  *
+  * @memberof UserHandler
+  */
 
   static userLogin(request, response) {
     const variable = [request.body.email];
