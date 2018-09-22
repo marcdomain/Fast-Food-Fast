@@ -12,6 +12,7 @@ Below are the features of Fast-Food-Fast Application at this point
 
 
 ###
+- User can Signup <br>
 - User can Post Orders to the app:
 ```
     Required Inputs
@@ -39,17 +40,24 @@ Below are the features of Fast-Food-Fast Application at this point
 
 <table>
 
-<tr><th>HTTP VERB</th><th>API ENDPOINT</th><th>FUNCTION</th></tr>
+<tr><th>HTTP VERB</th><th>API ENDPOINT</th><th>FUNCTION</th><th>INPUT</th></tr>
 
-<tr><td>POST</td> <td>api/v1/orders</td>  <td>Place order</td></tr>
+<tr>
+<td>POST</td> <td>api/v1/auth/signup</td>  <td>Signup user</td>
+<td>
+{<br> name: "string",<br>email: "string",<br>phone: "string",<br> address: "string",<br>password: "string"}
+</td>
+</tr>
 
-<tr><td>GET</td> <td>api/v1/orders</td>  <td>List of all orders</td></tr>
+<tr><td>POST</td> <td>api/v1/orders</td>  <td>Place order</td> <td></td></tr>
 
-<tr><td>GET</td> <td>api/v1/orders/:orderId</td>  <td>Get a specific order</td></tr>
+<tr><td>GET</td> <td>api/v1/orders</td>  <td>List of all orders</td> <td></td></tr>
 
-<tr><td>PUT</td> <td>api/v1/orders/:orderId</td> <td>Update an order status</td></tr>
+<tr><td>GET</td> <td>api/v1/orders/:orderId</td>  <td>Get a specific order</td> <td></td></tr>
 
-<tr><td>DELETE</td> <td>api/v1/orders/:orderId</td> <td>Delete an order</td></tr>
+<tr><td>PUT</td> <td>api/v1/orders/:orderId</td> <td>Update an order status</td> <td></td></tr>
+
+<tr><td>DELETE</td> <td>api/v1/orders/:orderId</td> <td>Delete an order</td> <td></td></tr>
 
 </table>
 
