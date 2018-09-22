@@ -8,7 +8,7 @@ import {
   emptyPrice, invalidPriceLength, invalidPriceCharacter, undefinedQuantity,
   emptyQuantity, invalidQuantityLength, invalidQuantityCharacter,
   acceptOrder, declineOrder, completeOrder, undefinedStatus
-} from './orderMock';
+} from './mockData/orderMock';
 import orders from '../in-memoryData/orders';
 
 const { expect } = chai;
