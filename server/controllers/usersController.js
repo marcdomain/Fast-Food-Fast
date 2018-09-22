@@ -34,7 +34,6 @@ class UserHandler {
       .then((data) => {
         const authUser = data.rows[0];
         const username = authUser.email.split('@')[0];
-        console.log('AUTH USER', authUser);
         const token = createToken(authUser);
         return response.status(201)
           .json({
@@ -68,10 +67,14 @@ class UserHandler {
         if (result.rowCount !== 0) {
           const comparePassword = compareSync(request.body.password, result.rows[0].password);
           if (comparePassword) {
+            console.log('SIGN IN RESULT', result.rows);
+            const authUser = result.rows[0];
             const username = variable[0].split('@')[0];
+            const token = createToken(authUser);
             return response.status(200)
               .json({
-                message: `Welcome back ${username}`
+                message: `Welcome back ${username}`,
+                grabYourToken: token
               });
           }
           response.status(401)

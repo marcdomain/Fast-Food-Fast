@@ -1,11 +1,13 @@
+import bcrypt from 'bcrypt';
 import pool from '../connection';
 
-const insertAdmin = `insert into users (name, email, phone, address, password, usertype) 
-values ('Admin', 'admin@gmail.com', '08082300954', 'Andela EPIC Tower', 'adminuser', 'admin')`;
+const sql = 'insert into users (name, email, phone, address, password, usertype) values ($1, $2, $3, $4, $5, $6)';
+const password = bcrypt.hashSync('adminuser', 10);
+const variables = ['Admin', 'admin@gmail.com', '08082300954', 'Andela EPIC Tower', password, 'admin'];
 
 class InsertAdminHandler {
   static createAdmin() {
-    const create = pool.query(insertAdmin)
+    const create = pool.query(sql, variables)
       .then((result => console.log(`Admin account ${result.command}ED`)))
       .catch((error) => {
         console.log(error);
