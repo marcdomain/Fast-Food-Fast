@@ -30,14 +30,12 @@ const verifyToken = (request, response, next) => {
         });
     }
     request.authData = authData;
-    console.log('AUTH DATA', authData);
     return next();
   });
 };
 
 const authorizedAdmin = (request, response, next) => {
   const userInfo = request.authData.payload;
-  console.log('VALIDATE TYPE OF USER', userInfo.usertype);
   if (userInfo.usertype !== 'admin') {
     return response.status(401)
       .json({

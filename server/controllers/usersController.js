@@ -67,7 +67,6 @@ class UserHandler {
         if (result.rowCount !== 0) {
           const comparePassword = compareSync(request.body.password, result.rows[0].password);
           if (comparePassword) {
-            console.log('SIGN IN RESULT', result.rows);
             const authUser = result.rows[0];
             const username = variable[0].split('@')[0];
             const token = createToken(authUser);

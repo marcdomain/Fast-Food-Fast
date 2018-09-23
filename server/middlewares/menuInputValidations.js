@@ -29,14 +29,14 @@ class MenuValidationHandler {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Menu is undefined. Input alphabets of 3 to 30 characters long'
+          message: 'Menu is undefined. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)'
         });
     }
     if (menu === '') {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Menu is empty. Input alphabets of 3 to 30 characters long'
+          message: 'Menu is empty. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)'
         });
     }
     menu = menu.trim().replace(/\s\s+/g, ' ');
@@ -44,15 +44,15 @@ class MenuValidationHandler {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Invalid menu length. Input alphabets of 3 to 30 characters long'
+          message: 'Invalid menu length. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)'
         });
     }
-    const validMenuCharacters = /^[a-z ]+$/i;
+    const validMenuCharacters = /^[a-z ,-]+$/i;
     if (!validMenuCharacters.test(menu)) {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Invalid menu character detected. Input alphabets of 3 to 30 characters long and whitespace'
+          message: 'Invalid menu character detected. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)'
         });
     }
     pool.query(queryMenuTableByMenu, [menu])
@@ -68,14 +68,14 @@ class MenuValidationHandler {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Description is undefined. Input alphanumeric characters 5 to 100 long'
+              message: 'Description is undefined. Input characters of length 5 to 100 (alphanumeric, whitespace, comma, hyphen, fullstop)'
             });
         }
         if (description === '') {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Description is empty. Input alphanumeric characters 5 to 100 long'
+              message: 'Description is empty. Input characters of length 5 to 100 (alphanumeric, whitespace, comma, hyphen, fullstop)'
             });
         }
         description = description.trim().replace(/\s\s+/g, ' ');
@@ -83,15 +83,15 @@ class MenuValidationHandler {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Invalid description length. Input alphanumeric characters 5 to 100 long'
+              message: 'Invalid description length. Input characters of length 5 to 100 (alphanumeric, whitespace, comma, hyphen, fullstop)'
             });
         }
-        const validDescriptionCharacter = /^[a-z0-9 ]+$/i;
+        const validDescriptionCharacter = /^[a-z0-9 .,-]+$/i;
         if (!validDescriptionCharacter.test(description)) {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Invalid description character detected. Input alphanumeric characters 5 to 100 long'
+              message: 'Invalid description character detected. Input characters of length 5 to 100 (alphanumeric, whitespace, comma, hyphen, fullstop)'
             });
         }
         if (category === undefined) {
@@ -109,8 +109,8 @@ class MenuValidationHandler {
             });
         }
         category = category.trim().toLowerCase();
-        if (category !== 'local' || category !== 'pizza' ||
-        category !== 'rice' || category !== 'snacks' || category !== 'others') {
+        if (category !== 'local' && category !== 'pizza' && category !== 'rice'
+        && category !== 'snacks' && category !== 'others') {
           return response.status(400)
             .json({
               status: 'Fail',
@@ -121,14 +121,14 @@ class MenuValidationHandler {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Quantity is undefined. Input positive integer characters of length 1 to 4'
+              message: 'Quantity is undefined. Input positive integer greater than zero and of length 1 to 4'
             });
         }
         if (quantity === '') {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Quantity is empty. Input positive integer characters of length 1 to 4'
+              message: 'Quantity is empty. Input positive integer greater than zero and of length 1 to 4'
             });
         }
         quantity = quantity.trim();
@@ -136,7 +136,14 @@ class MenuValidationHandler {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Invalid quantity length. Input positive integer characters of length 1 to 4'
+              message: 'Invalid quantity length. Input positive integer greater than zero and of length 1 to 4'
+            });
+        }
+        if (quantity < 1) {
+          return response.status(400)
+            .json({
+              status: 'Fail',
+              message: 'Invalid quantity. Input positive integer greater than zero and of length 1 to 4'
             });
         }
         const validQuantityCharacter = /^[0-9]+$/;
@@ -144,7 +151,7 @@ class MenuValidationHandler {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Invalid quantity character detected. Input positive integer characters of length 1 to 4'
+              message: 'Invalid quantity character detected. Input positive integer greater than zero and of length 1 to 4'
             });
         }
         if (price === undefined) {
@@ -167,6 +174,13 @@ class MenuValidationHandler {
             .json({
               status: 'Fail',
               message: 'Invalid price length. Input positive integer characters of length 3 to 6'
+            });
+        }
+        if (price < 1) {
+          return response.status(400)
+            .json({
+              status: 'Fail',
+              message: 'Invalid price. Input positive integers greater than zero and of length 3 to 6'
             });
         }
         const validPriceCharacter = /^[0-9]+$/;
