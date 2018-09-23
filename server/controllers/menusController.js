@@ -60,7 +60,7 @@ class MenusHandler {
         const allMenu = result.rows;
         return response.status(200)
           .json({
-            message: 'List of available menu',
+            message: 'List of Available Menu',
             allMenu
           });
       })

@@ -341,3 +341,16 @@ describe('Test POST MENU endpoint for admin userType', () => {
       });
   });
 });
+
+describe('GET All Available Menu', () => {
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .get('/api/v1/menu')
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('List of Available Menu');
+        done();
+      });
+  });
+});
