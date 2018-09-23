@@ -15,6 +15,7 @@ Below are the features of Fast-Food-Fast Application at this point
 - User can Signup <br>
 - User can Login <br>
 - Admin can post menu <br>
+- User can get all available menu <br>
 - User can Post Orders to the app:
 ```
     Required Inputs
@@ -67,9 +68,15 @@ Below are the features of Fast-Food-Fast Application at this point
 <tr>
 <td>POST</td> <td>api/v1/menu</td>  <td>Create new menu</td>
 <td>
-{<br> menu: "string",<br>description: "string"<br>,<br>category: "string"<br>,<br>quantity: "string"<br>,<br>price: "string"<br>}
+{<br> menu: "string",<br>description: "string",<br>category: "string",<br>quantity: "string",<br>price: "string", <br>token: "string"<br>}
 </td>
-<td>{<br>message: "string"<br>menu: {<br>object<br>}<br>}</td>
+<td>{<br>message: "string"<br>menu: {object}<br>}</td>
+</tr>
+
+<tr>
+<td>GET</td> <td>api/v1/menu</td>  <td>Get All Available Menu</td>
+<td></td>
+<td>{<br>message: "string"<br>allMenu: {object}<br>}</td>
 </tr>
 
 <tr><td>POST</td> <td>api/v1/orders</td>  <td>Place order</td> <td></td> <td></td></tr>
