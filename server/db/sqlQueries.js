@@ -8,6 +8,9 @@ const createMenu = 'insert into menus (menu, description, category, quantity, pr
 
 const queryMenuTableByMenu = 'select * from menus where menu = $1';
 
+const queryAvailableMenu = 'select * from menus where quantity > 0';
+
 export {
-  createUser, queryUsersByEmail, queryUsersByPhone, createMenu, queryMenuTableByMenu
+  createUser, queryUsersByEmail, queryUsersByPhone, createMenu, queryMenuTableByMenu,
+  queryAvailableMenu
 };

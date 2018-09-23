@@ -1,5 +1,5 @@
 import pool from '../db/connection';
-import { createMenu } from '../db/sqlQueries';
+import { createMenu, queryAvailableMenu } from '../db/sqlQueries';
 
 /**
   * @description class representing Menu controller actions
@@ -24,8 +24,8 @@ class MenusHandler {
       request.body.menu,
       request.body.description,
       request.body.category,
-      request.body.price,
-      request.body.quantity
+      request.body.quantity,
+      request.body.price
     ];
     pool.query(createMenu, variables)
       .then((result) => {
@@ -41,8 +41,37 @@ class MenusHandler {
           message: error.message
         }));
   }
+
+  /**
+  * @description - This method is responsible for getting all available menu
+  *
+  * @static
+  * @param {object} request - Request sent to the router
+  * @param {object} response - Response sent from the controller
+  *
+  * @returns {object} - status and object representing response message
+  *
+  * @memberof MenusHandler
+  */
+
+  static getAllMenu(request, response) {
+    pool.query(queryAvailableMenu)
+      .then((result) => {
+        const allMenu = result.rows;
+        return response.status(200)
+          .json({
+            message: 'List of available menu',
+            allMenu
+          });
+      })
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
+  }
 }
 
-const { postMenu } = MenusHandler;
+const { postMenu, getAllMenu } = MenusHandler;
 
-export default postMenu;
+export { postMenu, getAllMenu };
