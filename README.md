@@ -14,6 +14,7 @@ Below are the features of Fast-Food-Fast Application at this point
 ###
 - User can Signup <br>
 - User can Login <br>
+- Admin can post menu <br>
 - User can Post Orders to the app:
 ```
     Required Inputs
@@ -41,12 +42,15 @@ Below are the features of Fast-Food-Fast Application at this point
 
 <table>
 
-<tr><th>HTTP VERB</th><th>API ENDPOINT</th><th>FUNCTION</th><th>INPUT</th></tr>
+<tr><th>HTTP VERB</th><th>API ENDPOINT</th><th>FUNCTION</th><th>INPUT</th><th>OUTPUT</th></tr>
 
 <tr>
 <td>POST</td> <td>api/v1/auth/signup</td>  <td>Signup user</td>
 <td>
 {<br> name: "string",<br>email: "string",<br>phone: "string",<br> address: "string",<br>password: "string"<br>}
+</td>
+<td>
+{<br> message: "string",<br>grabYourToken: "string"<br>}
 </td>
 </tr>
 
@@ -55,17 +59,28 @@ Below are the features of Fast-Food-Fast Application at this point
 <td>
 {<br> email: "string",<br>password: "string"<br>}
 </td>
+<td>
+{<br> message: "string",<br>grabYourToken: "string"<br>}
+</td>
 </tr>
 
-<tr><td>POST</td> <td>api/v1/orders</td>  <td>Place order</td> <td></td></tr>
+<tr>
+<td>POST</td> <td>api/v1/menu</td>  <td>Create new menu</td>
+<td>
+{<br> menu: "string",<br>description: "string"<br>,<br>category: "string"<br>,<br>quantity: "string"<br>,<br>price: "string"<br>}
+</td>
+<td>{<br>message: "string"<br>menu: {<br>object<br>}<br>}</td>
+</tr>
 
-<tr><td>GET</td> <td>api/v1/orders</td>  <td>List of all orders</td> <td></td></tr>
+<tr><td>POST</td> <td>api/v1/orders</td>  <td>Place order</td> <td></td> <td></td></tr>
 
-<tr><td>GET</td> <td>api/v1/orders/:orderId</td>  <td>Get a specific order</td> <td></td></tr>
+<tr><td>GET</td> <td>api/v1/orders</td>  <td>List of all orders</td> <td></td> <td></td></tr>
 
-<tr><td>PUT</td> <td>api/v1/orders/:orderId</td> <td>Update an order status</td> <td></td></tr>
+<tr><td>GET</td> <td>api/v1/orders/:orderId</td>  <td>Get a specific order</td> <td></td> <td></td></tr>
 
-<tr><td>DELETE</td> <td>api/v1/orders/:orderId</td> <td>Delete an order</td> <td></td></tr>
+<tr><td>PUT</td> <td>api/v1/orders/:orderId</td> <td>Update an order status</td> <td></td> <td></td></tr>
+
+<tr><td>DELETE</td> <td>api/v1/orders/:orderId</td> <td>Delete an order</td> <td></td> <td></td></tr>
 
 </table>
 
@@ -95,6 +110,11 @@ ES6: See [here](https://en.wikipedia.org/wiki/ECMAScript) for details.
 
 NodeJS: An open-source, cross-platform JavaScript run-time environment which allows you enjoy the features of Javascript off the web browsers and implement server-side web development. Visit [here](https://nodejs.org/en/) for details.
 
-ExressJS: This is the web application framework for Node.js Visit [here](https://expressjs.com) for details
+ExressJS: This is the web application framework for Node.js Visit [here](https://expressjs.com) for details.
+
+Postgresql Database: PostgreSQL is a powerful, open source object-relational database system that uses and extends the SQL language combined with many features that safely store and scale the most complicated data workloads. Visit [here](https://www.postgresql.org/docs) for details.
 
 Airbnb JavaScript style guide was adopted as a coding convention, see [here](https://github.com/airbnb/javascript) for details.
+
+
+**_This project is under development phase. STAY TUNED_**
