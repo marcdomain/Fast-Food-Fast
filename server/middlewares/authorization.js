@@ -30,8 +30,22 @@ const verifyToken = (request, response, next) => {
         });
     }
     request.authData = authData;
+    console.log('AUTH DATA', authData);
     return next();
   });
 };
 
-export { createToken, verifyToken };
+const authorizedAdmin = (request, response, next) => {
+  const userInfo = request.authData.payload;
+  console.log('VALIDATE TYPE OF USER', userInfo.usertype);
+  if (userInfo.usertype !== 'admin') {
+    return response.status(401)
+      .json({
+        status: 'Fail',
+        message: 'Hey! You need admin privilege to access this endpoint.'
+      });
+  }
+  next();
+};
+
+export { createToken, verifyToken, authorizedAdmin };
