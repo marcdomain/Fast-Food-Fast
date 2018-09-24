@@ -14,7 +14,9 @@ const createOrder = 'insert into orders (userid, menuid, quantity, total, locati
 
 const queryMenuTableByMenuId = 'select * from menus where id = $1';
 
+const updateRemainingMenuQuantity = 'update menus set quantity = $1';
+
 export {
   createUser, queryUsersByEmail, queryUsersByPhone, createMenu, queryMenuTableByMenu,
-  queryAvailableMenu, createOrder, queryMenuTableByMenuId
+  queryAvailableMenu, createOrder, queryMenuTableByMenuId, updateRemainingMenuQuantity
 };

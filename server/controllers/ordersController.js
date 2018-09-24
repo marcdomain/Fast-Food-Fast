@@ -2,51 +2,39 @@ import orders from '../in-memoryData/orders';
 import pool from '../db/connection';
 import { createOrder } from '../db/sqlQueries';
 
+/**
+  * @description class representing Orders controller action
+  *
+  * @class OrderHandler
+  */
+
 class OrderHandler {
+  /**
+  * @description - This method is responsible for creating new order
+  *
+  * @static
+  * @param {object} request - Request sent to the router
+  * @param {object} response - Response sent from the controller
+  *
+  * @returns {object} - status and object representing response message
+  *
+  * @memberof OrderHandler
+  */
+
   static placeOrder(request, response) {
     const { menuId, quantity, location } = request.body;
     const userId = request.authData.payload.id;
-    console.log('USER ID', userId);
     const variables = [userId, menuId, quantity, location || request.authData.payload.address];
     pool.query(createOrder, variables)
-      .then((result) => {
-        return response.status(201)
-          .json({
-            message: 'Order placed successfully',
-            result
-          });
-      })
-      .catch((error) => {
-        return response.status(500)
-          .json({
-            status: 'Fail',
-            message: error.message
-          });
-      });
-    // const {
-    //   email, phone, item, price, quantity
-    // } = request.body;
-    // const id = orders[orders.length - 1].id + 1;
-    // const total = quantity * price;
-    // const status = 'pending';
-
-    // const newOrder = {
-    //   id,
-    //   email,
-    //   phone,
-    //   item,
-    //   price,
-    //   quantity,
-    //   total,
-    //   status
-    // };
-
-    // orders.push(newOrder);
-    // return response.status(201)
-    //   .json({
-    //     message: 'Thanks! order has been placed successfully',
-    //     newOrder,
-    //   });
+      .then(() => response.status(201)
+        .json({
+          message: 'Order placed successfully',
+        }))
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
   }
 
   static getAllOrders(request, response) {

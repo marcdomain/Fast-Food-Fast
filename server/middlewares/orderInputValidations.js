@@ -1,8 +1,27 @@
 import orders from '../in-memoryData/orders';
 import pool from '../db/connection';
-import { queryMenuTableByMenuId } from '../db/sqlQueries';
+import { queryMenuTableByMenuId, updateRemainingMenuQuantity } from '../db/sqlQueries';
+
+/**
+  * @description class representing Validation for Orders
+  *
+  * @class OrderValidators
+  */
 
 class OrderValidators {
+  /**
+  * @description - This method is responsible for validating inputs
+  *
+  * @static
+  * @param {object} request - Request sent to the middleware
+  * @param {object} response - Response sent from the middleware
+  * @param {object} next - callback function to transfer to the next method
+  *
+  * @returns {object} - status and object representing fail message
+  *
+  * @memberof OrderValidators
+  */
+
   static placeOrderValidator(request, response, next) {
     let { menuId, quantity, location } = request.body;
     location = location.trim().replace(/\s\s+/g, ' ');
@@ -23,9 +42,22 @@ class OrderValidators {
           });
       }
     }
+    if (menuId === undefined) {
+      return response.status(400)
+        .json({
+          status: 'Fail',
+          message: 'menuId is undefined. It should be a positive integer greater than zero'
+        });
+    }
     menuId = menuId.trim();
-    const validInteger = /^[1-9]+$/;
-    if (!validInteger.test(menuId)) {
+    if (menuId === '') {
+      return response.status(400)
+        .json({
+          status: 'Fail',
+          message: 'menuId is empty. It should be a positive integer greater than zero'
+        });
+    }
+    if (!Number(menuId) || menuId <= 0) {
       return response.status(400)
         .json({
           status: 'Fail',
@@ -34,7 +66,6 @@ class OrderValidators {
     }
     pool.query(queryMenuTableByMenuId, [menuId])
       .then((result) => {
-        console.log('MENU ID RESULT', result);
         if (result.rowCount === 0) {
           return response.status(404)
             .json({
@@ -42,8 +73,22 @@ class OrderValidators {
               message: 'Sorry, this menu does not exist'
             });
         }
+        if (quantity === undefined) {
+          return response.status(400)
+            .json({
+              status: 'Fail',
+              message: 'Quantity is unefined. It should be a positive integer greater than zero'
+            });
+        }
         quantity = quantity.trim();
-        if (!validInteger.test(quantity)) {
+        if (quantity === '') {
+          return response.status(400)
+            .json({
+              status: 'Fail',
+              message: 'Quantity is empty. It should be a positive integer greater than zero'
+            });
+        }
+        if (!Number(quantity) || quantity <= 0) {
           return response.status(400)
             .json({
               status: 'Fail',
@@ -57,10 +102,14 @@ class OrderValidators {
               message: `Sorry, the maximum quantity you can order at this time is ${result.rows[0].quantity}`
             });
         }
-        request.body.location = location;
-        request.body.menuId = menuId;
-        request.body.quantity = quantity;
-        next();
+        const newQuantity = result.rows[0].quantity - quantity;
+        pool.query(updateRemainingMenuQuantity, [newQuantity])
+          .then(() => {
+            request.body.location = location;
+            request.body.menuId = menuId;
+            request.body.quantity = quantity;
+            next();
+          });
       })
       .catch(error => response.status(500)
         .json({
