@@ -14,8 +14,7 @@ import { verifyToken } from '../middlewares/authorization';
 
 const orderRouter = express.Router();
 
-// orderRouter.post('/orders', verifyToken, placeOrderValidator, placeOrder);
-orderRouter.post('/orders', verifyToken, placeOrder);
+orderRouter.post('/orders', verifyToken, placeOrderValidator, placeOrder);
 orderRouter.get('/orders', getAllOrders);
 orderRouter.get('/orders/:orderId', fetchSpecificOrderValidator, fetchSpecificOrder);
 orderRouter.put('/orders/:orderId', fetchSpecificOrderValidator, updateOrder);

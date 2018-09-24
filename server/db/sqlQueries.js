@@ -12,7 +12,9 @@ const queryAvailableMenu = 'select * from menus where quantity > 0';
 
 const createOrder = 'insert into orders (userid, menuid, quantity, total, location) values ($1, $2, $3, (select price from menus where id = $2) * $3, $4) returning *';
 
+const queryMenuTableByMenuId = 'select * from menus where id = $1';
+
 export {
   createUser, queryUsersByEmail, queryUsersByPhone, createMenu, queryMenuTableByMenu,
-  queryAvailableMenu, createOrder
+  queryAvailableMenu, createOrder, queryMenuTableByMenuId
 };
