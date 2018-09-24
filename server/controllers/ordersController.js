@@ -1,31 +1,52 @@
 import orders from '../in-memoryData/orders';
+import pool from '../db/connection';
+import { createOrder } from '../db/sqlQueries';
 
 class OrderHandler {
   static placeOrder(request, response) {
-    const {
-      email, phone, item, price, quantity
-    } = request.body;
-    const id = orders[orders.length - 1].id + 1;
-    const total = quantity * price;
-    const status = 'pending';
-
-    const newOrder = {
-      id,
-      email,
-      phone,
-      item,
-      price,
-      quantity,
-      total,
-      status
-    };
-
-    orders.push(newOrder);
-    return response.status(201)
-      .json({
-        message: 'Thanks! order has been placed successfully',
-        newOrder,
+    const { menuId, quantity, location } = request.body;
+    const userId = request.authData.payload.id;
+    console.log('USER ID', userId);
+    const variables = [userId, menuId, quantity, location || request.authData.payload.address];
+    pool.query(createOrder, variables)
+      .then((result) => {
+        return response.status(201)
+          .json({
+            message: 'Order placed successfully',
+            result
+          });
+      })
+      .catch((error) => {
+        return response.status(500)
+          .json({
+            status: 'Fail',
+            message: error.message
+          });
       });
+    // const {
+    //   email, phone, item, price, quantity
+    // } = request.body;
+    // const id = orders[orders.length - 1].id + 1;
+    // const total = quantity * price;
+    // const status = 'pending';
+
+    // const newOrder = {
+    //   id,
+    //   email,
+    //   phone,
+    //   item,
+    //   price,
+    //   quantity,
+    //   total,
+    //   status
+    // };
+
+    // orders.push(newOrder);
+    // return response.status(201)
+    //   .json({
+    //     message: 'Thanks! order has been placed successfully',
+    //     newOrder,
+    //   });
   }
 
   static getAllOrders(request, response) {

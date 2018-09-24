@@ -9,7 +9,7 @@ const createOrdersTable = `DROP TABLE IF EXISTS orders CASCADE;
     FOREIGN KEY (menuid) references menus (id) on delete cascade,
     quantity INTEGER NOT NULL,
     total INTEGER NOT NULL,
-    location CHARACTER VARYING(50) NOT NULL,
+    location CHARACTER VARYING(100) NOT NULL,
     created TIMESTAMP NOT NULL DEFAULT (NOW()),
     status CHARACTER VARYING(10) NOT NULL DEFAULT ('new')
 )`;
