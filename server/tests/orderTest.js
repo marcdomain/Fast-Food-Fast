@@ -2,18 +2,15 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
 import {
-  successOrder, undefinedEmail, emptyEmail, invalidEmailFormat, invalidEmailLength, undefinedPhone,
-  emptyPhone, invalidPhoneFormat, invalidPhoneLength,
-  undefinedItem, emptyItem, invalidItemLength, invalidItemCharacter, undefinedPrice,
-  emptyPrice, invalidPriceLength, invalidPriceCharacter, undefinedQuantity,
-  emptyQuantity, invalidQuantityLength, invalidQuantityCharacter,
-  acceptOrder, declineOrder, completeOrder, undefinedStatus
+  successfulOrder, invalidLocationLength, invalidLocationCharacter, undefinedMenuId,
+  emptyMenuId, invalidMenuId, overMillionMenuId, nonExistingMenuId, undefinedQuantity,
+  emptyQuantity, invalidQuantity, excessQuantity
 } from './mockData/orderMock';
-import orders from '../in-memoryData/orders';
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
+let token;
 
 describe('Test Homepage API Endpoint', () => {
   it('Should return status code 200 for success', (done) => {
@@ -39,313 +36,153 @@ describe('Test Invalid URL', () => {
   });
 });
 
+describe('Create Token For non-admin user', () => {
+  it('should return token for successful login', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'marcus2cu@yahoo.com',
+        password: 'marcpass'
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        token = response.body.grabYourToken;
+        console.log('USER TEST TOKEN', token);
+        done();
+      });
+  });
+});
+
 describe('Test for POST order', () => {
   it('Should return 201 for success', (done) => {
-    const orderLengthUpdate = orders.length + 1;
     chai.request(app)
       .post('/api/v1/orders')
-      .send(successOrder)
+      .set('authorization', token)
+      .send(successfulOrder)
       .end((error, response) => {
         expect(response).to.have.status(201);
-        expect(orders).to.have.length(orderLengthUpdate);
-        expect(response.body.message).to.equal('Thanks! order has been placed successfully');
+        expect(response.body.message).to.equal('Order placed successfully');
         done();
       });
   });
-  it('Should return 400 for undefined email', (done) => {
+  it('Should return 400 for invalid location length', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .send(undefinedEmail)
+      .set('authorization', token)
+      .send(invalidLocationLength)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Email field is undefined');
+        expect(response.body.message).to.equal('Invalid location length. Please input alphanumeric characters of length 5 to 100');
         done();
       });
   });
-  it('Should return 400 for undefined email', (done) => {
+  it('Should return 400 for invalid location character', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .send(emptyEmail)
+      .set('authorization', token)
+      .send(invalidLocationCharacter)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Email field cannot be empty');
+        expect(response.body.message).to.equal('Invalid location character. Length should be 5 to 100. Only alphanumeric characters, whitespace, comma, and hypen are accepted');
         done();
       });
   });
-  it('Should return 400 for invalid email length', (done) => {
+  it('Should return 400 for undefined menuId', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .send(invalidEmailLength)
+      .set('authorization', token)
+      .send(undefinedMenuId)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Email should be 8 to 50 characters long');
+        expect(response.body.message).to.equal('menuId is undefined. It should be a positive integer greater than zero');
         done();
       });
   });
-  it('Should return 400 for invalid email Format', (done) => {
+  it('Should return 400 for empty menuId', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .send(invalidEmailFormat)
+      .set('authorization', token)
+      .send(emptyMenuId)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Your email format is invalid');
+        expect(response.body.message).to.equal('menuId is empty. It should be a positive integer greater than zero');
         done();
       });
   });
-  it('Should return 400 for Undefined phone', (done) => {
+  it('Should return 400 for invalid menuId', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .send(undefinedPhone)
+      .set('authorization', token)
+      .send(invalidMenuId)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Phone field is undefined');
+        expect(response.body.message).to.equal('Invalid menuId detected. It should be a positive integer greater than zero');
         done();
       });
   });
-  it('Should return 400 for empty phone', (done) => {
+  it('Should return 400 for over-million menuId', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .send(emptyPhone)
+      .set('authorization', token)
+      .send(overMillionMenuId)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Phone field cannot be empty');
+        expect(response.body.message).to.equal('Invalid menuId detected. It should be a positive integer greater than zero and less than a million');
         done();
       });
   });
-  it('Should return 400 for invalid phone format', (done) => {
+  it('Should return 400 for non-existing menuId', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .send(invalidPhoneFormat)
+      .set('authorization', token)
+      .send(nonExistingMenuId)
       .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Phone should be number characters');
-        done();
-      });
-  });
-  it('Should return 400 for invalid phone length', (done) => {
-    chai.request(app)
-      .post('/api/v1/orders')
-      .send(invalidPhoneLength)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Phone should be 8 to 13 characters long');
-        done();
-      });
-  });
-  it('Should return 400 for Undefined Item', (done) => {
-    chai.request(app)
-      .post('/api/v1/orders')
-      .send(undefinedItem)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Item field is undefined');
-        done();
-      });
-  });
-  it('Should return 400 for empty Item', (done) => {
-    chai.request(app)
-      .post('/api/v1/orders')
-      .send(emptyItem)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Item field cannot be empty');
-        done();
-      });
-  });
-  it('Should return 400 for invalid Item length', (done) => {
-    chai.request(app)
-      .post('/api/v1/orders')
-      .send(invalidItemLength)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Item should be 4 to 30 characters long');
-        done();
-      });
-  });
-  it('Should return 400 for invalid item caharacter', (done) => {
-    chai.request(app)
-      .post('/api/v1/orders')
-      .send(invalidItemCharacter)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Item should be alphabets');
-        done();
-      });
-  });
-  it('Should return 400 for undefined price', (done) => {
-    chai.request(app)
-      .post('/api/v1/orders')
-      .send(undefinedPrice)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Price field is undefined');
-        done();
-      });
-  });
-  it('Should return 400 for empty price', (done) => {
-    chai.request(app)
-      .post('/api/v1/orders')
-      .send(emptyPrice)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Price field cannot be empty');
-        done();
-      });
-  });
-  it('Should return 400 for invalid price length', (done) => {
-    chai.request(app)
-      .post('/api/v1/orders')
-      .send(invalidPriceLength)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Price should be 3 to 5 characters long');
-        done();
-      });
-  });
-  it('Should return 400 for invalid price character', (done) => {
-    chai.request(app)
-      .post('/api/v1/orders')
-      .send(invalidPriceCharacter)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Price should be number characters');
+        expect(response).to.have.status(404);
+        expect(response.body.message).to.equal('Sorry, this menu does not exist');
         done();
       });
   });
   it('Should return 400 for undefined quantity', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
+      .set('authorization', token)
       .send(undefinedQuantity)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('quantity field is undefined');
+        expect(response.body.message).to.equal('Quantity is undefined. It should be a positive integer greater than zero');
         done();
       });
   });
   it('Should return 400 for empty quantity', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
+      .set('authorization', token)
       .send(emptyQuantity)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('quantity field cannot be empty');
+        expect(response.body.message).to.equal('Quantity is empty. It should be a positive integer greater than zero');
         done();
       });
   });
-  it('Should return 400 for empty quantity', (done) => {
+  it('Should return 400 for invalid quantity', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .send(invalidQuantityLength)
+      .set('authorization', token)
+      .send(invalidQuantity)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('quantity should be 1 to 2 characters long');
+        expect(response.body.message).to.equal('Invalid quantity detected. It should be a positive integer greater than zero');
         done();
       });
   });
-  it('Should return 400 for empty quantity', (done) => {
+  it('Should return 400 for excess quantity', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .send(invalidQuantityCharacter)
+      .set('authorization', token)
+      .send(excessQuantity)
       .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('quantity should be number characters');
-        done();
-      });
-  });
-});
-
-describe('Test for GET ALL ORDERS', () => {
-  it('should return status code 200 for success', (done) => {
-    chai.request(app)
-      .get('/api/v1/orders')
-      .end((error, response) => {
-        expect(response).to.have.status(200);
-        expect(response.body.message).to.equal('List of all orders');
-        done();
-      });
-  });
-});
-
-describe('Test for FETCH SPECIFIC ORDER', () => {
-  it('should return status code 200 for success', (done) => {
-    chai.request(app)
-      .get('/api/v1/orders/1')
-      .end((error, response) => {
-        expect(response).to.have.status(200);
-        expect(response.body.message).to.equal('Order fetched successfully');
-        done();
-      });
-  });
-  it('should return status code 400 for invalid URL', (done) => {
-    chai.request(app)
-      .get('/api/v1/orders/abcd')
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Oooops! Invalid URL');
-        done();
-      });
-  });
-  it('return 404 for orderId number that does not exist', (done) => {
-    chai.request(app)
-      .get('/api/v1/orders/50')
-      .end((error, response) => {
-        expect(response).to.have.status(404);
-        expect(response.body.message).to.equal('This order does not exist');
-        done();
-      });
-  });
-});
-
-describe('Test for UPDATE ORDER STATUS', () => {
-  it('message should indicate accepted', (done) => {
-    chai.request(app)
-      .put('/api/v1/orders/1')
-      .send(acceptOrder)
-      .end((error, response) => {
-        expect(response).to.have.status(200);
-        expect(response.body.message).to.equal('Order accepted');
-        done();
-      });
-  });
-  it('message should indicate declined', (done) => {
-    chai.request(app)
-      .put('/api/v1/orders/1')
-      .send(declineOrder)
-      .end((error, response) => {
-        expect(response).to.have.status(200);
-        expect(response.body.message).to.equal('Order declined');
-        done();
-      });
-  });
-  it('message should indicate completed', (done) => {
-    chai.request(app)
-      .put('/api/v1/orders/1')
-      .send(completeOrder)
-      .end((error, response) => {
-        expect(response).to.have.status(200);
-        expect(response.body.message).to.equal('Order completed');
-        done();
-      });
-  });
-  it('Should return 400 for undefined status', (done) => {
-    chai.request(app)
-      .put('/api/v1/orders/1')
-      .send(undefinedStatus)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Status cannot be undefined');
-        done();
-      });
-  });
-});
-
-describe('DELETE order API endpoint', () => {
-  it('should return 200 for success', (done) => {
-    chai.request(app)
-      .delete('/api/v1/orders/1')
-      .end((error, response) => {
-        expect(response).to.have.status(200);
-        expect(response.body.message).to.equal('Order deleted successfully');
+        expect(response).to.have.status(406);
+        expect(response.body).to.be.a('object');
         done();
       });
   });

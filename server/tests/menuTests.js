@@ -26,7 +26,6 @@ describe('Create Token For non-admin user', () => {
       .end((error, response) => {
         expect(response).to.have.status(200);
         token = response.body.grabYourToken;
-        console.log('USER TEST TOKEN', token);
         done();
       });
   });
@@ -57,7 +56,6 @@ describe('Create Token For Admin', () => {
       .end((error, response) => {
         expect(response).to.have.status(200);
         token = response.body.grabYourToken;
-        console.log('ADMIN TEST TOKEN', token);
         done();
       });
   });

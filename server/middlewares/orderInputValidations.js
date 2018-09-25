@@ -1,4 +1,3 @@
-import orders from '../in-memoryData/orders';
 import pool from '../db/connection';
 import { queryMenuTableByMenuId, updateRemainingMenuQuantity } from '../db/sqlQueries';
 
@@ -24,22 +23,24 @@ class OrderValidators {
 
   static placeOrderValidator(request, response, next) {
     let { menuId, quantity, location } = request.body;
-    location = location.trim().replace(/\s\s+/g, ' ');
-    if (location !== undefined && location !== '') {
-      if (location.length < 5 || location.length > 100) {
-        return response.status(400)
-          .json({
-            status: 'Fail',
-            message: 'Invalid location length. Please input alphanumeric characters of length 5 to 100'
-          });
-      }
-      const validLocationCharacters = /^[a-z0-9 ,-]+$/i;
-      if (!validLocationCharacters.test(location)) {
-        return response.status(400)
-          .json({
-            status: 'Fail',
-            message: 'Invalid location character. Length should be 5 to 100. Only alphanumeric characters, whitespace, comma, and hypen are accepted'
-          });
+    if (location !== undefined) {
+      location = location.trim().replace(/\s\s+/g, ' ');
+      if (location !== '') {
+        if (location.length < 5 || location.length > 100) {
+          return response.status(400)
+            .json({
+              status: 'Fail',
+              message: 'Invalid location length. Please input alphanumeric characters of length 5 to 100'
+            });
+        }
+        const validLocationCharacters = /^[a-z0-9 ,-.]+$/i;
+        if (!validLocationCharacters.test(location)) {
+          return response.status(400)
+            .json({
+              status: 'Fail',
+              message: 'Invalid location character. Length should be 5 to 100. Only alphanumeric characters, whitespace, comma, and hypen are accepted'
+            });
+        }
       }
     }
     if (menuId === undefined) {
@@ -64,6 +65,13 @@ class OrderValidators {
           message: 'Invalid menuId detected. It should be a positive integer greater than zero'
         });
     }
+    if (menuId.length > 9) {
+      return response.status(400)
+        .json({
+          status: 'Fail',
+          message: 'Invalid menuId detected. It should be a positive integer greater than zero and less than a million'
+        });
+    }
     pool.query(queryMenuTableByMenuId, [menuId])
       .then((result) => {
         if (result.rowCount === 0) {
@@ -77,7 +85,7 @@ class OrderValidators {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Quantity is unefined. It should be a positive integer greater than zero'
+              message: 'Quantity is undefined. It should be a positive integer greater than zero'
             });
         }
         quantity = quantity.trim();
@@ -92,7 +100,7 @@ class OrderValidators {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Invalid quantityId detected. It should be a positive integer greater than zero'
+              message: 'Invalid quantity detected. It should be a positive integer greater than zero'
             });
         }
         if (result.rows[0].quantity < quantity) {
@@ -117,35 +125,8 @@ class OrderValidators {
           message: error.message
         }));
   }
-
-  static fetchSpecificOrderValidator(request, response, next) {
-    const { orderId } = request.params;
-    if (!Number(orderId)) {
-      return response.status(400)
-        .json({
-          status: 'Fail',
-          message: 'Oooops! Invalid URL'
-        });
-    }
-    const fetchedOrder = orders.find(order => order.id === Number(orderId));
-    if (!fetchedOrder) {
-      return response.status(404)
-        .json({
-          status: 'Fail',
-          message: 'This order does not exist'
-        });
-    }
-    request.body.fetchedOrder = fetchedOrder;
-    next();
-  }
 }
 
-const {
-  placeOrderValidator,
-  fetchSpecificOrderValidator
-} = OrderValidators;
+const { placeOrderValidator } = OrderValidators;
 
-export {
-  placeOrderValidator,
-  fetchSpecificOrderValidator
-};
+export default placeOrderValidator;

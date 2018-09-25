@@ -1,277 +1,74 @@
-const successOrder = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '2500',
-  quantity: '3',
-  total: '7500',
-  status: 'pending'
+const successfulOrder = {
+  menuId: '1',
+  quantity: '3'
 };
 
-const undefinedEmail = {
-  id: 1,
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '2500',
+const invalidLocationLength = {
+  menuId: '1',
   quantity: '3',
-  total: '7500',
-  status: 'pending'
+  location: '235'
 };
 
-const emptyEmail = {
-  id: 1,
-  email: '',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '2500',
+const invalidLocationCharacter = {
+  menuId: '1',
   quantity: '3',
-  total: '7500',
-  status: 'pending'
+  location: '235 @ Ikorodu #'
 };
 
-const invalidEmailFormat = {
-  id: 1,
-  email: 'am##@mcd.cpm',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '2500',
+const undefinedMenuId = {
   quantity: '3',
-  total: '7500',
-  status: 'pending'
+  location: '235, Ikorodu Road Lagos'
 };
 
-const invalidEmailLength = {
-  id: 1,
-  email: 'a@b.com',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '2500',
+const emptyMenuId = {
+  menuId: '',
   quantity: '3',
-  total: '7500',
-  status: 'pending'
+  location: '235, Ikorodu Road Lagos'
 };
 
-const undefinedPhone = {
-  id: 1,
-  item: 'rice and turkey',
-  email: 'marcus2cu@gmail.com',
-  price: '2500',
+const invalidMenuId = {
+  menuId: '1a',
   quantity: '3',
-  total: '7500',
-  status: 'pending'
+  location: '235, Ikorodu Road Lagos'
 };
 
-const emptyPhone = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '',
-  item: 'rice and turkey',
-  price: '2500',
+const overMillionMenuId = {
+  menuId: '80000000000000000',
   quantity: '3',
-  total: '7500',
-  status: 'pending'
+  location: '235, Ikorodu Road Lagos'
 };
 
-const invalidPhoneFormat = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: 'a8082300954',
-  item: 'rice and turkey',
-  price: '2500',
+const nonExistingMenuId = {
+  menuId: '8000',
   quantity: '3',
-  total: '7500',
-  status: 'pending'
-};
-
-const invalidPhoneLength = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '300954',
-  item: 'rice and turkey',
-  price: '2500',
-  quantity: '3',
-  total: '7500',
-  status: 'pending'
-};
-
-const undefinedItem = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  price: '2500',
-  quantity: '3',
-  total: '7500',
-  status: 'pending'
-};
-
-const emptyItem = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: '',
-  price: '2500',
-  quantity: '3',
-  total: '7500',
-  status: 'pending'
-};
-
-const invalidItemLength = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'ri',
-  price: '2500',
-  quantity: '3',
-  total: '7500',
-  status: 'pending'
-};
-
-const invalidItemCharacter = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'ric#@',
-  price: '2500',
-  quantity: '3',
-  total: '7500',
-  status: 'pending'
-};
-
-const undefinedPrice = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  quantity: '3',
-  total: '7500',
-  status: 'pending'
-};
-
-const emptyPrice = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '',
-  quantity: '3',
-  total: '7500',
-  status: 'pending'
-};
-
-const invalidPriceLength = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '5020000',
-  quantity: '3',
-  total: '7500',
-  status: 'pending'
-};
-
-const invalidPriceCharacter = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '12@',
-  quantity: '3',
-  total: '7500',
-  status: 'pending'
+  location: '235, Ikorodu Road Lagos'
 };
 
 const undefinedQuantity = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '500',
-  total: '7500',
-  status: 'pending'
+  menuId: '1',
+  location: '235, Ikorodu Road Lagos'
 };
 
 const emptyQuantity = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '500',
+  menuId: '1',
   quantity: '',
-  total: '7500',
-  status: 'pending'
+  location: '235, Ikorodu Road Lagos'
 };
 
-const invalidQuantityLength = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '500',
-  quantity: '3000',
-  total: '7500',
-  status: 'pending'
+const invalidQuantity = {
+  menuId: '1',
+  quantity: '-2',
+  location: '235, Ikorodu Road Lagos'
 };
 
-const invalidQuantityCharacter = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '500',
-  quantity: '3@',
-  total: '7500',
-  status: 'pending'
-};
-
-const acceptOrder = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '500',
-  quantity: '3',
-  total: '7500',
-  status: 'accepted'
-};
-
-const declineOrder = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '500',
-  quantity: '3',
-  total: '7500',
-  status: 'declined'
-};
-
-const completeOrder = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '500',
-  quantity: '3',
-  total: '7500',
-  status: 'completed'
-};
-
-const undefinedStatus = {
-  id: 1,
-  email: 'marcus2cu@gmail.com',
-  phone: '08082300954',
-  item: 'rice and turkey',
-  price: '500',
-  quantity: '3',
-  total: '7500'
+const excessQuantity = {
+  menuId: '1',
+  quantity: '20000000000',
+  location: '235, Ikorodu Road Lagos'
 };
 
 export {
-  successOrder, undefinedEmail, emptyEmail, invalidEmailFormat, invalidEmailLength, undefinedPhone,
-  emptyPhone, invalidPhoneFormat, invalidPhoneLength,
-  undefinedItem, emptyItem, invalidItemLength, invalidItemCharacter, undefinedPrice,
-  emptyPrice, invalidPriceLength, invalidPriceCharacter, undefinedQuantity,
-  emptyQuantity, invalidQuantityLength, invalidQuantityCharacter, acceptOrder, declineOrder,
-  completeOrder, undefinedStatus
+  successfulOrder, invalidLocationLength, invalidLocationCharacter, undefinedMenuId,
+  emptyMenuId, invalidMenuId, overMillionMenuId, nonExistingMenuId, undefinedQuantity,
+  emptyQuantity, invalidQuantity, excessQuantity
 };

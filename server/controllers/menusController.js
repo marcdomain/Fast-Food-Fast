@@ -20,20 +20,23 @@ class MenusHandler {
   */
 
   static postMenu(request, response) {
+    const {
+      menu, description, category, quantity, price
+    } = request.body;
     const variables = [
-      request.body.menu,
-      request.body.description,
-      request.body.category,
-      request.body.quantity,
-      request.body.price
+      menu,
+      description,
+      category,
+      quantity,
+      price
     ];
     pool.query(createMenu, variables)
       .then((result) => {
-        const menu = result.rows[0];
+        const newMenu = result.rows[0];
         return response.status(201)
           .json({
             message: 'Menu created successfully',
-            menu
+            newMenu
           });
       })
       .catch(error => response.status(500)
