@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 let connect;
 
-if (process.env.NODE_ENV === 'test') {
+if (process.env.NODE_ENV === 'test:dev') {
   connect = {
     connectionString: process.env.TESTDB_URL
   };
