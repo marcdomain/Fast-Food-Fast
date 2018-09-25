@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { orderRoutes, defaultRoutes, userRoutes, menuRoutes } from './server/routes';
+import {
+  orderRoutes, defaultRoutes, userRoutes, menuRoutes
+} from './server/routes';
 
 const app = express();
 

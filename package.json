@@ -8,7 +8,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon --exec babel-node -- app.js",
-    "test": "babel-node -- ./server/db/createTables && nyc --reporter=html --reporter=text mocha server/tests/*.js --exit --compilers js:babel-core/register",
+    "test": "cross-env NODE_ENV=test babel-node -- ./server/db/createTables && cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha server/tests/*.js --exit --compilers js:babel-core/register",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "createTables": "babel-node -- ./server/db/createTables"
@@ -35,6 +35,7 @@
     "chai": "^4.1.2",
     "chai-http": "^4.2.0",
     "coveralls": "^3.0.2",
+    "cross-env": "^5.2.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
