@@ -94,9 +94,11 @@ Below are the features of Fast-Food-Fast Application at this point
 <td>{<br>message: "string"<br>foundOrder: {object}<br>}</td>
 </tr>
 
-<tr><td>PUT</td> <td>api/v1/orders/:orderId</td> <td>Update an order status</td> <td></td> <td></td></tr>
-
-<tr><td>DELETE</td> <td>api/v1/orders/:orderId</td> <td>Delete an order</td> <td></td> <td></td></tr>
+<tr>
+<td>PUT</td> <td>api/v1/orders/:orderId/process</td>  <td>Process specific order</td>
+<td>token: "string" or authorization header</td>
+<td>{<br>message: "string"<br>}</td>
+</tr>
 
 </table>
 

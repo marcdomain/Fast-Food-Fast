@@ -163,6 +163,18 @@ class OrderHandler {
         }));
   }
 
+  /**
+  * @description - This method is responsible for Updating order status to processing
+  *
+  * @static
+  * @param {object} request - Request sent to the router
+  * @param {object} response - Response sent from the controller
+  *
+  * @returns {object} - status and object representing response message
+  *
+  * @memberof OrderHandler
+  */
+
   static processOrder(request, response) {
     const { orderId } = request.params;
     pool.query(updateOrderStatus, ['Processing', orderId])

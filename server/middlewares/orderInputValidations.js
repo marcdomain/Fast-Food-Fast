@@ -179,6 +179,19 @@ class OrderValidators {
     next();
   }
 
+  /**
+  * @description - This method is responsible for validating orderId and status
+  *
+  * @static
+  * @param {object} request - Request sent to the middleware
+  * @param {object} response - Response sent from the middleware
+  * @param {object} next - callback function to transfer to the next method
+  *
+  * @returns {object} - status and object representing fail message
+  *
+  * @memberof OrderValidators
+  */
+
   static updateOrderValidator(request, response, next) {
     const { orderId } = request.params;
     pool.query(queryOrdersById, [orderId])

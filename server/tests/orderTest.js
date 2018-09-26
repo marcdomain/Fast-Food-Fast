@@ -299,3 +299,39 @@ describe('Test GET SPECIFIC ORDER by Admin', () => {
       });
   });
 });
+
+describe('Test UPDATE ORDER by Admin', () => {
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/1/process')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Order is currently processing');
+        done();
+      });
+  });
+  it('Should return 404 for non-existing orderId', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/100000/process')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Sorry, this order does not exists.');
+        done();
+      });
+  });
+  it('Should return 406 for already processing order', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/1/process')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Sorry, this order cannot be updated at this time');
+        done();
+      });
+  });
+});
