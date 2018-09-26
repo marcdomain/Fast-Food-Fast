@@ -55,6 +55,20 @@ class OrderHandler {
       return pool.query(selectUserOrderHistory, [userId])
         .then((result) => {
           const orderHistory = result.rows;
+          if (orderHistory.length === 0 && userInfo.usertype === 'admin') {
+            return response.status(200)
+              .json({
+                message: 'This user order history is empty at this time. Please check again later',
+                orderHistory: 'None'
+              });
+          }
+          if (orderHistory.length === 0 && userInfo.id === Number(userId)) {
+            return response.status(200)
+              .json({
+                message: 'Your order history is empty. Visit menu page and start placing your orders',
+                orderHistory: 'None'
+              });
+          }
           return response.status(200)
             .json({
               message: 'Order history successfully fetched',
@@ -90,6 +104,13 @@ class OrderHandler {
     pool.query(selectAllOrders)
       .then((result) => {
         const allOrders = result.rows;
+        if (allOrders.length === 0) {
+          return response.status(200)
+            .json({
+              message: 'No orders have been placed. Please check again later',
+              allOrders: 'Empty'
+            });
+        }
         return response.status(200)
           .json({
             message: 'List of all orders',

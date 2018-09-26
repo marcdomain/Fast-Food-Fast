@@ -61,6 +61,12 @@ class MenusHandler {
     pool.query(queryAvailableMenu)
       .then((result) => {
         const allMenu = result.rows;
+        if (allMenu.length === 0) {
+          return response.status(200)
+            .json({
+              message: 'Menu list is empty at this time. Please check again later'
+            });
+        }
         return response.status(200)
           .json({
             message: 'List of Available Menu',
