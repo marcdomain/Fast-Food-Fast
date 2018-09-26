@@ -1,7 +1,7 @@
 import express from 'express';
 import {
   placeOrder, getUserOrderHistory, getAllOrders, getSpecificOrder,
-  processOrder
+  processOrder, cancelOrder
 } from '../controllers/ordersController';
 import {
   placeOrderValidator, getOrderHistoryValidator, getSpecificOrderValidator,
@@ -16,5 +16,6 @@ orderRouter.get('/users/:userId/orders', verifyToken, getOrderHistoryValidator, 
 orderRouter.get('/orders', verifyToken, authorizedAdmin, getAllOrders);
 orderRouter.get('/orders/:orderId', verifyToken, authorizedAdmin, getSpecificOrderValidator, getSpecificOrder);
 orderRouter.put('/orders/:orderId/process', verifyToken, authorizedAdmin, getSpecificOrderValidator, updateOrderValidator, processOrder);
+orderRouter.put('/orders/:orderId/cancel', verifyToken, authorizedAdmin, getSpecificOrderValidator, updateOrderValidator, cancelOrder);
 
 export default orderRouter;

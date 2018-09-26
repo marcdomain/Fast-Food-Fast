@@ -334,4 +334,15 @@ describe('Test UPDATE ORDER by Admin', () => {
         done();
       });
   });
+  it('Should return 406 for already processing/Cancelled order', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/1/cancel')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Sorry, this order cannot be updated at this time');
+        done();
+      });
+  });
 });

@@ -188,14 +188,40 @@ class OrderHandler {
           message: error.message
         }));
   }
+
+  /**
+  * @description - This method is responsible for Updating order status to cancelled
+  *
+  * @static
+  * @param {object} request - Request sent to the router
+  * @param {object} response - Response sent from the controller
+  *
+  * @returns {object} - status and object representing response message
+  *
+  * @memberof OrderHandler
+  */
+
+  static cancelOrder(request, response) {
+    const { orderId } = request.params;
+    pool.query(updateOrderStatus, ['Cancelled', orderId])
+      .then(() => response.status(200)
+        .json({
+          message: 'Order is declined'
+        }))
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
+  }
 }
 
 const {
   placeOrder, getUserOrderHistory, getAllOrders, getSpecificOrder,
-  processOrder
+  processOrder, cancelOrder
 } = OrderHandler;
 
 export {
   placeOrder, getUserOrderHistory, getAllOrders, getSpecificOrder,
-  processOrder
+  processOrder, cancelOrder
 };
