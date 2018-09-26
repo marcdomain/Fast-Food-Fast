@@ -23,7 +23,7 @@ Below are the features of Fast-Food-Fast Application at this point
 - Admin can get a Specific order<br/>
 - Admin can process a specific order <br>
 - Admin can cancel a specific order <br>
-- Delete a specific order
+- Admin can complete a specific order
 <br/>
 
 ## API Endpoints
@@ -97,6 +97,12 @@ Below are the features of Fast-Food-Fast Application at this point
 
 <tr>
 <td>PUT</td> <td>api/v1/orders/:orderId/cancel</td>  <td>Cancel specific order</td>
+<td>token: "string" or authorization header</td>
+<td>{<br>message: "string"<br>}</td>
+</tr>
+
+<tr>
+<td>PUT</td> <td>api/v1/orders/:orderId/complete</td>  <td>Complete specific order</td>
 <td>token: "string" or authorization header</td>
 <td>{<br>message: "string"<br>}</td>
 </tr>
