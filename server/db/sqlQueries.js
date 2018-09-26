@@ -19,8 +19,11 @@ const updateRemainingMenuQuantity = 'update menus set quantity = $1 where id = $
 const selectUserOrderHistory = `select orders.id, orders.created, menus.menu, orders.quantity, orders.total, orders.location, users.email, orders.status
 from orders inner join menus on orders.menuid = menus.id left join users on orders.userid = users.id  where userid=$1`;
 
+const selectAllOrders = `select orders.id, orders.created, menus.menu, orders.quantity, orders.total, orders.location, users.email, orders.status
+from orders inner join menus on orders.menuid = menus.id left join users on orders.userid = users.id`;
+
 export {
   createUser, queryUsersByEmail, queryUsersByPhone, createMenu, queryMenuTableByMenu,
   queryAvailableMenu, createOrder, queryMenuTableByMenuId, updateRemainingMenuQuantity,
-  selectUserOrderHistory
+  selectUserOrderHistory, selectAllOrders
 };

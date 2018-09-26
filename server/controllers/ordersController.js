@@ -1,5 +1,5 @@
 import pool from '../db/connection';
-import { createOrder, selectUserOrderHistory } from '../db/sqlQueries';
+import { createOrder, selectUserOrderHistory, selectAllOrders } from '../db/sqlQueries';
 
 /**
   * @description class representing Orders controller action
@@ -73,8 +73,37 @@ class OrderHandler {
         message: 'Unauthorized access'
       });
   }
+
+  /**
+  * @description - This method is responsible for getting all orders on the app
+  *
+  * @static
+  * @param {object} request - Request sent to the router
+  * @param {object} response - Response sent from the controller
+  *
+  * @returns {object} - status and object representing response message
+  *
+  * @memberof OrderHandler
+  */
+
+  static getAllOrders(request, response) {
+    pool.query(selectAllOrders)
+      .then((result) => {
+        const allOrders = result.rows;
+        return response.status(200)
+          .json({
+            message: 'List of all orders',
+            allOrders
+          });
+      })
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
+  }
 }
 
-const { placeOrder, getUserOrderHistory } = OrderHandler;
+const { placeOrder, getUserOrderHistory, getAllOrders } = OrderHandler;
 
-export { placeOrder, getUserOrderHistory };
+export { placeOrder, getUserOrderHistory, getAllOrders };
