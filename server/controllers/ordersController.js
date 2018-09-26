@@ -1,5 +1,7 @@
 import pool from '../db/connection';
-import { createOrder, selectUserOrderHistory, selectAllOrders } from '../db/sqlQueries';
+import {
+  createOrder, selectUserOrderHistory, selectAllOrders, selectSpecificOrder
+} from '../db/sqlQueries';
 
 /**
   * @description class representing Orders controller action
@@ -123,8 +125,42 @@ class OrderHandler {
           message: error.message
         }));
   }
+
+  /**
+  * @description - This method is responsible for getting a specific order on the app
+  *
+  * @static
+  * @param {object} request - Request sent to the router
+  * @param {object} response - Response sent from the controller
+  *
+  * @returns {object} - status and object representing response message
+  *
+  * @memberof OrderHandler
+  */
+
+  static getSpecificOrder(request, response) {
+    const { orderId } = request.params;
+    pool.query(selectSpecificOrder, [orderId])
+      .then((result) => {
+        const foundOrder = result.rows[0];
+        return response.status(200)
+          .json({
+            message: 'Order fetched successfully',
+            foundOrder
+          });
+      })
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
+  }
 }
 
-const { placeOrder, getUserOrderHistory, getAllOrders } = OrderHandler;
+const {
+  placeOrder, getUserOrderHistory, getAllOrders, getSpecificOrder
+} = OrderHandler;
 
-export { placeOrder, getUserOrderHistory, getAllOrders };
+export {
+  placeOrder, getUserOrderHistory, getAllOrders, getSpecificOrder
+};

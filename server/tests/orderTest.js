@@ -263,3 +263,28 @@ describe('Test GET ALL ORDERS by Admin', () => {
       });
   });
 });
+
+describe('Test GET SPECIFIC ORDER by Admin', () => {
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .get('/api/v1/orders/1')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
+        expect(response.body).to.have.property('foundOrder');
+        done();
+      });
+  });
+  it('Should return 401 for invalid orderId format', (done) => {
+    chai.request(app)
+      .get('/api/v1/orders/a')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Invalid URL. orderId should be a positive integer greater than zero');
+        done();
+      });
+  });
+});
