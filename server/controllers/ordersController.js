@@ -1,6 +1,7 @@
 import pool from '../db/connection';
 import {
-  createOrder, selectUserOrderHistory, selectAllOrders, selectSpecificOrder
+  createOrder, selectUserOrderHistory, selectAllOrders, selectSpecificOrder,
+  updateOrderStatus,
 } from '../db/sqlQueries';
 
 /**
@@ -161,12 +162,28 @@ class OrderHandler {
           message: error.message
         }));
   }
+
+  static processOrder(request, response) {
+    const { orderId } = request.params;
+    pool.query(updateOrderStatus, ['Processing', orderId])
+      .then(() => response.status(200)
+        .json({
+          message: 'Order is currently processing'
+        }))
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
+  }
 }
 
 const {
-  placeOrder, getUserOrderHistory, getAllOrders, getSpecificOrder
+  placeOrder, getUserOrderHistory, getAllOrders, getSpecificOrder,
+  processOrder
 } = OrderHandler;
 
 export {
-  placeOrder, getUserOrderHistory, getAllOrders, getSpecificOrder
+  placeOrder, getUserOrderHistory, getAllOrders, getSpecificOrder,
+  processOrder
 };

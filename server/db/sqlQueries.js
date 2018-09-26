@@ -25,8 +25,13 @@ from orders inner join menus on orders.menuid = menus.id left join users on orde
 const selectSpecificOrder = `select orders.id, orders.created, menus.menu, orders.quantity, orders.total, orders.location, users.email, orders.status
 from orders inner join menus on orders.menuid = menus.id left join users on orders.userid = users.id where orders.id = $1`;
 
+const updateOrderStatus = 'update orders set status = $1 where id = $2';
+
+const queryOrdersById = 'select * from orders where id = $1';
+
 export {
   createUser, queryUsersByEmail, queryUsersByPhone, createMenu, queryMenuTableByMenu,
   queryAvailableMenu, createOrder, queryMenuTableByMenuId, updateRemainingMenuQuantity,
-  selectUserOrderHistory, selectAllOrders, selectSpecificOrder
+  selectUserOrderHistory, selectAllOrders, selectSpecificOrder, updateOrderStatus,
+  queryOrdersById
 };

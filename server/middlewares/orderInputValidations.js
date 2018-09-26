@@ -1,5 +1,8 @@
 import pool from '../db/connection';
-import { queryMenuTableByMenuId, updateRemainingMenuQuantity } from '../db/sqlQueries';
+import {
+  queryMenuTableByMenuId, updateRemainingMenuQuantity,
+  queryOrdersById
+} from '../db/sqlQueries';
 
 /**
   * @description class representing Validation for Orders
@@ -175,12 +178,42 @@ class OrderValidators {
     }
     next();
   }
+
+  static updateOrderValidator(request, response, next) {
+    const { orderId } = request.params;
+    pool.query(queryOrdersById, [orderId])
+      .then((data) => {
+        if (data.rowCount === 0) {
+          return response.status(404)
+            .json({
+              status: 'Fail',
+              message: 'Sorry, this order does not exists.'
+            });
+        }
+        if (data.rows[0].status === 'Processing' || data.rows[0].status === 'Completed'
+        || data.rows[0].status === 'Cancelled') {
+          return response.status(406)
+            .json({
+              status: 'Fail',
+              message: 'Sorry, this order cannot be updated at this time'
+            });
+        }
+        next();
+      })
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
+  }
 }
 
 const {
-  placeOrderValidator, getOrderHistoryValidator, getSpecificOrderValidator
+  placeOrderValidator, getOrderHistoryValidator, getSpecificOrderValidator,
+  updateOrderValidator
 } = OrderValidators;
 
 export {
-  placeOrderValidator, getOrderHistoryValidator, getSpecificOrderValidator
+  placeOrderValidator, getOrderHistoryValidator, getSpecificOrderValidator,
+  updateOrderValidator
 };
