@@ -11,6 +11,7 @@ const { expect } = chai;
 
 chai.use(chaiHttp);
 let token;
+let adminToken;
 
 describe('Test Homepage API Endpoint', () => {
   it('Should return status code 200 for success', (done) => {
@@ -36,7 +37,7 @@ describe('Test Invalid URL', () => {
   });
 });
 
-describe('Create Token For non-admin user', () => {
+describe('Create Token for testing Order Endpoints', () => {
   it('should return token for successful login', (done) => {
     chai.request(app)
       .post('/api/v1/auth/login')
@@ -48,6 +49,20 @@ describe('Create Token For non-admin user', () => {
         expect(response).to.have.status(200);
         token = response.body.grabYourToken;
         console.log('USER TEST TOKEN', token);
+        done();
+      });
+  });
+  it('should return token for successful login', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'admin@gmail.com',
+        password: 'adminuser'
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        adminToken = response.body.grabYourToken;
+        console.log('ADMIN TEST TOKEN', adminToken);
         done();
       });
   });
@@ -183,6 +198,53 @@ describe('Test for POST order', () => {
       .end((error, response) => {
         expect(response).to.have.status(406);
         expect(response.body).to.be.a('object');
+        done();
+      });
+  });
+});
+
+describe('Test GET User Order History Endpoint', () => {
+  it('Should return 200 for success when usertype = user', (done) => {
+    chai.request(app)
+      .get('/api/v1/users/2/orders')
+      .set('authorization', token)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
+        expect(response.body).to.have.property('orderHistory');
+        done();
+      });
+  });
+  it('Should return 200 for success when usertype = admin', (done) => {
+    chai.request(app)
+      .get('/api/v1/users/2/orders')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
+        expect(response.body).to.have.property('orderHistory');
+        done();
+      });
+  });
+  it('Should return 401 for unauthorized user', (done) => {
+    chai.request(app)
+      .get('/api/v1/users/1/orders')
+      .set('authorization', token)
+      .end((error, response) => {
+        expect(response).to.have.status(401);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Unauthorized access');
+        done();
+      });
+  });
+  it('Should return 401 for invalid userId format', (done) => {
+    chai.request(app)
+      .get('/api/v1/users/a/orders')
+      .set('authorization', token)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Invalid URL. userId should be a positive integer greater than zero');
         done();
       });
   });

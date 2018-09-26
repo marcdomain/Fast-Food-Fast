@@ -51,8 +51,6 @@ class OrderHandler {
   static getUserOrderHistory(request, response) {
     const { userId } = request.params;
     const userInfo = request.authData.payload;
-    console.log('USER INFO', userInfo);
-    console.log('USER ID PARAMS', userId);
     if (userInfo.usertype === 'admin' || userInfo.id === Number(userId)) {
       return pool.query(selectUserOrderHistory, [userId])
         .then((result) => {

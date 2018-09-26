@@ -74,6 +74,12 @@ Below are the features of Fast-Food-Fast Application at this point
 <td>{<br>message: "string"<br>}</td>
 </tr>
 
+<tr>
+<td>GET</td> <td>api/v1/users/:userId/orders</td>  <td>Get user order history</td>
+<td>userId</td>
+<td>{<br>message: "string"<br>orderHistory: {object}<br>}</td>
+</tr>
+
 <tr><td>GET</td> <td>api/v1/orders</td>  <td>List of all orders</td> <td></td> <td></td></tr>
 
 <tr><td>GET</td> <td>api/v1/orders/:orderId</td>  <td>Get a specific order</td> <td></td> <td></td></tr>
