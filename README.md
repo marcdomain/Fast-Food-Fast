@@ -21,13 +21,8 @@ Below are the features of Fast-Food-Fast Application at this point
 - Admin can also get order history of specific user <br>
 - Admin can get all orders in the app <br>
 - Admin can get a Specific order<br/>
-- Update a specific order status
-```
-  Required Inputs
-  {
-    status:
-  }
-```
+- Admin can process a specific order <br>
+- Admin can cancel a specific order <br>
 - Delete a specific order
 <br/>
 
@@ -96,6 +91,12 @@ Below are the features of Fast-Food-Fast Application at this point
 
 <tr>
 <td>PUT</td> <td>api/v1/orders/:orderId/process</td>  <td>Process specific order</td>
+<td>token: "string" or authorization header</td>
+<td>{<br>message: "string"<br>}</td>
+</tr>
+
+<tr>
+<td>PUT</td> <td>api/v1/orders/:orderId/cancel</td>  <td>Cancel specific order</td>
 <td>token: "string" or authorization header</td>
 <td>{<br>message: "string"<br>}</td>
 </tr>
