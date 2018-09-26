@@ -219,14 +219,54 @@ class OrderValidators {
           message: error.message
         }));
   }
+
+  /**
+  * @description - This method is responsible for validating orderId and status
+  *
+  * @static
+  * @param {object} request - Request sent to the middleware
+  * @param {object} response - Response sent from the middleware
+  * @param {object} next - callback function to transfer to the next method
+  *
+  * @returns {object} - status and object representing fail message
+  *
+  * @memberof OrderValidators
+  */
+
+  static completeOrderValidator(request, response, next) {
+    const { orderId } = request.params;
+    pool.query(queryOrdersById, [orderId])
+      .then((data) => {
+        if (data.rowCount === 0) {
+          return response.status(404)
+            .json({
+              status: 'Fail',
+              message: 'Sorry, this order does not exists.'
+            });
+        }
+        if (data.rows[0].status !== 'Processing') {
+          return response.status(406)
+            .json({
+              status: 'Fail',
+              message: 'This order can only be completed after its been placed on processing'
+            });
+        }
+        next();
+      })
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
+  }
 }
 
 const {
   placeOrderValidator, getOrderHistoryValidator, getSpecificOrderValidator,
-  updateOrderValidator
+  updateOrderValidator, completeOrderValidator
 } = OrderValidators;
 
 export {
   placeOrderValidator, getOrderHistoryValidator, getSpecificOrderValidator,
-  updateOrderValidator
+  updateOrderValidator, completeOrderValidator
 };

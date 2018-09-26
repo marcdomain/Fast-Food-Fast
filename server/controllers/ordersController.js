@@ -206,7 +206,33 @@ class OrderHandler {
     pool.query(updateOrderStatus, ['Cancelled', orderId])
       .then(() => response.status(200)
         .json({
-          message: 'Order is declined'
+          message: 'Order is cancelled'
+        }))
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
+  }
+
+  /**
+  * @description - This method is responsible for Updating order status to completed
+  *
+  * @static
+  * @param {object} request - Request sent to the router
+  * @param {object} response - Response sent from the controller
+  *
+  * @returns {object} - status and object representing response message
+  *
+  * @memberof OrderHandler
+  */
+
+  static completeOrder(request, response) {
+    const { orderId } = request.params;
+    pool.query(updateOrderStatus, ['Completd', orderId])
+      .then(() => response.status(200)
+        .json({
+          message: 'Order is completed'
         }))
       .catch(error => response.status(500)
         .json({
@@ -218,10 +244,10 @@ class OrderHandler {
 
 const {
   placeOrder, getUserOrderHistory, getAllOrders, getSpecificOrder,
-  processOrder, cancelOrder
+  processOrder, cancelOrder, completeOrder
 } = OrderHandler;
 
 export {
   placeOrder, getUserOrderHistory, getAllOrders, getSpecificOrder,
-  processOrder, cancelOrder
+  processOrder, cancelOrder, completeOrder
 };
