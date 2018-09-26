@@ -237,7 +237,7 @@ describe('Test GET User Order History Endpoint', () => {
         done();
       });
   });
-  it('Should return 401 for invalid userId format', (done) => {
+  it('Should return 400 for invalid userId format', (done) => {
     chai.request(app)
       .get('/api/v1/users/a/orders')
       .set('authorization', token)
@@ -276,7 +276,7 @@ describe('Test GET SPECIFIC ORDER by Admin', () => {
         done();
       });
   });
-  it('Should return 401 for invalid orderId format', (done) => {
+  it('Should return 400 for invalid orderId format', (done) => {
     chai.request(app)
       .get('/api/v1/orders/a')
       .set('authorization', adminToken)
@@ -284,6 +284,17 @@ describe('Test GET SPECIFIC ORDER by Admin', () => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
         expect(response.body.message).to.equal('Invalid URL. orderId should be a positive integer greater than zero');
+        done();
+      });
+  });
+  it('Should return 404 for non-existing orderId', (done) => {
+    chai.request(app)
+      .get('/api/v1/orders/10000000')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Sorry, this order does not exist');
         done();
       });
   });

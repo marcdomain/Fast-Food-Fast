@@ -20,7 +20,7 @@ Below are the features of Fast-Food-Fast Application at this point
 - User can get his/her order history<br/>
 - Admin can also get order history of specific user <br>
 - Admin can get all orders in the app <br>
-- Get a Specific order<br/>
+- Admin can get a Specific order<br/>
 - Update a specific order status
 ```
   Required Inputs
@@ -88,7 +88,11 @@ Below are the features of Fast-Food-Fast Application at this point
 <td>{<br>message: "string"<br>allOrders: {object}<br>}</td>
 </tr>
 
-<tr><td>GET</td> <td>api/v1/orders/:orderId</td>  <td>Get a specific order</td> <td></td> <td></td></tr>
+<tr>
+<td>GET</td> <td>api/v1/orders/:orderId</td>  <td>Get specific order</td>
+<td>token: "string" or authorization header</td>
+<td>{<br>message: "string"<br>foundOrder: {object}<br>}</td>
+</tr>
 
 <tr><td>PUT</td> <td>api/v1/orders/:orderId</td> <td>Update an order status</td> <td></td> <td></td></tr>
 

@@ -142,11 +142,17 @@ class OrderHandler {
     const { orderId } = request.params;
     pool.query(selectSpecificOrder, [orderId])
       .then((result) => {
-        const foundOrder = result.rows[0];
-        return response.status(200)
+        if (result.rowCount === 1) {
+          const foundOrder = result.rows[0];
+          return response.status(200)
+            .json({
+              message: 'Order fetched successfully',
+              foundOrder
+            });
+        }
+        return response.status(404)
           .json({
-            message: 'Order fetched successfully',
-            foundOrder
+            message: 'Sorry, this order does not exist'
           });
       })
       .catch(error => response.status(500)
