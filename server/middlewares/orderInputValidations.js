@@ -111,7 +111,7 @@ class OrderValidators {
             });
         }
         const newQuantity = result.rows[0].quantity - quantity;
-        pool.query(updateRemainingMenuQuantity, [newQuantity])
+        pool.query(updateRemainingMenuQuantity, [newQuantity, menuId])
           .then(() => {
             request.body.location = location;
             request.body.menuId = menuId;
