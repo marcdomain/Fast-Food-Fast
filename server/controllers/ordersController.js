@@ -36,16 +36,33 @@ class OrderHandler {
         }));
   }
 
+  /**
+  * @description - This method is responsible for getting order history of a specific user
+  *
+  * @static
+  * @param {object} request - Request sent to the router
+  * @param {object} response - Response sent from the controller
+  *
+  * @returns {object} - status and object representing response message
+  *
+  * @memberof OrderHandler
+  */
+
   static getUserOrderHistory(request, response) {
     const { userId } = request.params;
     const userInfo = request.authData.payload;
-    if (userInfo.id === userId) {
-      pool.query(selectUserOrderHistory, [userId])
-        .then(result => response.status(200)
-          .json({
-            message: 'Order history successfully fetched',
-            result
-          }))
+    console.log('USER INFO', userInfo);
+    console.log('USER ID PARAMS', userId);
+    if (userInfo.usertype === 'admin' || userInfo.id === Number(userId)) {
+      return pool.query(selectUserOrderHistory, [userId])
+        .then((result) => {
+          const orderHistory = result.rows;
+          return response.status(200)
+            .json({
+              message: 'Order history successfully fetched',
+              orderHistory
+            });
+        })
         .catch(error => response.status(500)
           .json({
             status: 'Fail',
@@ -57,22 +74,6 @@ class OrderHandler {
         status: 'Fail',
         message: 'Unauthorized access'
       });
-
-    // pool.query(selectUserOrderHistory, [userId])
-    //   .then((result) => {
-    //     return response.status(200)
-    //       .json({
-    //         message: 'Order history successfully fetched',
-    //         result
-    //       });
-    //   })
-    //   .catch((error) => {
-    //     return response.status(500)
-    //       .json({
-    //         status: 'Fail',
-    //         message: error.message
-    //       });
-    //   });
   }
 }
 

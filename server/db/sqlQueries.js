@@ -14,10 +14,10 @@ const createOrder = 'insert into orders (userid, menuid, quantity, total, locati
 
 const queryMenuTableByMenuId = 'select * from menus where id = $1';
 
-const updateRemainingMenuQuantity = 'update menus set quantity = $1 where menuid = $2';
+const updateRemainingMenuQuantity = 'update menus set quantity = $1 where id = $2';
 
 const selectUserOrderHistory = `select orders.id, orders.created, menus.menu, orders.quantity, orders.total, orders.location, users.email, orders.status
-from orders where userid = $1 inner join menus on orders.menuid = menus.id left join users on orders.userid = users.id`;
+from orders inner join menus on orders.menuid = menus.id left join users on orders.userid = users.id  where userid=$1`;
 
 export {
   createUser, queryUsersByEmail, queryUsersByPhone, createMenu, queryMenuTableByMenu,

@@ -125,8 +125,33 @@ class OrderValidators {
           message: error.message
         }));
   }
+
+  /**
+  * @description - This method is responsible for validating input to params field
+  *
+  * @static
+  * @param {object} request - Request sent to the middleware
+  * @param {object} response - Response sent from the middleware
+  * @param {object} next - callback function to transfer to the next method
+  *
+  * @returns {object} - status and object representing fail message
+  *
+  * @memberof OrderValidators
+  */
+
+  static getOrderHistoryValidator(request, response, next) {
+    const { userId } = request.params;
+    if (!Number(userId) || userId <= 0) {
+      return response.status(400)
+        .json({
+          status: 'Fail',
+          message: 'Invalid URL. userId should be a positive integer greater than zero'
+        });
+    }
+    next();
+  }
 }
 
-const { placeOrderValidator } = OrderValidators;
+const { placeOrderValidator, getOrderHistoryValidator } = OrderValidators;
 
-export default placeOrderValidator;
+export { placeOrderValidator, getOrderHistoryValidator };
