@@ -2,8 +2,8 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
 import {
-  successfulOrder, invalidLocationLength, invalidLocationCharacter, undefinedMenuId,
-  emptyMenuId, invalidMenuId, overMillionMenuId, nonExistingMenuId, undefinedQuantity,
+  successfulOrder, invalidLocationLength, invalidLocationCharacter, undefinedMealId,
+  emptyMealId, invalidMealId, overMillionMealId, nonExistingMealId, undefinedQuantity,
   emptyQuantity, invalidQuantity, excessQuantity
 } from './mockData/orderMock';
 
@@ -106,10 +106,10 @@ describe('Test for POST order', () => {
     chai.request(app)
       .post('/api/v1/orders')
       .set('authorization', token)
-      .send(undefinedMenuId)
+      .send(undefinedMealId)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('menuId is undefined. It should be a positive integer greater than zero');
+        expect(response.body.message).to.equal('mealId is undefined. It should be a positive integer greater than zero');
         done();
       });
   });
@@ -117,10 +117,10 @@ describe('Test for POST order', () => {
     chai.request(app)
       .post('/api/v1/orders')
       .set('authorization', token)
-      .send(emptyMenuId)
+      .send(emptyMealId)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('menuId is empty. It should be a positive integer greater than zero');
+        expect(response.body.message).to.equal('mealId is empty. It should be a positive integer greater than zero');
         done();
       });
   });
@@ -128,10 +128,10 @@ describe('Test for POST order', () => {
     chai.request(app)
       .post('/api/v1/orders')
       .set('authorization', token)
-      .send(invalidMenuId)
+      .send(invalidMealId)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Invalid menuId detected. It should be a positive integer greater than zero');
+        expect(response.body.message).to.equal('Invalid mealId detected. It should be a positive integer greater than zero');
         done();
       });
   });
@@ -139,10 +139,10 @@ describe('Test for POST order', () => {
     chai.request(app)
       .post('/api/v1/orders')
       .set('authorization', token)
-      .send(overMillionMenuId)
+      .send(overMillionMealId)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Invalid menuId detected. It should be a positive integer greater than zero and less than a million');
+        expect(response.body.message).to.equal('Invalid mealId detected. It should be a positive integer greater than zero and less than a million');
         done();
       });
   });
@@ -150,7 +150,7 @@ describe('Test for POST order', () => {
     chai.request(app)
       .post('/api/v1/orders')
       .set('authorization', token)
-      .send(nonExistingMenuId)
+      .send(nonExistingMealId)
       .end((error, response) => {
         expect(response).to.have.status(404);
         expect(response.body.message).to.equal('Sorry, this menu does not exist');

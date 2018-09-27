@@ -24,19 +24,22 @@ class OrderHandler {
   */
 
   static placeOrder(request, response) {
-    const { menuId, quantity, location } = request.body;
+    const { mealId, quantity, location } = request.body;
     const userId = request.authData.payload.id;
-    const variables = [userId, menuId, quantity, location || request.authData.payload.address];
+    const variables = [userId, mealId, quantity, location || request.authData.payload.address];
     pool.query(createOrder, variables)
       .then(() => response.status(201)
         .json({
           message: 'Order placed successfully',
         }))
-      .catch(error => response.status(500)
-        .json({
-          status: 'Fail',
-          message: error.message
-        }));
+      .catch((error) => {
+        // console.log('POST ORDER ERROR', error.message);
+        return response.status(500)
+          .json({
+            status: 'Fail',
+            message: error.message
+          });
+      });
   }
 
   /**

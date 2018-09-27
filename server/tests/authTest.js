@@ -9,7 +9,9 @@ import {
   invalidPhoneCharacter, existingPhone, undefinedPassword, emptyPassword,
   invalidPasswordLength, undefinedAddress, emptyAddress, invalidAddressLength,
   invalidAddressCharacter, whitespacePassword, correctLogin, undefinedEmailLogin, emptyEmailLogin,
-  nonExistingEmail, undefinedPasswordLogin, emptyPasswordLogin, correctEmailIncorrectPassword
+  nonExistingEmail, undefinedPasswordLogin, emptyPasswordLogin, correctEmailIncorrectPassword,
+  unstringedEmailLogin, unstringedPasswordLogin,
+  unstringedName, unstringedEmail, unstringedPhone, unstringedAddress, unstringedPassword
 } from './mockData/userMock';
 
 const { expect } = chai;
@@ -35,6 +37,16 @@ describe('Test for Signup User', () => {
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body.message).to.equal('Name cannot be undefined. Input 4 to 50 alphabets');
+        done();
+      });
+  });
+  it('should return 400 for unstringed name', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(unstringedName)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Name should be a string. Input 4 to 50 alphabets');
         done();
       });
   });
@@ -75,6 +87,16 @@ describe('Test for Signup User', () => {
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body.message).to.equal('Email cannot be undefined');
+        done();
+      });
+  });
+  it('should return 400 for unstringed email', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(unstringedEmail)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Email should be a string. Input an email 10 to 50 characters');
         done();
       });
   });
@@ -128,6 +150,16 @@ describe('Test for Signup User', () => {
         done();
       });
   });
+  it('should return 400 for unstringed phone', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(unstringedPhone)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Phone should be a string. Input integer of 7 to 13 characters long');
+        done();
+      });
+  });
   it('should return 400 for empty phone field', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -178,6 +210,16 @@ describe('Test for Signup User', () => {
         done();
       });
   });
+  it('should return 400 for unstringed password', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(unstringedPassword)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Password should be a string. Input 4 to 20 characters');
+        done();
+      });
+  });
   it('should return 400 for empty password', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -215,6 +257,16 @@ describe('Test for Signup User', () => {
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body.message).to.equal('Address is undefined. Input 5 to 100 alphanumeric characters');
+        done();
+      });
+  });
+  it('should return 400 for unstringed address', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(unstringedAddress)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Address should be a string. Input 5 to 100 alphanumeric characters');
         done();
       });
   });
@@ -268,7 +320,7 @@ describe('Tests for user Login API', () => {
       .send(undefinedEmailLogin)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Email is undefined. Input your email');
+        expect(response.body.message).to.equal('Email is undefined');
         done();
       });
   });
@@ -278,7 +330,17 @@ describe('Tests for user Login API', () => {
       .send(emptyEmailLogin)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Email cannot be empty. Input a valid email');
+        expect(response.body.message).to.equal('Email cannot be empty.');
+        done();
+      });
+  });
+  it('Should return 400 for an unstringed email', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(unstringedEmailLogin)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Email should be a string');
         done();
       });
   });
@@ -309,6 +371,16 @@ describe('Tests for user Login API', () => {
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body.message).to.equal('Password is empty. Please input your password');
+        done();
+      });
+  });
+  it('Should return 400 for an unstringed password field', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(unstringedPasswordLogin)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Password should be a string');
         done();
       });
   });

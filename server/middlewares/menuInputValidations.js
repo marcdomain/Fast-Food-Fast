@@ -47,8 +47,8 @@ class MenuValidationHandler {
           message: 'Invalid menu length. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)'
         });
     }
-    const validMenuCharacters = /^[a-z ,-]+$/i;
-    if (!validMenuCharacters.test(menu)) {
+    const validMealCharacters = /^[a-z ,-]+$/i;
+    if (!validMealCharacters.test(menu)) {
       return response.status(400)
         .json({
           status: 'Fail',

@@ -1,6 +1,6 @@
 import pool from '../db/connection';
 import {
-  queryMenuTableByMenuId, updateRemainingMenuQuantity,
+  queryMenuTableById, updateRemainingMealQuantity,
   queryOrdersById
 } from '../db/sqlQueries';
 
@@ -25,7 +25,7 @@ class OrderValidators {
   */
 
   static placeOrderValidator(request, response, next) {
-    let { menuId, quantity, location } = request.body;
+    let { mealId, quantity, location } = request.body;
     if (location !== undefined) {
       location = location.trim().replace(/\s\s+/g, ' ');
       if (location !== '') {
@@ -46,36 +46,36 @@ class OrderValidators {
         }
       }
     }
-    if (menuId === undefined) {
+    if (mealId === undefined) {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'menuId is undefined. It should be a positive integer greater than zero'
+          message: 'mealId is undefined. It should be a positive integer greater than zero'
         });
     }
-    menuId = menuId.trim();
-    if (menuId === '') {
+    mealId = mealId.trim();
+    if (mealId === '') {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'menuId is empty. It should be a positive integer greater than zero'
+          message: 'mealId is empty. It should be a positive integer greater than zero'
         });
     }
-    if (!Number(menuId) || menuId <= 0) {
+    if (!Number(mealId) || mealId <= 0) {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Invalid menuId detected. It should be a positive integer greater than zero'
+          message: 'Invalid mealId detected. It should be a positive integer greater than zero'
         });
     }
-    if (menuId.length > 9) {
+    if (mealId.length > 9) {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Invalid menuId detected. It should be a positive integer greater than zero and less than a million'
+          message: 'Invalid mealId detected. It should be a positive integer greater than zero and less than a million'
         });
     }
-    pool.query(queryMenuTableByMenuId, [menuId])
+    pool.query(queryMenuTableById, [mealId])
       .then((result) => {
         if (result.rowCount === 0) {
           return response.status(404)
@@ -114,19 +114,22 @@ class OrderValidators {
             });
         }
         const newQuantity = result.rows[0].quantity - quantity;
-        pool.query(updateRemainingMenuQuantity, [newQuantity, menuId])
+        pool.query(updateRemainingMealQuantity, [newQuantity, mealId])
           .then(() => {
             request.body.location = location;
-            request.body.menuId = menuId;
+            request.body.mealId = mealId;
             request.body.quantity = quantity;
             next();
           });
       })
-      .catch(error => response.status(500)
-        .json({
-          status: 'Fail',
-          message: error.message
-        }));
+      .catch((error) => {
+        console.log('POST ORDER ERROR', error.message);
+        return response.status(500)
+          .json({
+            status: 'Fail',
+            message: error.message
+          });
+      });
   }
 
   /**

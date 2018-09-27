@@ -13,6 +13,14 @@ const undefinedName = {
   password: 'marcpass'
 };
 
+const unstringedName = {
+  name: ['macre'],
+  email: 'marcus@gmail.com',
+  phone: '07065266169',
+  address: 'Andela EPIC Tower',
+  password: 'marcpass'
+};
+
 const emptyName = {
   name: '',
   email: 'marcus@gmail.com',
@@ -39,6 +47,14 @@ const invalidNameCharacter = {
 
 const undefinedEmail = {
   name: 'marc marc',
+  phone: '07065266169',
+  address: 'Andela EPIC Tower',
+  password: 'marcpass'
+};
+
+const unstringedEmail = {
+  name: 'marc marc',
+  email: ['myemail@abc.com'],
   phone: '07065266169',
   address: 'Andela EPIC Tower',
   password: 'marcpass'
@@ -83,6 +99,14 @@ const undefinedPhone = {
   password: 'marcpass'
 };
 
+const unstringedPhone = {
+  name: 'marc marc',
+  email: 'marc@gmail.ng',
+  phone: ['08025645896'],
+  address: 'Andela EPIC Tower',
+  password: 'marcpass'
+};
+
 const emptyPhone = {
   name: 'marc marc',
   email: 'marc@gmail.ng',
@@ -122,6 +146,14 @@ const undefinedPassword = {
   address: 'Andela EPIC Tower',
 };
 
+const unstringedPassword = {
+  name: 'marc marc',
+  email: 'marc@gmail.ng',
+  phone: '07065266169',
+  address: 'Andela EPIC Tower',
+  password: ['mypass', 'yourpass']
+};
+
 const emptyPassword = {
   name: 'marc marc',
   email: 'marc@gmail.ng',
@@ -150,6 +182,14 @@ const undefinedAddress = {
   name: 'marc marc',
   email: 'marc@gmail.ng',
   phone: '07065266169',
+  password: 'marcpass'
+};
+
+const unstringedAddress = {
+  name: 'marc marc',
+  email: 'marc@gmail.ng',
+  phone: '07065266169',
+  address: ['Andela EPIC Tower'],
   password: 'marcpass'
 };
 
@@ -191,6 +231,11 @@ const emptyEmailLogin = {
   password: 'marcpass'
 };
 
+const unstringedEmailLogin = {
+  email: ['email@gmail.com'],
+  password: 'marcpass'
+};
+
 const nonExistingEmail = {
   email: 'marcman@gmial.com',
   password: 'marcpass'
@@ -205,6 +250,11 @@ const emptyPasswordLogin = {
   password: ''
 };
 
+const unstringedPasswordLogin = {
+  email: 'marcus2cu@yahoo.com',
+  password: ['mypass']
+};
+
 const correctEmailIncorrectPassword = {
   email: 'marcus2cu@yahoo.com',
   password: 'marc#@pass!'
@@ -217,5 +267,6 @@ export {
   undefinedPassword, emptyPassword, invalidPasswordLength, undefinedAddress, emptyAddress,
   invalidAddressLength, invalidAddressCharacter, whitespacePassword, correctLogin,
   undefinedEmailLogin, emptyEmailLogin, nonExistingEmail, undefinedPasswordLogin,
-  emptyPasswordLogin, correctEmailIncorrectPassword
+  emptyPasswordLogin, correctEmailIncorrectPassword, unstringedEmailLogin, unstringedPasswordLogin,
+  unstringedName, unstringedEmail, unstringedPhone, unstringedAddress, unstringedPassword
 };

@@ -10,20 +10,20 @@ const queryMenuTableByMenu = 'select * from menus where menu = $1';
 
 const queryAvailableMenu = 'select * from menus where quantity > 0 order by id desc';
 
-const createOrder = 'insert into orders (userid, menuid, quantity, total, location) values ($1, $2, $3, (select price from menus where id = $2) * $3, $4) returning *';
+const createOrder = 'insert into orders (userid, mealid, quantity, total, location) values ($1, $2, $3, (select price from menus where id = $2) * $3, $4) returning *';
 
-const queryMenuTableByMenuId = 'select * from menus where id = $1';
+const queryMenuTableById = 'select * from menus where id = $1';
 
-const updateRemainingMenuQuantity = 'update menus set quantity = $1 where id = $2';
+const updateRemainingMealQuantity = 'update menus set quantity = $1 where id = $2';
 
 const selectUserOrderHistory = `select orders.id, orders.created, menus.menu, orders.quantity, orders.total, orders.location, users.email, orders.status
-from orders inner join menus on orders.menuid = menus.id left join users on orders.userid = users.id  where userid=$1 order by id desc`;
+from orders inner join menus on orders.mealid = menus.id left join users on orders.userid = users.id  where userid=$1 order by id desc`;
 
 const selectAllOrders = `select orders.id, orders.created, menus.menu, orders.quantity, orders.total, orders.location, users.email, orders.status
-from orders inner join menus on orders.menuid = menus.id left join users on orders.userid = users.id order by id desc`;
+from orders inner join menus on orders.mealid = menus.id left join users on orders.userid = users.id order by id desc`;
 
 const selectSpecificOrder = `select orders.id, orders.created, menus.menu, orders.quantity, orders.total, orders.location, users.email, orders.status
-from orders inner join menus on orders.menuid = menus.id left join users on orders.userid = users.id where orders.id = $1`;
+from orders inner join menus on orders.mealid = menus.id left join users on orders.userid = users.id where orders.id = $1`;
 
 const updateOrderStatus = 'update orders set status = $1 where id = $2';
 
@@ -31,7 +31,7 @@ const queryOrdersById = 'select * from orders where id = $1';
 
 export {
   createUser, queryUsersByEmail, queryUsersByPhone, createMenu, queryMenuTableByMenu,
-  queryAvailableMenu, createOrder, queryMenuTableByMenuId, updateRemainingMenuQuantity,
+  queryAvailableMenu, createOrder, queryMenuTableById, updateRemainingMealQuantity,
   selectUserOrderHistory, selectAllOrders, selectSpecificOrder, updateOrderStatus,
   queryOrdersById
 };

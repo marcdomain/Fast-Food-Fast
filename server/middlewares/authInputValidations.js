@@ -30,22 +30,33 @@ class UserValidationHandler {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Name cannot be undefined. Input 4 to 50 alphabets'
+          message: 'Name cannot be undefined. Input 4 to 50 alphabets',
+          sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
+        });
+    }
+    if (typeof name !== 'string') {
+      return response.status(400)
+        .json({
+          status: 'Fail',
+          message: 'Name should be a string. Input 4 to 50 alphabets',
+          sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
         });
     }
     if (name === '') {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Name cannot be empyt. Input 4 to 50 alphabets'
+          message: 'Name cannot be empyt. Input 4 to 50 alphabets',
+          sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
         });
     }
-    name = name.trim().replace(/  +/g, ' ');
+    name = name.trim().replace(/\s\s+/g, ' ');
     if (name.length < 4 || name.length > 50) {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Name should be 4 to 50 aplhabets long'
+          message: 'Name should be 4 to 50 aplhabets long',
+          sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
         });
     }
     const validNameCharacters = /^[a-z ]+$/i;
@@ -53,7 +64,8 @@ class UserValidationHandler {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Name accepts only alphabet and whitespace'
+          message: 'Name accepts only alphabet and whitespace',
+          sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
         });
     }
 
@@ -61,14 +73,24 @@ class UserValidationHandler {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Email cannot be undefined'
+          message: 'Email cannot be undefined',
+          sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
+        });
+    }
+    if (typeof email !== 'string') {
+      return response.status(400)
+        .json({
+          status: 'Fail',
+          message: 'Email should be a string. Input an email 10 to 50 characters',
+          sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
         });
     }
     if (email === '') {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Email field cannot be empty. Input an email 10 to 50 characters'
+          message: 'Email field cannot be empty. Input an email 10 to 50 characters',
+          sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
         });
     }
     const validEmailCharacter = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
@@ -77,6 +99,7 @@ class UserValidationHandler {
         .json({
           status: 'Fail',
           message: "Please input a valid email format 'example@domain.com'",
+          sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
         });
     }
     email = email.toLowerCase().trim();
@@ -85,6 +108,7 @@ class UserValidationHandler {
         .json({
           status: 'Fail',
           message: 'Email should be 10 to 50 characters',
+          sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
         });
     }
     pool.query(queryUsersByEmail, [email])
@@ -100,14 +124,24 @@ class UserValidationHandler {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Phone is undefined. Input integer of 7 to 13 characters long'
+              message: 'Phone is undefined. Input integer of 7 to 13 characters long',
+              sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
+            });
+        }
+        if (typeof phone !== 'string') {
+          return response.status(400)
+            .json({
+              status: 'Fail',
+              message: 'Phone should be a string. Input integer of 7 to 13 characters long',
+              sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
             });
         }
         if (phone === '') {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Phone field cannot be empty. Input integer of 7 to 13 characters long'
+              message: 'Phone field cannot be empty. Input integer of 7 to 13 characters long',
+              sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
             });
         }
         phone = phone.trim();
@@ -115,7 +149,8 @@ class UserValidationHandler {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Phone should be integer of 7 to 13 characters long'
+              message: 'Phone should be integer of 7 to 13 characters long',
+              sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
             });
         }
         const validPhoneCharacter = /^[0-9]+$/;
@@ -123,7 +158,8 @@ class UserValidationHandler {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Phone should be positive integer of length 7 to 13'
+              message: 'Phone should be positive integer of length 7 to 13',
+              sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
             });
         }
         pool.query(queryUsersByPhone, [phone])
@@ -132,21 +168,32 @@ class UserValidationHandler {
               return response.status(409)
                 .json({
                   status: 'Fail',
-                  message: 'Phone number already exist, please Signup with a new one'
+                  message: 'Phone number already exist, please Signup with a new one',
+                  sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
                 });
             }
             if (address === undefined) {
               return response.status(400)
                 .json({
                   status: 'Fail',
-                  message: 'Address is undefined. Input 5 to 100 alphanumeric characters'
+                  message: 'Address is undefined. Input 5 to 100 alphanumeric characters',
+                  sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
+                });
+            }
+            if (typeof address !== 'string') {
+              return response.status(400)
+                .json({
+                  status: 'Fail',
+                  message: 'Address should be a string. Input 5 to 100 alphanumeric characters',
+                  sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
                 });
             }
             if (address === '') {
               return response.status(400)
                 .json({
                   status: 'Fail',
-                  message: 'Address is empty. Input 5 to 100 alphanumeric characters'
+                  message: 'Address is empty. Input 5 to 100 alphanumeric characters',
+                  sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
                 });
             }
             address = address.trim().replace(/  +/g, ' ');
@@ -154,7 +201,8 @@ class UserValidationHandler {
               return response.status(400)
                 .json({
                   status: 'Fail',
-                  message: 'Address should be 5 to 100 alphanumeric characters'
+                  message: 'Address should be 5 to 100 alphanumeric characters',
+                  sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
                 });
             }
             const validAddressCharacter = /^[a-z0-9 ]+$/i;
@@ -162,21 +210,32 @@ class UserValidationHandler {
               return response.status(400)
                 .json({
                   status: 'Fail',
-                  message: 'Address should be 5 to 100 alphanumeric characters and whitespace'
+                  message: 'Address should be 5 to 100 alphanumeric characters and whitespace',
+                  sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
                 });
             }
             if (password === undefined) {
               return response.status(400)
                 .json({
                   status: 'Fail',
-                  message: 'Password is undefined. Input 4 to 20 characters'
+                  message: 'Password is undefined. Input 4 to 20 characters',
+                  sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
+                });
+            }
+            if (typeof password !== 'string') {
+              return response.status(400)
+                .json({
+                  status: 'Fail',
+                  message: 'Password should be a string. Input 4 to 20 characters',
+                  sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
                 });
             }
             if (password === '') {
               return response.status(400)
                 .json({
                   status: 'Fail',
-                  message: 'Password cannot be empty. Input 4 to 20 characters'
+                  message: 'Password cannot be empty. Input 4 to 20 characters',
+                  sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
                 });
             }
             password = password.trim();
@@ -184,7 +243,8 @@ class UserValidationHandler {
               return response.status(400)
                 .json({
                   status: 'Fail',
-                  message: 'Invalid password length. Input 4 to 20 characters'
+                  message: 'Invalid password length. Input 4 to 20 characters',
+                  sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
                 });
             }
             if (password.includes(' ')) {
@@ -192,6 +252,7 @@ class UserValidationHandler {
                 .json({
                   status: 'Fail',
                   message: 'Remove whitespace from your password and input 4 to 20 characters',
+                  sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
                 });
             }
             request.body.name = name;
@@ -228,7 +289,16 @@ class UserValidationHandler {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Email is undefined. Input your email',
+          message: 'Email is undefined',
+          sampleCredentials: '{"email": "string", "password": "string"}'
+        });
+    }
+    if (typeof email !== 'string') {
+      return response.status(400)
+        .json({
+          status: 'Fail',
+          message: 'Email should be a string',
+          sampleCredentials: '{"email": "string", "password": "string"}'
         });
     }
     email = email.toLowerCase().trim();
@@ -236,7 +306,8 @@ class UserValidationHandler {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Email cannot be empty. Input a valid email',
+          message: 'Email cannot be empty.',
+          sampleCredentials: '{"email": "string", "password": "string"}'
         });
     }
     pool.query(queryUsersByEmail, [email])
@@ -246,6 +317,7 @@ class UserValidationHandler {
             .json({
               status: 'Fail',
               message: 'Email not found. Please signup',
+              sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
             });
         }
         if (password === undefined) {
@@ -253,6 +325,15 @@ class UserValidationHandler {
             .json({
               status: 'Fail',
               message: 'Password is undefined. Please input your password',
+              sampleCredentials: '{"email": "string", "password": "string"}'
+            });
+        }
+        if (typeof password !== 'string') {
+          return response.status(400)
+            .json({
+              status: 'Fail',
+              message: 'Password should be a string',
+              sampleCredentials: '{"email": "string", "password": "string"}'
             });
         }
         password = password.trim();
@@ -261,6 +342,7 @@ class UserValidationHandler {
             .json({
               status: 'Fail',
               message: 'Password is empty. Please input your password',
+              sampleCredentials: '{"email": "string", "password": "string"}'
             });
         }
 
