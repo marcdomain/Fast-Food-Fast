@@ -1,6 +1,6 @@
 import pool from '../db/connection';
 import {
-  queryMenuTableById, updateRemainingMenuQuantity,
+  queryMenuTableById, menuQuantityAfterOrder,
   queryOrdersById
 } from '../db/sqlQueries';
 
@@ -145,7 +145,7 @@ class OrderValidators {
             });
         }
         const newQuantity = result.rows[0].quantity - quantity;
-        pool.query(updateRemainingMenuQuantity, [newQuantity, mealId])
+        pool.query(menuQuantityAfterOrder, [newQuantity, mealId])
           .then(() => {
             request.body.location = location;
             request.body.mealId = mealId;

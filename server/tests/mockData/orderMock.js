@@ -1,6 +1,12 @@
 const successfulOrder = {
   mealId: '1',
-  quantity: '10',
+  quantity: '5',
+  location: '145 herbert macaulay way'
+};
+
+const successfulOrder2 = {
+  mealId: '1',
+  quantity: '5',
   location: '145 herbert macaulay way'
 };
 
@@ -95,5 +101,5 @@ export {
   successfulOrder, invalidLocationLength, invalidLocationCharacter, undefinedMealId,
   emptyMealId, invalidMealId, overMillionMealId, nonExistingMealId, undefinedQuantity,
   emptyQuantity, invalidQuantity, excessQuantity,
-  unstringedLocation, unstringedMealId, unstringedQuantity, outOfStockMenu
+  unstringedLocation, unstringedMealId, unstringedQuantity, outOfStockMenu, successfulOrder2
 };

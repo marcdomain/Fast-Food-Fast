@@ -5,7 +5,7 @@ import {
   successfulOrder, invalidLocationLength, invalidLocationCharacter, undefinedMealId,
   emptyMealId, invalidMealId, overMillionMealId, nonExistingMealId, undefinedQuantity,
   emptyQuantity, invalidQuantity, excessQuantity,
-  unstringedLocation, unstringedMealId, unstringedQuantity, outOfStockMenu
+  unstringedLocation, unstringedMealId, unstringedQuantity, outOfStockMenu, successfulOrder2
 } from './mockData/orderMock';
 
 const { expect } = chai;
@@ -84,6 +84,17 @@ describe('Test for POST order', () => {
       .post('/api/v1/orders')
       .set('authorization', userToken)
       .send(successfulOrder)
+      .end((error, response) => {
+        expect(response).to.have.status(201);
+        expect(response.body.message).to.equal('Order placed successfully');
+        done();
+      });
+  });
+  it('Should return 201 for success', (done) => {
+    chai.request(app)
+      .post('/api/v1/orders')
+      .set('authorization', userToken)
+      .send(successfulOrder2)
       .end((error, response) => {
         expect(response).to.have.status(201);
         expect(response.body.message).to.equal('Order placed successfully');
@@ -388,6 +399,17 @@ describe('Test UPDATE ORDER by Admin', () => {
         done();
       });
   });
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/2/cancel')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Order is cancelled');
+        done();
+      });
+  });
   it('Should return 404 for non-existing orderId', (done) => {
     chai.request(app)
       .put('/api/v1/orders/100000/process')
@@ -399,9 +421,31 @@ describe('Test UPDATE ORDER by Admin', () => {
         done();
       });
   });
+  it('Should return 404 for non-existing orderId', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/100000/cancel')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Sorry, this order does not exists.');
+        done();
+      });
+  });
   it('Should return 406 for already processing order', (done) => {
     chai.request(app)
       .put('/api/v1/orders/1/process')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Sorry, this order cannot be updated at this time');
+        done();
+      });
+  });
+  it('Should return 406 for already cancelled order', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/2/cancel')
       .set('authorization', adminToken)
       .end((error, response) => {
         expect(response).to.have.status(406);

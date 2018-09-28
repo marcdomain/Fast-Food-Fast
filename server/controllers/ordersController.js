@@ -1,7 +1,7 @@
 import pool from '../db/connection';
 import {
   createOrder, selectUserOrderHistory, selectAllOrders, selectSpecificOrder,
-  updateOrderStatus, queryUsersById, returnNewOrder
+  updateOrderStatus, queryUsersById, returnNewOrder, updateMenuQuantityAfterCancelOrder
 } from '../db/sqlQueries';
 
 /**
@@ -28,20 +28,15 @@ class OrderHandler {
     const userId = request.authData.payload.id;
     const variables = [userId, mealId, quantity, location || request.authData.payload.address];
     pool.query(createOrder, variables)
-      .then((result) => {
-        const meal = result.rows[0];
-        console.log('MEAL ORDERED', meal);
-        return pool.query(returnNewOrder)
-          .then((data) => {
-            const newMeal = data.rows[0];
-            console.log('NEW MEAL ORDERED', newMeal);
-            return response.status(201)
-              .json({
-                message: 'Order placed successfully',
-                newMeal
-              });
-          });
-      })
+      .then(() => pool.query(returnNewOrder)
+        .then((data) => {
+          const newMeal = data.rows[0];
+          return response.status(201)
+            .json({
+              message: 'Order placed successfully',
+              newMeal
+            });
+        }))
       .catch(error => response.status(500)
         .json({
           status: 'Fail',
@@ -198,10 +193,14 @@ class OrderHandler {
   static processOrder(request, response) {
     const { orderId } = request.params;
     pool.query(updateOrderStatus, ['Processing', orderId])
-      .then(() => response.status(200)
-        .json({
-          message: 'Order is currently processing'
-        }))
+      .then((result) => {
+        const clickedAction = result.rows[0];
+        console.log('CLICKED ACTION', clickedAction);
+        return response.status(200)
+          .json({
+            message: 'Order is currently processing'
+          });
+      })
       .catch(error => response.status(500)
         .json({
           status: 'Fail',
@@ -224,10 +223,15 @@ class OrderHandler {
   static cancelOrder(request, response) {
     const { orderId } = request.params;
     pool.query(updateOrderStatus, ['Cancelled', orderId])
-      .then(() => response.status(200)
-        .json({
-          message: 'Order is cancelled'
-        }))
+      .then((result) => {
+        const cancelledOrder = result.rows[0];
+        console.log('CANCELED ORDER', cancelledOrder);
+        return pool.query(updateMenuQuantityAfterCancelOrder, [cancelledOrder.quantity])
+          .then(() => response.status(200)
+            .json({
+              message: 'Order is cancelled'
+            }));
+      })
       .catch(error => response.status(500)
         .json({
           status: 'Fail',
