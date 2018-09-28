@@ -7,13 +7,14 @@ import {
   undefinedDescription, emptyDescription, invalidDescriptionLength, invalidDescriptionCharacter,
   undefinedCategory, emptyCategory, invalidCategory, undefinedQuantity, emptyQuantity,
   invalidQuantityLength, invalidQuantity, invalidQuantityCharacter, undefinedPrice, emptyPrice,
-  invalidPriceLength, invalidPrice, invalidPriceCharacter
+  invalidPrice, invalidPriceCharacter,
+  unstringedMenu, unstringedDescription, unstringedCategory, unstringedQuantity, unstringedPrice
 } from './mockData/menuMock';
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
-let token;
+let generateToken;
 
 describe('Create Token For non-admin user', () => {
   it('should return token for successful login', (done) => {
@@ -25,7 +26,7 @@ describe('Create Token For non-admin user', () => {
       })
       .end((error, response) => {
         expect(response).to.have.status(200);
-        token = response.body.grabYourToken;
+        generateToken = response.body.token;
         done();
       });
   });
@@ -35,7 +36,7 @@ describe('Test POST MENU endpoint for non-admin user', () => {
   it('should return 401 if not Admin userType', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .end((error, response) => {
         expect(response).to.have.status(401);
         expect(response.body).to.be.a('object');
@@ -55,7 +56,7 @@ describe('Create Token For Admin', () => {
       })
       .end((error, response) => {
         expect(response).to.have.status(200);
-        token = response.body.grabYourToken;
+        generateToken = response.body.token;
         done();
       });
   });
@@ -65,7 +66,7 @@ describe('Test POST MENU endpoint for admin userType', () => {
   it('should return 201 for success', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(correctMenu)
       .end((error, response) => {
         expect(response).to.have.status(201);
@@ -77,7 +78,7 @@ describe('Test POST MENU endpoint for admin userType', () => {
   it('should return 400 for undefined menu', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(undefinedMenu)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -86,10 +87,22 @@ describe('Test POST MENU endpoint for admin userType', () => {
         done();
       });
   });
+  it('should return 400 for unstringed menu', (done) => {
+    chai.request(app)
+      .post('/api/v1/menu')
+      .set('authorization', generateToken)
+      .send(unstringedMenu)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Menu should be a string. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)');
+        done();
+      });
+  });
   it('should return 400 for empty menu', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(emptyMenu)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -101,7 +114,7 @@ describe('Test POST MENU endpoint for admin userType', () => {
   it('should return 400 for invalid menu length', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(invalidMenuLength)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -113,7 +126,7 @@ describe('Test POST MENU endpoint for admin userType', () => {
   it('should return 400 for invalid menu character', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(invalidMenuCharacter)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -125,7 +138,7 @@ describe('Test POST MENU endpoint for admin userType', () => {
   it('should return 409 for existing menu', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(existingMenu)
       .end((error, response) => {
         expect(response).to.have.status(409);
@@ -137,7 +150,7 @@ describe('Test POST MENU endpoint for admin userType', () => {
   it('should return 400 for undefined description', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(undefinedDescription)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -146,10 +159,22 @@ describe('Test POST MENU endpoint for admin userType', () => {
         done();
       });
   });
+  it('should return 400 for unstrined description', (done) => {
+    chai.request(app)
+      .post('/api/v1/menu')
+      .set('authorization', generateToken)
+      .send(unstringedDescription)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Description should be a string. Input characters of length 5 to 100 (alphanumeric, whitespace, comma, hyphen, fullstop)');
+        done();
+      });
+  });
   it('should return 400 for empty description', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(emptyDescription)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -161,7 +186,7 @@ describe('Test POST MENU endpoint for admin userType', () => {
   it('should return 400 for empty description', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(invalidDescriptionLength)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -173,7 +198,7 @@ describe('Test POST MENU endpoint for admin userType', () => {
   it('should return 400 for invalid description character', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(invalidDescriptionCharacter)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -185,43 +210,55 @@ describe('Test POST MENU endpoint for admin userType', () => {
   it('should return 400 for undefined category', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(undefinedCategory)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.message).to.equal("Category is undefined. Select 'local', 'pizza', 'rice', 'snacks', or 'others'");
+        expect(response.body.message).to.equal('Category is undefined. Input characters of length 3 to 50 (alphanumeric, whitespace, and hyphen)');
+        done();
+      });
+  });
+  it('should return 400 for unstringed category', (done) => {
+    chai.request(app)
+      .post('/api/v1/menu')
+      .set('authorization', generateToken)
+      .send(unstringedCategory)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Category should be a string of length 3 to 50 (alphanumeric, whitespace, and hyphen)');
         done();
       });
   });
   it('should return 400 for empty category', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(emptyCategory)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.message).to.equal("Category is empty. Select 'local', 'pizza', 'rice', 'snacks', or 'others'");
+        expect(response.body.message).to.equal('Category is empty. Input characters of length 3 to 50 (alphanumeric, whitespace, and hyphen)');
         done();
       });
   });
   it('should return 400 for invalid category', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(invalidCategory)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.message).to.equal("Invalid category. Select 'local', 'pizza', 'rice', 'snacks', or 'others'");
+        expect(response.body.message).to.equal('Invalid category. Input characters of length 3 to 50 (alphanumeric, whitespace, and hyphen)');
         done();
       });
   });
   it('should return 400 for undefined quantity', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(undefinedQuantity)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -230,10 +267,22 @@ describe('Test POST MENU endpoint for admin userType', () => {
         done();
       });
   });
+  it('should return 400 for unstringed quantity', (done) => {
+    chai.request(app)
+      .post('/api/v1/menu')
+      .set('authorization', generateToken)
+      .send(unstringedQuantity)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Quantity should be a string. Input positive integer greater than zero and of length 1 to 4');
+        done();
+      });
+  });
   it('should return 400 for empty quantity', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(emptyQuantity)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -245,7 +294,7 @@ describe('Test POST MENU endpoint for admin userType', () => {
   it('should return 400 for invalid quantity length', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(invalidQuantityLength)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -257,7 +306,7 @@ describe('Test POST MENU endpoint for admin userType', () => {
   it('should return 400 for invalid quantity', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(invalidQuantity)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -269,7 +318,7 @@ describe('Test POST MENU endpoint for admin userType', () => {
   it('should return 400 for invalid quantity character', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(invalidQuantityCharacter)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -281,60 +330,60 @@ describe('Test POST MENU endpoint for admin userType', () => {
   it('should return 400 for undefined price', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(undefinedPrice)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.message).to.equal('Price is undefined. Input positive integer characters of length 3 to 6');
+        expect(response.body.message).to.equal('Price is undefined. Input positive integer greater than zero but less than length of 10');
         done();
       });
   });
   it('should return 400 for empty price', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
+      .send(unstringedPrice)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Price should be a string. Input positive integer greater than zero but less than length of 10');
+        done();
+      });
+  });
+  it('should return 400 for empty price', (done) => {
+    chai.request(app)
+      .post('/api/v1/menu')
+      .set('authorization', generateToken)
       .send(emptyPrice)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.message).to.equal('Price is empty. Input positive integer characters of length 3 to 6');
-        done();
-      });
-  });
-  it('should return 400 for invalid price length', (done) => {
-    chai.request(app)
-      .post('/api/v1/menu')
-      .set('authorization', token)
-      .send(invalidPriceLength)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body).to.be.a('object');
-        expect(response.body.message).to.equal('Invalid price length. Input positive integer characters of length 3 to 6');
+        expect(response.body.message).to.equal('Price is empty. Input positive integer greater than zero but less than length of 10');
         done();
       });
   });
   it('should return 400 for invalid price', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(invalidPrice)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.message).to.equal('Invalid price. Input positive integers greater than zero and of length 3 to 6');
+        expect(response.body.message).to.equal('Invalid price. Input positive integer greater than zero but less than length of 10');
         done();
       });
   });
-  it('should return 400 for invalid price', (done) => {
+  it('should return 400 for invalid price character', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
-      .set('authorization', token)
+      .set('authorization', generateToken)
       .send(invalidPriceCharacter)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.message).to.equal('Invalid price character detected. Input positive integer characters of length 3 to 6');
+        expect(response.body.message).to.equal('Invalid price character detected. Input positive integer greater than zero but less than length of 10');
         done();
       });
   });

@@ -14,7 +14,7 @@ const createOrder = 'insert into orders (userid, mealid, quantity, total, locati
 
 const queryMenuTableById = 'select * from menus where id = $1';
 
-const updateRemainingMealQuantity = 'update menus set quantity = $1 where id = $2';
+const updateRemainingMenuQuantity = 'update menus set quantity = $1 where id = $2';
 
 const selectUserOrderHistory = `select orders.id, orders.created, menus.menu, orders.quantity, orders.total, orders.location, users.email, orders.status
 from orders inner join menus on orders.mealid = menus.id left join users on orders.userid = users.id  where userid=$1 order by id desc`;
@@ -31,7 +31,7 @@ const queryOrdersById = 'select * from orders where id = $1';
 
 export {
   createUser, queryUsersByEmail, queryUsersByPhone, createMenu, queryMenuTableByMenu,
-  queryAvailableMenu, createOrder, queryMenuTableById, updateRemainingMealQuantity,
+  queryAvailableMenu, createOrder, queryMenuTableById, updateRemainingMenuQuantity,
   selectUserOrderHistory, selectAllOrders, selectSpecificOrder, updateOrderStatus,
   queryOrdersById
 };

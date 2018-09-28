@@ -4,6 +4,12 @@ const successfulOrder = {
   location: '145 herbert macaulay way'
 };
 
+const unstringedLocation = {
+  mealId: '1',
+  quantity: '3',
+  location: ['235 EPIC Tower']
+};
+
 const invalidLocationLength = {
   mealId: '1',
   quantity: '3',
@@ -17,6 +23,12 @@ const invalidLocationCharacter = {
 };
 
 const undefinedMealId = {
+  quantity: '3',
+  location: '235, Ikorodu Road Lagos'
+};
+
+const unstringedMealId = {
+  mealId: ['5'],
   quantity: '3',
   location: '235, Ikorodu Road Lagos'
 };
@@ -50,6 +62,12 @@ const undefinedQuantity = {
   location: '235, Ikorodu Road Lagos'
 };
 
+const unstringedQuantity = {
+  mealId: '1',
+  quantity: ['58'],
+  location: '235, Ikorodu Road Lagos'
+};
+
 const emptyQuantity = {
   mealId: '1',
   quantity: '',
@@ -71,5 +89,6 @@ const excessQuantity = {
 export {
   successfulOrder, invalidLocationLength, invalidLocationCharacter, undefinedMealId,
   emptyMealId, invalidMealId, overMillionMealId, nonExistingMealId, undefinedQuantity,
-  emptyQuantity, invalidQuantity, excessQuantity
+  emptyQuantity, invalidQuantity, excessQuantity,
+  unstringedLocation, unstringedMealId, unstringedQuantity
 };

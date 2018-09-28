@@ -176,7 +176,7 @@ class UserValidationHandler {
               return response.status(400)
                 .json({
                   status: 'Fail',
-                  message: 'Address is undefined. Input 5 to 100 alphanumeric characters',
+                  message: 'Address is undefined. Input 5 to 100 characters (alphanumeric, comma, hyphen and whitespace)',
                   sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
                 });
             }
@@ -184,7 +184,7 @@ class UserValidationHandler {
               return response.status(400)
                 .json({
                   status: 'Fail',
-                  message: 'Address should be a string. Input 5 to 100 alphanumeric characters',
+                  message: 'Address should be a string. Input 5 to 100 characters (alphanumeric, comma, hyphen and whitespace)',
                   sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
                 });
             }
@@ -192,25 +192,25 @@ class UserValidationHandler {
               return response.status(400)
                 .json({
                   status: 'Fail',
-                  message: 'Address is empty. Input 5 to 100 alphanumeric characters',
+                  message: 'Address should be 5 to 100 characters (alphanumeric, comma, hyphen and whitespace)',
                   sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
                 });
             }
-            address = address.trim().replace(/  +/g, ' ');
+            address = address.trim().replace(/\s\s+/g, ' ');
             if (address.length < 5 || address.length > 100) {
               return response.status(400)
                 .json({
                   status: 'Fail',
-                  message: 'Address should be 5 to 100 alphanumeric characters',
+                  message: 'Address should be 5 to 100 characters (alphanumeric, comma, hyphen and whitespace)',
                   sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
                 });
             }
-            const validAddressCharacter = /^[a-z0-9 ]+$/i;
+            const validAddressCharacter = /^[a-z0-9 ,-.]+$/i;
             if (!validAddressCharacter.test(address)) {
               return response.status(400)
                 .json({
                   status: 'Fail',
-                  message: 'Address should be 5 to 100 alphanumeric characters and whitespace',
+                  message: 'Address should be 5 to 100 characters (alphanumeric, comma, hyphen and whitespace)',
                   sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
                 });
             }

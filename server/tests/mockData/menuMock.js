@@ -13,6 +13,14 @@ const undefinedMenu = {
   price: '2500'
 };
 
+const unstringedMenu = {
+  menu: ['rice and turkey'],
+  description: 'This meal is fantastic. You will come for more',
+  category: 'local',
+  quantity: '10',
+  price: '2500'
+};
+
 const emptyMenu = {
   menu: '',
   description: 'This meal is fantastic. You will come for more',
@@ -52,6 +60,14 @@ const undefinedDescription = {
   price: '2500'
 };
 
+const unstringedDescription = {
+  menu: 'Semovita, Vegetable, Isiewu',
+  description: ['description'],
+  category: 'local',
+  quantity: '10',
+  price: '2500'
+};
+
 const emptyDescription = {
   menu: 'Semovita, Vegetable, Isiewu',
   description: '',
@@ -83,6 +99,14 @@ const undefinedCategory = {
   price: '2500'
 };
 
+const unstringedCategory = {
+  menu: 'Semovita, Vegetable, Isiewu',
+  description: 'wowoo great',
+  category: ['category'],
+  quantity: '10',
+  price: '2500'
+};
+
 const emptyCategory = {
   menu: 'Semovita, Vegetable, Isiewu',
   description: 'wowoo great',
@@ -94,7 +118,7 @@ const emptyCategory = {
 const invalidCategory = {
   menu: 'Semovita, Vegetable, Isiewu',
   description: 'wowoo great',
-  category: 'drugs',
+  category: 'drugs@#$',
   quantity: '10',
   price: '2500'
 };
@@ -103,6 +127,14 @@ const undefinedQuantity = {
   menu: 'Semovita, Vegetable, Isiewu',
   description: 'wowoo great',
   category: 'local',
+  price: '2500'
+};
+
+const unstringedQuantity = {
+  menu: 'Semovita, Vegetable, Isiewu',
+  description: 'wowoo great',
+  category: 'local',
+  quantity: ['251'],
   price: '2500'
 };
 
@@ -145,6 +177,14 @@ const undefinedPrice = {
   quantity: '20',
 };
 
+const unstringedPrice = {
+  menu: 'Semovita, Vegetable, Isiewu',
+  description: 'wowoo great',
+  category: 'local',
+  quantity: '20',
+  price: ['544']
+};
+
 const emptyPrice = {
   menu: 'Semovita, Vegetable, Isiewu',
   description: 'wowoo great',
@@ -182,5 +222,6 @@ export {
   undefinedDescription, emptyDescription, invalidDescriptionLength, invalidDescriptionCharacter,
   undefinedCategory, emptyCategory, invalidCategory, undefinedQuantity, emptyQuantity,
   invalidQuantityLength, invalidQuantity, invalidQuantityCharacter, undefinedPrice, emptyPrice,
-  invalidPriceLength, invalidPrice, invalidPriceCharacter
+  invalidPriceLength, invalidPrice, invalidPriceCharacter,
+  unstringedMenu, unstringedDescription, unstringedCategory, unstringedQuantity, unstringedPrice
 };

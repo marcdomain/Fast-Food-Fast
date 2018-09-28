@@ -4,13 +4,14 @@ import app from '../../app';
 import {
   successfulOrder, invalidLocationLength, invalidLocationCharacter, undefinedMealId,
   emptyMealId, invalidMealId, overMillionMealId, nonExistingMealId, undefinedQuantity,
-  emptyQuantity, invalidQuantity, excessQuantity
+  emptyQuantity, invalidQuantity, excessQuantity,
+  unstringedLocation, unstringedMealId, unstringedQuantity
 } from './mockData/orderMock';
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
-let token;
+let userToken;
 let adminToken;
 
 describe('Test Homepage API Endpoint', () => {
@@ -47,8 +48,8 @@ describe('Create Token for testing Order Endpoints', () => {
       })
       .end((error, response) => {
         expect(response).to.have.status(200);
-        token = response.body.grabYourToken;
-        console.log('USER TEST TOKEN', token);
+        userToken = response.body.token;
+        console.log('USER TEST TOKEN', userToken);
         done();
       });
   });
@@ -61,7 +62,7 @@ describe('Create Token for testing Order Endpoints', () => {
       })
       .end((error, response) => {
         expect(response).to.have.status(200);
-        adminToken = response.body.grabYourToken;
+        adminToken = response.body.token;
         console.log('ADMIN TEST TOKEN', adminToken);
         done();
       });
@@ -72,7 +73,7 @@ describe('Test for POST order', () => {
   it('Should return 201 for success', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
       .send(successfulOrder)
       .end((error, response) => {
         expect(response).to.have.status(201);
@@ -80,10 +81,21 @@ describe('Test for POST order', () => {
         done();
       });
   });
+  it('Should return 400 for unstringed location', (done) => {
+    chai.request(app)
+      .post('/api/v1/orders')
+      .set('authorization', userToken)
+      .send(unstringedLocation)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Invalid should be a string. Please input alphanumeric characters of length 5 to 100');
+        done();
+      });
+  });
   it('Should return 400 for invalid location length', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
       .send(invalidLocationLength)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -94,7 +106,7 @@ describe('Test for POST order', () => {
   it('Should return 400 for invalid location character', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
       .send(invalidLocationCharacter)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -105,7 +117,7 @@ describe('Test for POST order', () => {
   it('Should return 400 for undefined menuId', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
       .send(undefinedMealId)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -113,10 +125,21 @@ describe('Test for POST order', () => {
         done();
       });
   });
+  it('Should return 400 for unstringed menuId', (done) => {
+    chai.request(app)
+      .post('/api/v1/orders')
+      .set('authorization', userToken)
+      .send(unstringedMealId)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('mealId should be a string. It should be a positive integer greater than zero');
+        done();
+      });
+  });
   it('Should return 400 for empty menuId', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
       .send(emptyMealId)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -127,7 +150,7 @@ describe('Test for POST order', () => {
   it('Should return 400 for invalid menuId', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
       .send(invalidMealId)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -138,7 +161,7 @@ describe('Test for POST order', () => {
   it('Should return 400 for over-million menuId', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
       .send(overMillionMealId)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -149,7 +172,7 @@ describe('Test for POST order', () => {
   it('Should return 400 for non-existing menuId', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
       .send(nonExistingMealId)
       .end((error, response) => {
         expect(response).to.have.status(404);
@@ -160,7 +183,7 @@ describe('Test for POST order', () => {
   it('Should return 400 for undefined quantity', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
       .send(undefinedQuantity)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -168,10 +191,21 @@ describe('Test for POST order', () => {
         done();
       });
   });
+  it('Should return 400 for unstringed quantity', (done) => {
+    chai.request(app)
+      .post('/api/v1/orders')
+      .set('authorization', userToken)
+      .send(unstringedQuantity)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body.message).to.equal('Quantity should be a string. It should be a positive integer greater than zero');
+        done();
+      });
+  });
   it('Should return 400 for empty quantity', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
       .send(emptyQuantity)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -182,7 +216,7 @@ describe('Test for POST order', () => {
   it('Should return 400 for invalid quantity', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
       .send(invalidQuantity)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -193,7 +227,7 @@ describe('Test for POST order', () => {
   it('Should return 400 for excess quantity', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
       .send(excessQuantity)
       .end((error, response) => {
         expect(response).to.have.status(406);
@@ -207,7 +241,7 @@ describe('Test GET User Order History Endpoint', () => {
   it('Should return 200 for success when usertype = user', (done) => {
     chai.request(app)
       .get('/api/v1/users/2/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
       .end((error, response) => {
         expect(response).to.have.status(200);
         expect(response.body).to.be.a('object');
@@ -229,7 +263,7 @@ describe('Test GET User Order History Endpoint', () => {
   it('Should return 401 for unauthorized user', (done) => {
     chai.request(app)
       .get('/api/v1/users/1/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
       .end((error, response) => {
         expect(response).to.have.status(401);
         expect(response.body).to.be.a('object');
@@ -240,7 +274,18 @@ describe('Test GET User Order History Endpoint', () => {
   it('Should return 400 for invalid userId format', (done) => {
     chai.request(app)
       .get('/api/v1/users/a/orders')
-      .set('authorization', token)
+      .set('authorization', userToken)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Invalid URL. userId should be a positive integer greater than zero');
+        done();
+      });
+  });
+  it('Should return 400 for invalid userId format', (done) => {
+    chai.request(app)
+      .get('/api/v1/users/a/orders')
+      .set('authorization', adminToken)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');

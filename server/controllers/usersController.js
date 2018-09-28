@@ -38,7 +38,7 @@ class UserHandler {
         return response.status(201)
           .json({
             message: `Hey ${username}, welcome to Marcus Fast-Food-Fast`,
-            grabYourToken: token
+            token
           });
       })
       .catch(error => response.status(500)
@@ -73,7 +73,7 @@ class UserHandler {
             return response.status(200)
               .json({
                 message: `Welcome back ${username}`,
-                grabYourToken: token
+                token
               });
           }
           response.status(401)

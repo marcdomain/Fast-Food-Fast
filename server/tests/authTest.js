@@ -26,7 +26,7 @@ describe('Test for Signup User', () => {
       .end((error, response) => {
         expect(response).to.have.status(201);
         expect(response.body.message).to.be.a('string');
-        expect(response.body).to.have.property('grabYourToken');
+        expect(response.body).to.have.property('token');
         done();
       });
   });
@@ -256,7 +256,7 @@ describe('Test for Signup User', () => {
       .send(undefinedAddress)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Address is undefined. Input 5 to 100 alphanumeric characters');
+        expect(response.body.message).to.equal('Address is undefined. Input 5 to 100 characters (alphanumeric, comma, hyphen and whitespace)');
         done();
       });
   });
@@ -266,7 +266,7 @@ describe('Test for Signup User', () => {
       .send(unstringedAddress)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Address should be a string. Input 5 to 100 alphanumeric characters');
+        expect(response.body.message).to.equal('Address should be a string. Input 5 to 100 characters (alphanumeric, comma, hyphen and whitespace)');
         done();
       });
   });
@@ -276,7 +276,7 @@ describe('Test for Signup User', () => {
       .send(emptyAddress)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Address is empty. Input 5 to 100 alphanumeric characters');
+        expect(response.body.message).to.equal('Address should be 5 to 100 characters (alphanumeric, comma, hyphen and whitespace)');
         done();
       });
   });
@@ -286,17 +286,17 @@ describe('Test for Signup User', () => {
       .send(invalidAddressLength)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Address should be 5 to 100 alphanumeric characters');
+        expect(response.body.message).to.equal('Address should be 5 to 100 characters (alphanumeric, comma, hyphen and whitespace)');
         done();
       });
   });
-  it('should return 400 for non-alphanumeric address', (done) => {
+  it('should return 400 for invalid address character', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
       .send(invalidAddressCharacter)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Address should be 5 to 100 alphanumeric characters and whitespace');
+        expect(response.body.message).to.equal('Address should be 5 to 100 characters (alphanumeric, comma, hyphen and whitespace)');
         done();
       });
   });
@@ -309,7 +309,7 @@ describe('Tests for user Login API', () => {
       .send(correctLogin)
       .end((error, response) => {
         expect(response).to.have.status(200);
-        expect(response.body).to.have.property('grabYourToken');
+        expect(response.body).to.have.property('token');
         expect(response.body.message).to.be.a('string');
         done();
       });

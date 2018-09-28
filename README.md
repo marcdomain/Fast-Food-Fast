@@ -38,7 +38,7 @@ Below are the features of Fast-Food-Fast Application at this point
 {<br> name: "string",<br>email: "string",<br>phone: "string",<br> address: "string",<br>password: "string"<br>}
 </td>
 <td>
-{<br> message: "string",<br>grabYourToken: "string"<br>}
+{<br> message: "string",<br>token: "string"<br>}
 </td>
 </tr>
 
@@ -48,62 +48,62 @@ Below are the features of Fast-Food-Fast Application at this point
 {<br> email: "string",<br>password: "string"<br>}
 </td>
 <td>
-{<br> message: "string",<br>grabYourToken: "string"<br>}
+{<br> message: "string",<br>token: "string"<br>}
 </td>
 </tr>
 
 <tr>
 <td>POST</td> <td>api/v1/menu</td>  <td>Create new menu</td>
 <td>
-{<br> menu: "string",<br>description: "string",<br>category: "string",<br>quantity: "string",<br>price: "string"<br>}<br>token: "string" or authorization header
+{<br> menu: "string",<br>description: "string",<br>category: "string",<br>quantity: "string",<br>price: "string"<br>}<br>"Authorization": "token"
 </td>
 <td>{<br>message: "string"<br>menu: {object}<br>}</td>
 </tr>
 
 <tr>
 <td>GET</td> <td>api/v1/menu</td>  <td>Get All Available Menu</td>
-<td>token: "string" or authorization header</td>
+<td>"Authorization": "token" or undefined</td>
 <td>{<br>message: "string"<br>allMenu: {object}<br>}</td>
 </tr>
 
 <tr><td>POST</td> <td>api/v1/orders</td>  <td>Place order</td>
-<td>{<br>menuId: "string",<br>quantity: "string",<br>location: "string" or undefined,<br>}<br>token: "string" or authorization header</td>
+<td>{<br>menuId: "string",<br>quantity: "string",<br>location: "string" or undefined,<br>}<br>"Authorization": "token"</td>
 <td>{<br>message: "string"<br>}</td>
 </tr>
 
 <tr>
 <td>GET</td> <td>api/v1/users/:userId/orders</td>  <td>Get user order history</td>
-<td>userId: "Number"<br>token: "string" or authorization header</td>
+<td>userId: "Number"<br>"Authorization": "token"</td>
 <td>{<br>message: "string"<br>orderHistory: {object}<br>}</td>
 </tr>
 
 <tr>
 <td>GET</td> <td>api/v1/orders</td>  <td>Get all orders</td>
-<td>token: "string" or authorization header</td>
+<td>"Authorization": "token"</td>
 <td>{<br>message: "string"<br>allOrders: {object}<br>}</td>
 </tr>
 
 <tr>
 <td>GET</td> <td>api/v1/orders/:orderId</td>  <td>Get specific order</td>
-<td>token: "string" or authorization header</td>
+<td>"Authorization": "token"</td>
 <td>{<br>message: "string"<br>foundOrder: {object}<br>}</td>
 </tr>
 
 <tr>
 <td>PUT</td> <td>api/v1/orders/:orderId/process</td>  <td>Process specific order</td>
-<td>token: "string" or authorization header</td>
+<td>"Authorization": "token"</td>
 <td>{<br>message: "string"<br>}</td>
 </tr>
 
 <tr>
 <td>PUT</td> <td>api/v1/orders/:orderId/cancel</td>  <td>Cancel specific order</td>
-<td>token: "string" or authorization header</td>
+<td>"Authorization": "token"</td>
 <td>{<br>message: "string"<br>}</td>
 </tr>
 
 <tr>
 <td>PUT</td> <td>api/v1/orders/:orderId/complete</td>  <td>Complete specific order</td>
-<td>token: "string" or authorization header</td>
+<td>"Authorization": "token"</td>
 <td>{<br>message: "string"<br>}</td>
 </tr>
 

@@ -1,6 +1,6 @@
 import pool from '../db/connection';
 import {
-  queryMenuTableById, updateRemainingMealQuantity,
+  queryMenuTableById, updateRemainingMenuQuantity,
   queryOrdersById
 } from '../db/sqlQueries';
 
@@ -27,13 +27,22 @@ class OrderValidators {
   static placeOrderValidator(request, response, next) {
     let { mealId, quantity, location } = request.body;
     if (location !== undefined) {
+      if (typeof location !== 'string') {
+        return response.status(400)
+          .json({
+            status: 'Fail',
+            message: 'Invalid should be a string. Please input alphanumeric characters of length 5 to 100',
+            sampleInput: '{"mealId": "string", "quantity": "string", "location": "string"}'
+          });
+      }
       location = location.trim().replace(/\s\s+/g, ' ');
       if (location !== '') {
         if (location.length < 5 || location.length > 100) {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Invalid location length. Please input alphanumeric characters of length 5 to 100'
+              message: 'Invalid location length. Please input alphanumeric characters of length 5 to 100',
+              sampleInput: '{"mealId": "string", "quantity": "string", "location": "string"}'
             });
         }
         const validLocationCharacters = /^[a-z0-9 ,-.]+$/i;
@@ -41,7 +50,8 @@ class OrderValidators {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Invalid location character. Length should be 5 to 100. Only alphanumeric characters, whitespace, comma, and hypen are accepted'
+              message: 'Invalid location character. Length should be 5 to 100. Only alphanumeric characters, whitespace, comma, and hypen are accepted',
+              sampleInput: '{"mealId": "string", "quantity": "string", "location": "string"}'
             });
         }
       }
@@ -51,6 +61,13 @@ class OrderValidators {
         .json({
           status: 'Fail',
           message: 'mealId is undefined. It should be a positive integer greater than zero'
+        });
+    }
+    if (typeof mealId !== 'string') {
+      return response.status(400)
+        .json({
+          status: 'Fail',
+          message: 'mealId should be a string. It should be a positive integer greater than zero'
         });
     }
     mealId = mealId.trim();
@@ -91,6 +108,13 @@ class OrderValidators {
               message: 'Quantity is undefined. It should be a positive integer greater than zero'
             });
         }
+        if (typeof quantity !== 'string') {
+          return response.status(400)
+            .json({
+              status: 'Fail',
+              message: 'Quantity should be a string. It should be a positive integer greater than zero'
+            });
+        }
         quantity = quantity.trim();
         if (quantity === '') {
           return response.status(400)
@@ -114,7 +138,7 @@ class OrderValidators {
             });
         }
         const newQuantity = result.rows[0].quantity - quantity;
-        pool.query(updateRemainingMealQuantity, [newQuantity, mealId])
+        pool.query(updateRemainingMenuQuantity, [newQuantity, mealId])
           .then(() => {
             request.body.location = location;
             request.body.mealId = mealId;
