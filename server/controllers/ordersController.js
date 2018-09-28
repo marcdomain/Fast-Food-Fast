@@ -1,7 +1,8 @@
 import pool from '../db/connection';
 import {
   createOrder, selectUserOrderHistory, selectAllOrders, selectSpecificOrder,
-  updateOrderStatus, queryUsersById, returnNewOrder, updateMenuQuantityAfterCancelOrder
+  updateOrderStatus, queryUsersById, returnNewOrder, updateMenuQuantityAfterCancelOrder,
+  queryUsersByPhone
 } from '../db/sqlQueries';
 
 /**
@@ -160,10 +161,16 @@ class OrderHandler {
       .then((result) => {
         if (result.rowCount === 1) {
           const foundOrder = result.rows[0];
-          return response.status(200)
-            .json({
-              message: 'Order fetched successfully',
-              foundOrder
+          return pool.query(queryUsersByPhone, [foundOrder.phone])
+            .then((data) => {
+              const userData = data.rows[0];
+              delete userData.password;
+              return response.status(200)
+                .json({
+                  message: 'Order fetched successfully',
+                  foundOrder,
+                  userData
+                });
             });
         }
         return response.status(404)
