@@ -1,7 +1,7 @@
 import pool from '../db/connection';
 import {
   createOrder, selectUserOrderHistory, selectAllOrders, selectSpecificOrder,
-  updateOrderStatus,
+  updateOrderStatus, queryUsersById, returnNewOrder
 } from '../db/sqlQueries';
 
 /**
@@ -28,18 +28,25 @@ class OrderHandler {
     const userId = request.authData.payload.id;
     const variables = [userId, mealId, quantity, location || request.authData.payload.address];
     pool.query(createOrder, variables)
-      .then(() => response.status(201)
-        .json({
-          message: 'Order placed successfully',
-        }))
-      .catch((error) => {
-        // console.log('POST ORDER ERROR', error.message);
-        return response.status(500)
-          .json({
-            status: 'Fail',
-            message: error.message
+      .then((result) => {
+        const meal = result.rows[0];
+        console.log('MEAL ORDERED', meal);
+        return pool.query(returnNewOrder)
+          .then((data) => {
+            const newMeal = data.rows[0];
+            console.log('NEW MEAL ORDERED', newMeal);
+            return response.status(201)
+              .json({
+                message: 'Order placed successfully',
+                newMeal
+              });
           });
-      });
+      })
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
   }
 
   /**
@@ -62,10 +69,20 @@ class OrderHandler {
         .then((result) => {
           const orderHistory = result.rows;
           if (orderHistory.length === 0 && userInfo.usertype === 'admin') {
-            return response.status(200)
-              .json({
-                message: 'This user order history is empty at this time. Please check again later',
-                orderHistory: 'None'
+            return pool.query(queryUsersById, [userId])
+              .then((data) => {
+                if (data.rowCount === 0) {
+                  return response.status(404)
+                    .json({
+                      status: 'Fail',
+                      message: 'This user does not exist'
+                    });
+                }
+                return response.status(200)
+                  .json({
+                    message: `${data.rows[0].email.split('@')[0]} order history is empty at this time. Please check again later`,
+                    orderHistory: 'None'
+                  });
               });
           }
           if (orderHistory.length === 0 && userInfo.id === Number(userId)) {
@@ -232,7 +249,7 @@ class OrderHandler {
 
   static completeOrder(request, response) {
     const { orderId } = request.params;
-    pool.query(updateOrderStatus, ['Completd', orderId])
+    pool.query(updateOrderStatus, ['Completed', orderId])
       .then(() => response.status(200)
         .json({
           message: 'Order is completed'

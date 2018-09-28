@@ -1,6 +1,6 @@
 const successfulOrder = {
   mealId: '1',
-  quantity: '1',
+  quantity: '10',
   location: '145 herbert macaulay way'
 };
 
@@ -86,9 +86,14 @@ const excessQuantity = {
   location: '235, Ikorodu Road Lagos'
 };
 
+const outOfStockMenu = {
+  mealId: '1',
+  quantity: '5'
+};
+
 export {
   successfulOrder, invalidLocationLength, invalidLocationCharacter, undefinedMealId,
   emptyMealId, invalidMealId, overMillionMealId, nonExistingMealId, undefinedQuantity,
   emptyQuantity, invalidQuantity, excessQuantity,
-  unstringedLocation, unstringedMealId, unstringedQuantity
+  unstringedLocation, unstringedMealId, unstringedQuantity, outOfStockMenu
 };

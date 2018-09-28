@@ -130,6 +130,13 @@ class OrderValidators {
               message: 'Invalid quantity detected. It should be a positive integer greater than zero'
             });
         }
+        if (result.rows[0].quantity === 0) {
+          return response.status(406)
+            .json({
+              status: 'Fail',
+              message: 'Sorry, this menu is currently out of stock. Check again later'
+            });
+        }
         if (result.rows[0].quantity < quantity) {
           return response.status(406)
             .json({
@@ -146,14 +153,11 @@ class OrderValidators {
             next();
           });
       })
-      .catch((error) => {
-        console.log('POST ORDER ERROR', error.message);
-        return response.status(500)
-          .json({
-            status: 'Fail',
-            message: error.message
-          });
-      });
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
   }
 
   /**

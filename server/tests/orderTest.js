@@ -5,7 +5,7 @@ import {
   successfulOrder, invalidLocationLength, invalidLocationCharacter, undefinedMealId,
   emptyMealId, invalidMealId, overMillionMealId, nonExistingMealId, undefinedQuantity,
   emptyQuantity, invalidQuantity, excessQuantity,
-  unstringedLocation, unstringedMealId, unstringedQuantity
+  unstringedLocation, unstringedMealId, unstringedQuantity, outOfStockMenu
 } from './mockData/orderMock';
 
 const { expect } = chai;
@@ -49,7 +49,6 @@ describe('Create Token for testing Order Endpoints', () => {
       .end((error, response) => {
         expect(response).to.have.status(200);
         userToken = response.body.token;
-        console.log('USER TEST TOKEN', userToken);
         done();
       });
   });
@@ -63,13 +62,23 @@ describe('Create Token for testing Order Endpoints', () => {
       .end((error, response) => {
         expect(response).to.have.status(200);
         adminToken = response.body.token;
-        console.log('ADMIN TEST TOKEN', adminToken);
         done();
       });
   });
 });
 
 describe('Test for POST order', () => {
+  it('Should return 406 for excess quantity', (done) => {
+    chai.request(app)
+      .post('/api/v1/orders')
+      .set('authorization', userToken)
+      .send(excessQuantity)
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body).to.be.a('object');
+        done();
+      });
+  });
   it('Should return 201 for success', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
@@ -224,14 +233,15 @@ describe('Test for POST order', () => {
         done();
       });
   });
-  it('Should return 400 for excess quantity', (done) => {
+  it('Should return 406 for out-of-stock menu', (done) => {
     chai.request(app)
       .post('/api/v1/orders')
       .set('authorization', userToken)
-      .send(excessQuantity)
+      .send(outOfStockMenu)
       .end((error, response) => {
         expect(response).to.have.status(406);
         expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Sorry, this menu is currently out of stock. Check again later');
         done();
       });
   });
@@ -257,6 +267,27 @@ describe('Test GET User Order History Endpoint', () => {
         expect(response).to.have.status(200);
         expect(response.body).to.be.a('object');
         expect(response.body).to.have.property('orderHistory');
+        done();
+      });
+  });
+  it('Should return 404 for non-existing user when usertype = admin', (done) => {
+    chai.request(app)
+      .get('/api/v1/users/3/orders')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('This user does not exist');
+        done();
+      });
+  });
+  it('Should return 200 for empty user history when usertype = admin', (done) => {
+    chai.request(app)
+      .get('/api/v1/users/1/orders')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
         done();
       });
   });
