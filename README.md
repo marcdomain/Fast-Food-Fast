@@ -5,7 +5,8 @@
 Fast-Food-Fast​ is a food delivery service app for a restaurant.
 
 <br/><b>UI-pages:</b> https://marcdomain.github.io/Fast-Food-Fast/UI
- <br/><b> API documentation: </b> https://marcus-fast-food-fast.herokuapp.com/api/v1/
+<br/><b> Hosted API on Heroku: </b> https://marcus-fast-food-fast.herokuapp.com/api/v1
+ <br/><b> API documentation: </b> https://marcus-fast-food-fast.herokuapp.com/api-docs
 
 ## Features
 Below are the features of Fast-Food-Fast Application at this point
@@ -67,7 +68,7 @@ Below are the features of Fast-Food-Fast Application at this point
 </tr>
 
 <tr><td>POST</td> <td>api/v1/orders</td>  <td>Place order</td>
-<td>{<br>menuId: "string",<br>quantity: "string",<br>location: "string" or undefined,<br>}<br>"Authorization": "token"</td>
+<td>{<br>mealId: "string",<br>quantity: "string",<br>location: "string" or undefined,<br>}<br>"Authorization": "token"</td>
 <td>{<br>message: "string"<br>}</td>
 </tr>
 
