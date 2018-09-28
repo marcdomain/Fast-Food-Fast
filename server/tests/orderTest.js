@@ -443,6 +443,17 @@ describe('Test UPDATE ORDER by Admin', () => {
         done();
       });
   });
+  it('Should return 200 for successful complete order', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/1/complete')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Order is completed');
+        done();
+      });
+  });
   it('Should return 406 for already cancelled order', (done) => {
     chai.request(app)
       .put('/api/v1/orders/2/cancel')
@@ -451,6 +462,17 @@ describe('Test UPDATE ORDER by Admin', () => {
         expect(response).to.have.status(406);
         expect(response.body).to.be.a('object');
         expect(response.body.message).to.equal('Sorry, this order cannot be updated at this time');
+        done();
+      });
+  });
+  it('Should return 406 for unsuccessful complete order', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/2/complete')
+      .set('authorization', adminToken)
+      .end((error, response) => {
+        expect(response).to.have.status(406);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('This order can only be completed after its been placed on processing');
         done();
       });
   });

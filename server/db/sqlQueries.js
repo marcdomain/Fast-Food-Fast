@@ -34,7 +34,7 @@ const queryOrdersById = 'select * from orders where id = $1';
 
 const queryUsersById = 'select * from users where id = $1';
 
-const updateMenuQuantityAfterCancelOrder = 'update menus set quantity =+ $1';
+const updateMenuQuantityAfterCancelOrder = 'update menus set quantity =+ $1 where id = $2';
 
 export {
   createUser, queryUsersByEmail, queryUsersByPhone, createMenu, queryMenuTableByMenu,

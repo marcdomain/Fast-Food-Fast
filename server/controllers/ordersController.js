@@ -193,14 +193,10 @@ class OrderHandler {
   static processOrder(request, response) {
     const { orderId } = request.params;
     pool.query(updateOrderStatus, ['Processing', orderId])
-      .then((result) => {
-        const clickedAction = result.rows[0];
-        console.log('CLICKED ACTION', clickedAction);
-        return response.status(200)
-          .json({
-            message: 'Order is currently processing'
-          });
-      })
+      .then(() => response.status(200)
+        .json({
+          message: 'Order is currently processing'
+        }))
       .catch(error => response.status(500)
         .json({
           status: 'Fail',
@@ -225,8 +221,8 @@ class OrderHandler {
     pool.query(updateOrderStatus, ['Cancelled', orderId])
       .then((result) => {
         const cancelledOrder = result.rows[0];
-        console.log('CANCELED ORDER', cancelledOrder);
-        return pool.query(updateMenuQuantityAfterCancelOrder, [cancelledOrder.quantity])
+        return pool.query(updateMenuQuantityAfterCancelOrder,
+          [cancelledOrder.quantity, cancelledOrder.mealId])
           .then(() => response.status(200)
             .json({
               message: 'Order is cancelled'
