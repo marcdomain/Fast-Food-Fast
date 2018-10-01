@@ -3,15 +3,13 @@ import pool from '../connection';
 const createOrdersTable = `DROP TABLE IF EXISTS orders CASCADE;
   CREATE TABLE orders (
     id SERIAL PRIMARY KEY NOT NULL,
-    userid INTEGER NOT NULL,
-    mealid INTEGER NOT NULL,
-    FOREIGN KEY (userid) references users (id) on delete cascade,
-    FOREIGN KEY (mealid) references menus (id) on delete cascade,
-    quantity INTEGER NOT NULL,
+    userId INTEGER NOT NULL,
+    FOREIGN KEY (userId) references users (id) on delete cascade,
+    orderItems JSONB NOT NULL,
     total INTEGER NOT NULL,
     location CHARACTER VARYING(100) NOT NULL,
-    created TIMESTAMP NOT NULL DEFAULT (NOW()),
-    status CHARACTER VARYING(10) NOT NULL DEFAULT ('new')
+    orderDate TIMESTAMP NOT NULL DEFAULT (NOW()),
+    status CHARACTER VARYING(10) NOT NULL DEFAULT ('New')
 )`;
 
 class OrderTableHandler {

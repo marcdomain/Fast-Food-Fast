@@ -1,105 +1,162 @@
 const successfulOrder = {
-  mealId: '1',
-  quantity: '5',
+  orderItems: [
+    {
+      menuId: 1,
+      quantity: 5
+    },
+    {
+      menuId: 2,
+      quantity: 10
+    }
+  ],
   location: '145 herbert macaulay way'
 };
 
 const successfulOrder2 = {
-  mealId: '1',
-  quantity: '5',
+  orderItems: [
+    {
+      menuId: 1,
+      quantity: 5
+    },
+    {
+      menuId: 2,
+      quantity: 70
+    }
+  ],
   location: '145 herbert macaulay way'
 };
 
 const unstringedLocation = {
-  mealId: '1',
-  quantity: '3',
+  orderItems: [
+    {
+      menuId: 1,
+      quantity: 5
+    }
+  ],
   location: ['235 EPIC Tower']
 };
 
 const invalidLocationLength = {
-  mealId: '1',
-  quantity: '3',
+  orderItems: [
+    {
+      menuId: 1,
+      quantity: 5
+    }
+  ],
   location: '235'
 };
 
 const invalidLocationCharacter = {
-  mealId: '1',
-  quantity: '3',
+  orderItems: [
+    {
+      menuId: 1,
+      quantity: 5
+    }
+  ],
   location: '235 @ Ikorodu #'
 };
 
-const undefinedMealId = {
-  quantity: '3',
+const undefinedMenuId = {
+  orderItems: [
+    {
+      quantity: 5
+    }
+  ],
   location: '235, Ikorodu Road Lagos'
 };
 
-const unstringedMealId = {
-  mealId: ['5'],
-  quantity: '3',
+const emptyMenuId = {
+  orderItems: [
+    {
+      menuId: '',
+      quantity: 5
+    }
+  ],
   location: '235, Ikorodu Road Lagos'
 };
 
-const emptyMealId = {
-  mealId: '',
-  quantity: '3',
+const invalidMenuId = {
+  orderItems: [
+    {
+      menuId: 'he',
+      quantity: 5
+    }
+  ],
   location: '235, Ikorodu Road Lagos'
 };
 
-const invalidMealId = {
-  mealId: '1a',
-  quantity: '3',
+const overMillionMenuId = {
+  orderItems: [
+    {
+      menuId: 800000000000000000,
+      quantity: 5
+    }
+  ],
   location: '235, Ikorodu Road Lagos'
 };
 
-const overMillionMealId = {
-  mealId: '80000000000000000',
-  quantity: '3',
-  location: '235, Ikorodu Road Lagos'
-};
-
-const nonExistingMealId = {
-  mealId: '8000',
-  quantity: '3',
+const nonExistingMenuId = {
+  orderItems: [
+    {
+      menuId: 50,
+      quantity: 5
+    }
+  ],
   location: '235, Ikorodu Road Lagos'
 };
 
 const undefinedQuantity = {
-  mealId: '1',
-  location: '235, Ikorodu Road Lagos'
-};
-
-const unstringedQuantity = {
-  mealId: '1',
-  quantity: ['58'],
+  orderItems: [
+    {
+      menuId: 1
+    }
+  ],
   location: '235, Ikorodu Road Lagos'
 };
 
 const emptyQuantity = {
-  mealId: '1',
-  quantity: '',
+  orderItems: [
+    {
+      menuId: 1,
+      quantity: ''
+    }
+  ],
   location: '235, Ikorodu Road Lagos'
 };
 
 const invalidQuantity = {
-  mealId: '1',
-  quantity: '-2',
+  orderItems: [
+    {
+      menuId: 1,
+      quantity: -2
+    }
+  ],
   location: '235, Ikorodu Road Lagos'
 };
 
 const excessQuantity = {
-  mealId: '1',
-  quantity: '20000000000',
+  orderItems: [
+    {
+      menuId: 1,
+      quantity: 2000000
+    }
+  ],
   location: '235, Ikorodu Road Lagos'
 };
 
 const outOfStockMenu = {
-  mealId: '1',
+  orderItems: [
+    {
+      menuId: 2,
+      quantity: 10
+    }
+  ],
   quantity: '5'
 };
 
 export {
-  successfulOrder, invalidLocationLength, invalidLocationCharacter, undefinedMealId,
-  emptyMealId, invalidMealId, overMillionMealId, nonExistingMealId, undefinedQuantity,
-  emptyQuantity, invalidQuantity, excessQuantity,
-  unstringedLocation, unstringedMealId, unstringedQuantity, outOfStockMenu, successfulOrder2
+  successfulOrder, successfulOrder2, unstringedLocation, invalidLocationLength,
+  invalidLocationCharacter, undefinedMenuId, emptyMenuId, invalidMenuId, overMillionMenuId,
+  nonExistingMenuId, undefinedQuantity, emptyQuantity, invalidQuantity, excessQuantity,
+  outOfStockMenu
 };

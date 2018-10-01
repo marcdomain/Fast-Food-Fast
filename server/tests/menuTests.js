@@ -3,11 +3,11 @@ import chaiHttp from 'chai-http';
 import app from '../../app';
 
 import {
-  correctMenu, undefinedMenu, emptyMenu, invalidMenuLength, invalidMenuCharacter, existingMenu,
+  correctMenu, undefinedMenu, emptyMenu, invalidMenuLength, invalidMenuCharacter,
   undefinedDescription, emptyDescription, invalidDescriptionLength, invalidDescriptionCharacter,
   undefinedCategory, emptyCategory, invalidCategory, undefinedQuantity, emptyQuantity,
   invalidQuantityLength, invalidQuantity, invalidQuantityCharacter, undefinedPrice, emptyPrice,
-  invalidPrice, invalidPriceCharacter,
+  invalidPrice, invalidPriceCharacter, correctMenu2, correctMenu3,
   unstringedMenu, unstringedDescription, unstringedCategory, unstringedQuantity, unstringedPrice
 } from './mockData/menuMock';
 
@@ -75,6 +75,30 @@ describe('Test POST MENU endpoint for admin userType', () => {
         done();
       });
   });
+  it('should return 201 for success', (done) => {
+    chai.request(app)
+      .post('/api/v1/menu')
+      .set('authorization', generateToken)
+      .send(correctMenu2)
+      .end((error, response) => {
+        expect(response).to.have.status(201);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Menu created successfully');
+        done();
+      });
+  });
+  it('should return 201 for success', (done) => {
+    chai.request(app)
+      .post('/api/v1/menu')
+      .set('authorization', generateToken)
+      .send(correctMenu3)
+      .end((error, response) => {
+        expect(response).to.have.status(201);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Menu created successfully');
+        done();
+      });
+  });
   it('should return 400 for undefined menu', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
@@ -132,18 +156,6 @@ describe('Test POST MENU endpoint for admin userType', () => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
         expect(response.body.message).to.equal('Invalid menu character detected. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)');
-        done();
-      });
-  });
-  it('should return 409 for existing menu', (done) => {
-    chai.request(app)
-      .post('/api/v1/menu')
-      .set('authorization', generateToken)
-      .send(existingMenu)
-      .end((error, response) => {
-        expect(response).to.have.status(409);
-        expect(response.body).to.be.a('object');
-        expect(response.body.message).to.equal('Menu already exist. If you wish to update it, then use the modify menu endpoint');
         done();
       });
   });
@@ -397,6 +409,48 @@ describe('GET All Available Menu', () => {
         expect(response).to.have.status(200);
         expect(response.body).to.be.a('object');
         expect(response.body.message).to.equal('List of Available Menu');
+        done();
+      });
+  });
+});
+
+describe('GET Specific Menu', () => {
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .get('/api/v1/menu/1')
+      .set('authorization', generateToken)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Menu fetched successfully');
+        done();
+      });
+  });
+});
+
+describe('Update specific Menu', () => {
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .put('/api/v1/menu/1')
+      .set('authorization', generateToken)
+      .send(correctMenu)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Updated successfully');
+        done();
+      });
+  });
+});
+
+describe('Delete specific Menu', () => {
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .delete('/api/v1/menu/3')
+      .set('authorization', generateToken)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
         done();
       });
   });
