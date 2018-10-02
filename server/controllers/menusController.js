@@ -82,6 +82,15 @@ class MenusHandler {
         }));
   }
 
+  static getSpecificMenu(request, response) {
+    const { foundMenu } = request.body;
+    return response.status(200)
+      .json({
+        message: 'Menu fetched successfully',
+        foundMenu
+      });
+  }
+
   static updateMenuItem(request, response) {
     const {
       menu, description, category, quantity, price
@@ -118,9 +127,9 @@ class MenusHandler {
 }
 
 const {
-  postMenu, getAllMenu, updateMenuItem, deleteMenu
+  postMenu, getAllMenu, updateMenuItem, deleteMenu, getSpecificMenu
 } = MenusHandler;
 
 export {
-  postMenu, getAllMenu, updateMenuItem, deleteMenu
+  postMenu, getAllMenu, updateMenuItem, deleteMenu, getSpecificMenu
 };

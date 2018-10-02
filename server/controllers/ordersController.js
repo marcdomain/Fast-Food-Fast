@@ -2,7 +2,7 @@ import pool from '../db/connection';
 import {
   createOrder, selectUserOrderHistory, selectAllOrders, selectSpecificOrder,
   updateOrderStatus, queryUsersById, returnNewOrder, updateMenuQuantityAfterCancelOrder,
-  queryUsersByPhone
+  queryUsersByPhone,
 } from '../db/sqlQueries';
 
 /**
@@ -25,17 +25,16 @@ class OrderHandler {
   */
 
   static placeOrder(request, response) {
-    const { mealId, quantity, location } = request.body;
-    const userId = request.authData.payload.id;
-    const variables = [userId, mealId, quantity, location || request.authData.payload.address];
+    const { variables } = request.body;
+
     pool.query(createOrder, variables)
       .then(() => pool.query(returnNewOrder)
         .then((data) => {
-          const newMeal = data.rows[0];
+          const newOrder = data.rows[0];
           return response.status(201)
             .json({
               message: 'Order placed successfully',
-              newMeal
+              newOrder
             });
         }))
       .catch(error => response.status(500)

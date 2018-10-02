@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-  postMenu, getAllMenu, updateMenuItem, deleteMenu
+  postMenu, getAllMenu, updateMenuItem, deleteMenu, getSpecificMenu
 } from '../controllers/menusController';
 import { verifyToken, authorizedAdmin } from '../middlewares/authorization';
 import {
@@ -13,5 +13,6 @@ menuRouter.post('/menu', verifyToken, authorizedAdmin, postMenuValidator, postMe
 menuRouter.get('/menu', getAllMenu);
 menuRouter.put('/menu/:menuId', verifyToken, authorizedAdmin, getSpecificMenuValidator, postMenuValidator, updateMenuItem);
 menuRouter.delete('/menu/:menuId', verifyToken, authorizedAdmin, getSpecificMenuValidator, deleteMenu);
+menuRouter.get('/menu/:menuId', verifyToken, authorizedAdmin, getSpecificMenuValidator, getSpecificMenu);
 
 export default menuRouter;

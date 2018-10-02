@@ -2,7 +2,23 @@ const correctMenu = {
   menu: 'Eba, Vegetable, Isiewu',
   description: 'This meal is fantastic. You will come for more',
   category: 'local',
-  quantity: '10',
+  quantity: '100',
+  price: '2500'
+};
+
+const correctMenu2 = {
+  menu: 'Rice and Turkey',
+  description: 'This meal is fantastic. You will come for more',
+  category: 'local',
+  quantity: '80',
+  price: '2500'
+};
+
+const correctMenu3 = {
+  menu: 'Rice and Turkey',
+  description: 'This meal is fantastic. You will come for more',
+  category: 'local',
+  quantity: '80',
   price: '2500'
 };
 
@@ -214,6 +230,6 @@ export {
   undefinedDescription, emptyDescription, invalidDescriptionLength, invalidDescriptionCharacter,
   undefinedCategory, emptyCategory, invalidCategory, undefinedQuantity, emptyQuantity,
   invalidQuantityLength, invalidQuantity, invalidQuantityCharacter, undefinedPrice, emptyPrice,
-  invalidPriceLength, invalidPrice, invalidPriceCharacter,
+  invalidPriceLength, invalidPrice, invalidPriceCharacter, correctMenu2, correctMenu3,
   unstringedMenu, unstringedDescription, unstringedCategory, unstringedQuantity, unstringedPrice
 };

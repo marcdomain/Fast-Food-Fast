@@ -268,6 +268,10 @@ class MenuValidationHandler {
               message: 'Menu not found'
             });
         }
+        const foundMenu = result.rows[0];
+        request.body.foundMenu = foundMenu;
+        request.params.menuId = menuId;
+
         next();
       })
       .catch(error => response.status(500)

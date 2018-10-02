@@ -1,7 +1,6 @@
 import pool from '../db/connection';
 import {
-  queryMenuTableById, menuQuantityAfterOrder,
-  queryOrdersById
+  queryMenuTableById, menuQuantityAfterOrder, queryOrdersById
 } from '../db/sqlQueries';
 
 /**
@@ -25,14 +24,31 @@ class OrderValidators {
   */
 
   static placeOrderValidator(request, response, next) {
-    let { mealId, quantity, location } = request.body;
+    const { orderItems } = request.body;
+    let { location } = request.body;
+    const userId = request.authData.payload.id;
+    let total = 0;
+    const promises = [];
+    let newQuantity;
     if (location !== undefined) {
       if (typeof location !== 'string') {
         return response.status(400)
           .json({
             status: 'Fail',
-            message: 'Invalid should be a string. Please input alphanumeric characters of length 5 to 100',
-            sampleInput: '{"mealId": "string", "quantity": "string", "location": "string"}'
+            message: 'Invalid location. Input a string character of length 5 to 100 (alphanumeric, whitespace, comma, fullstop, and hypen are allowed)',
+            sampleInput: {
+              orderItems: [
+                {
+                  menuId: 'Number',
+                  quantity: 'Number'
+                },
+                {
+                  menuId: 'Number',
+                  quantity: 'Number'
+                }
+              ]
+            },
+            location: 'string or undefined or empty'
           });
       }
       location = location.trim().replace(/\s\s+/g, ' ');
@@ -41,8 +57,20 @@ class OrderValidators {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Invalid location length. Please input alphanumeric characters of length 5 to 100',
-              sampleInput: '{"mealId": "string", "quantity": "string", "location": "string"}'
+              message: 'Invalid location length. Input a string character of length 5 to 100 (alphanumeric, whitespace, comma, fullstop, and hypen are allowed)',
+              sampleInput: {
+                orderItems: [
+                  {
+                    menuId: 'Number',
+                    quantity: 'Number'
+                  },
+                  {
+                    menuId: 'Number',
+                    quantity: 'Number'
+                  }
+                ]
+              },
+              location: 'string or undefined or empty'
             });
         }
         const validLocationCharacters = /^[a-z0-9 ,-.]+$/i;
@@ -50,114 +78,176 @@ class OrderValidators {
           return response.status(400)
             .json({
               status: 'Fail',
-              message: 'Invalid location character. Length should be 5 to 100. Only alphanumeric characters, whitespace, comma, and hypen are accepted',
-              sampleInput: '{"mealId": "string", "quantity": "string", "location": "string"}'
+              message: 'Invalid location character. Input a string character of length 5 to 100 (alphanumeric, whitespace, comma, fullstop, and hypen are allowed)',
+              sampleInput: {
+                orderItems: [
+                  {
+                    menuId: 'Number',
+                    quantity: 'Number'
+                  },
+                  {
+                    menuId: 'Number',
+                    quantity: 'Number'
+                  }
+                ]
+              },
+              location: 'string or undefined or empty'
             });
         }
       }
     }
-    if (mealId === undefined) {
-      return response.status(400)
-        .json({
-          status: 'Fail',
-          message: 'mealId is undefined. It should be a positive integer greater than zero'
-        });
-    }
-    if (typeof mealId !== 'string') {
-      return response.status(400)
-        .json({
-          status: 'Fail',
-          message: 'mealId should be a string. It should be a positive integer greater than zero'
-        });
-    }
-    mealId = mealId.trim();
-    if (mealId === '') {
-      return response.status(400)
-        .json({
-          status: 'Fail',
-          message: 'mealId is empty. It should be a positive integer greater than zero'
-        });
-    }
-    if (!Number(mealId) || mealId <= 0) {
-      return response.status(400)
-        .json({
-          status: 'Fail',
-          message: 'Invalid mealId detected. It should be a positive integer greater than zero'
-        });
-    }
-    if (mealId.length > 9) {
-      return response.status(400)
-        .json({
-          status: 'Fail',
-          message: 'Invalid mealId detected. It should be a positive integer greater than zero and less than a million'
-        });
-    }
-    pool.query(queryMenuTableById, [mealId])
-      .then((result) => {
-        if (result.rowCount === 0) {
-          return response.status(404)
-            .json({
-              status: 'Fail',
-              message: 'Sorry, this menu does not exist'
-            });
-        }
-        if (quantity === undefined) {
-          return response.status(400)
-            .json({
-              status: 'Fail',
-              message: 'Quantity is undefined. It should be a positive integer greater than zero'
-            });
-        }
-        if (typeof quantity !== 'string') {
-          return response.status(400)
-            .json({
-              status: 'Fail',
-              message: 'Quantity should be a string. It should be a positive integer greater than zero'
-            });
-        }
-        quantity = quantity.trim();
-        if (quantity === '') {
-          return response.status(400)
-            .json({
-              status: 'Fail',
-              message: 'Quantity is empty. It should be a positive integer greater than zero'
-            });
-        }
-        if (!Number(quantity) || quantity <= 0) {
-          return response.status(400)
-            .json({
-              status: 'Fail',
-              message: 'Invalid quantity detected. It should be a positive integer greater than zero'
-            });
-        }
-        if (result.rows[0].quantity === 0) {
-          return response.status(406)
-            .json({
-              status: 'Fail',
-              message: 'Sorry, this menu is currently out of stock. Check again later'
-            });
-        }
-        if (result.rows[0].quantity < quantity) {
-          return response.status(406)
-            .json({
-              status: 'Fail',
-              message: `Sorry, the maximum quantity you can order at this time is ${result.rows[0].quantity}`
-            });
-        }
-        const newQuantity = result.rows[0].quantity - quantity;
-        pool.query(menuQuantityAfterOrder, [newQuantity, mealId])
-          .then(() => {
-            request.body.location = location;
-            request.body.mealId = mealId;
-            request.body.quantity = quantity;
-            next();
+    orderItems.forEach((order, index, orderArray) => {
+      if (order.menuId === undefined) {
+        return response.status(400)
+          .json({
+            status: 'Fail',
+            message: 'menuId is undefined. Please input menuId as a positive integer greater than zero',
+            sampleInput: {
+              orderItems: [
+                {
+                  menuId: 'Number',
+                  quantity: 'Number'
+                },
+                {
+                  menuId: 'Number',
+                  quantity: 'Number'
+                }
+              ]
+            },
+            location: 'string or undefined or empty'
           });
-      })
-      .catch(error => response.status(500)
-        .json({
-          status: 'Fail',
-          message: error.message
-        }));
+      }
+      if (order.menuId === '') {
+        return response.status(400)
+          .json({
+            status: 'Fail',
+            message: 'menuId is empty. Please input menuId as a positive integer greater than zero',
+            sampleInput: {
+              orderItems: [
+                {
+                  menuId: 'Number',
+                  quantity: 'Number'
+                },
+                {
+                  menuId: 'Number',
+                  quantity: 'Number'
+                }
+              ]
+            },
+            location: 'string or undefined or empty'
+          });
+      }
+      const validInteger = /^[0-9]+$/;
+      if (!Number(order.menuId) || order.menuId < 1 || !validInteger.test(order.menuId)) {
+        return response.status(400)
+          .json({
+            status: 'Fail',
+            message: 'Invalid menuId detected. It should be a positive integer greater than zero',
+            sampleInput: {
+              orderItems: [
+                {
+                  menuId: 'Number',
+                  quantity: 'Number'
+                },
+                {
+                  menuId: 'Number',
+                  quantity: 'Number'
+                }
+              ]
+            },
+            location: 'string or undefined or empty'
+          });
+      }
+      if (order.menuId.length > 8) {
+        return response.status(400)
+          .json({
+            status: 'Fail',
+            message: `menuId '${order.menuId}' is out of range. It should be less than millions`,
+            sampleInput: {
+              orderItems: [
+                {
+                  menuId: 'Number',
+                  quantity: 'Number'
+                },
+                {
+                  menuId: 'Number',
+                  quantity: 'Number'
+                }
+              ]
+            },
+            location: 'string or undefined or empty'
+          });
+      }
+      if (!Number(order.quantity) || order.quantity < 1 || !validInteger.test(order.quantity)) {
+        return response.status(400)
+          .json({
+            status: 'Fail',
+            message: 'Invalid quantity detected. It should be a positive integer greater than zero',
+            sampleInput: {
+              orderItems: [
+                {
+                  menuId: 'Number',
+                  quantity: 'Number'
+                },
+                {
+                  menuId: 'Number',
+                  quantity: 'Number'
+                }
+              ]
+            },
+            location: 'string or undefined or empty'
+          });
+      }
+      pool.query(queryMenuTableById, [order.menuId])
+        .then((result) => {
+          if (result.rowCount === 0) {
+            return response.status(404)
+              .json({
+                status: 'Fail',
+                message: `Sorry the menu with 'id: ${order.menuId}' does not exist`
+              });
+          }
+          const { price } = result.rows[0];
+          order.amount = order.quantity * price;
+          order.menu = result.rows[0].menu;
+          total += order.amount;
+
+          if (result.rows[0].quantity === 0) {
+            return response.status(406)
+              .json({
+                status: 'Fail',
+                message: `Sorry, '${result.rows[0].menu} (menuId: ${order.menuId})' is currently out of stock. Check again later`
+              });
+          }
+          if (result.rows[0].quantity < order.quantity) {
+            return response.status(406)
+              .json({
+                status: 'Fail',
+                message: `Maximum quantity of '${result.rows[0].menu} (menuId: ${order.menuId})' you can order at this time is ${result.rows[0].quantity}`
+              });
+          }
+
+          newQuantity = result.rows[0].quantity - order.quantity;
+          promises.push(order);
+          return promises;
+        })
+        .then((feedback) => {
+          pool.query(menuQuantityAfterOrder, [newQuantity, order.menuId])
+            .then(() => {});
+
+          if (orderArray.length === feedback.length) {
+            const variables = [userId, JSON.stringify(feedback), total,
+              location || request.authData.payload.address];
+
+            request.body.variables = variables;
+            next();
+          }
+        })
+        .catch(error => response.status(500)
+          .json({
+            message: error.message
+          }));
+    });
   }
 
   /**

@@ -7,7 +7,7 @@ import {
   undefinedDescription, emptyDescription, invalidDescriptionLength, invalidDescriptionCharacter,
   undefinedCategory, emptyCategory, invalidCategory, undefinedQuantity, emptyQuantity,
   invalidQuantityLength, invalidQuantity, invalidQuantityCharacter, undefinedPrice, emptyPrice,
-  invalidPrice, invalidPriceCharacter,
+  invalidPrice, invalidPriceCharacter, correctMenu2, correctMenu3,
   unstringedMenu, unstringedDescription, unstringedCategory, unstringedQuantity, unstringedPrice
 } from './mockData/menuMock';
 
@@ -68,6 +68,30 @@ describe('Test POST MENU endpoint for admin userType', () => {
       .post('/api/v1/menu')
       .set('authorization', generateToken)
       .send(correctMenu)
+      .end((error, response) => {
+        expect(response).to.have.status(201);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Menu created successfully');
+        done();
+      });
+  });
+  it('should return 201 for success', (done) => {
+    chai.request(app)
+      .post('/api/v1/menu')
+      .set('authorization', generateToken)
+      .send(correctMenu2)
+      .end((error, response) => {
+        expect(response).to.have.status(201);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Menu created successfully');
+        done();
+      });
+  });
+  it('should return 201 for success', (done) => {
+    chai.request(app)
+      .post('/api/v1/menu')
+      .set('authorization', generateToken)
+      .send(correctMenu3)
       .end((error, response) => {
         expect(response).to.have.status(201);
         expect(response.body).to.be.a('object');
@@ -385,6 +409,48 @@ describe('GET All Available Menu', () => {
         expect(response).to.have.status(200);
         expect(response.body).to.be.a('object');
         expect(response.body.message).to.equal('List of Available Menu');
+        done();
+      });
+  });
+});
+
+describe('GET Specific Menu', () => {
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .get('/api/v1/menu/1')
+      .set('authorization', generateToken)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Menu fetched successfully');
+        done();
+      });
+  });
+});
+
+describe('Update specific Menu', () => {
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .put('/api/v1/menu/1')
+      .set('authorization', generateToken)
+      .send(correctMenu)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Updated successfully');
+        done();
+      });
+  });
+});
+
+describe('Delete specific Menu', () => {
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .delete('/api/v1/menu/3')
+      .set('authorization', generateToken)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
         done();
       });
   });

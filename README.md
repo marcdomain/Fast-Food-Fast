@@ -24,7 +24,10 @@ Below are the features of Fast-Food-Fast Application at this point
 - Admin can get a Specific order<br/>
 - Admin can process a specific order <br>
 - Admin can cancel a specific order <br>
-- Admin can complete a specific order
+- Admin can complete a specific order <br>
+- Admin can update a specific menu <br>
+- Admin can delete a sepecific menu <br>
+- Admin can get a specific menu 
 <br/>
 
 ## API Endpoints
@@ -67,9 +70,33 @@ Below are the features of Fast-Food-Fast Application at this point
 <td>{<br>message: "string"<br>allMenu: {object}<br>}</td>
 </tr>
 
+<tr>
+<td>GET</td> <td>api/v1/menu/:menuId</td>  <td>Get A Specific Menu</td>
+<td>menuId: "Number"<br>"Authorization": "token"</td>
+<td>{<br>message: "string"<br>foundMenu: {object}<br>}</td>
+</tr>
+
+<tr>
+<td>PUT</td> <td>api/v1/menu/:menuId</td>  <td>Update menu</td>
+<td>
+{<br> menu: "string",<br>description: "string",<br>category: "string",<br>quantity: "string",<br>price: "string"<br>}
+<br>menuId: "Number"
+<br>"Authorization": "token"
+</td>
+<td>{<br>message: "string"<br>menu: {object}<br>}</td>
+</tr>
+
+<tr>
+<td>DELETE</td> <td>api/v1/menu/:menuId</td>  <td>Update menu</td>
+<td>
+menuId: "Number"<br>"Authorization": "token"
+</td>
+<td>{<br>message: "string"<br>menu: {object}<br>}</td>
+</tr>
+
 <tr><td>POST</td> <td>api/v1/orders</td>  <td>Place order</td>
-<td>{<br>mealId: "string",<br>quantity: "string",<br>location: "string" or undefined,<br>}<br>"Authorization": "token"</td>
-<td>{<br>message: "string"<br>}</td>
+<td>{<br>orderItems: [<br>{<br>menuId: "Number",<br>quantity: "Number"<br>}<br>],<br>location: "string" or undefined,<br>}<br>"Authorization": "token"</td>
+<td>{<br>message: "string",<br>newOrder: {object}<br>}</td>
 </tr>
 
 <tr>
@@ -123,11 +150,15 @@ cd Fast-Food-Fast
 ```
 npm install
 ```
-4. Run "npm start" to start the app
+4. Create a database for the project
 
-5. Use Postman to test all endpoints
+5. Create a .env file in the root directory and setup your database credentials and token key
 
-6. Run "npm test" to test all endpoints
+6. Run "npm start" to start the app
+
+7. Use Postman to test all endpoints
+
+8. Run "npm test" to test all endpoints
 
 
 ## Technologies
