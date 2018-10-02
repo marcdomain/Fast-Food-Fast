@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Fast-Food-Fast | Orders</title>
+  <link rel="stylesheet" href="css/orders.css">
+  <link rel="icon" type="image/png" href="img/logo.png">
+</head>
+
+<body>
+  <div class="dashboard">
+    <div class="dashboard-menu">
+      <div class="menu-top">
+        <div class="welcome">
+         <a href="food-items.html"><img src="img/logo.png" alt="logo"></a>
+          <span><a href="food-items.html">Fast Food Fast</a> </span>
+        </div>
+        <div class="menu menu1" id="pending">Pending orders &#10148;</div>
+        <div class="menu menu1" id="accepted">Accepted orders &#10148;</div>
+        <div class="menu menu2" id="declined">Declined orders &#10148;</div>
+        <div class="menu menu3" id="completed">Completed orders &#10148;</div>
+        <div class="menu"><span class="all-orders">Total &#10148; 8</span></div>
+      </div>
+      <div class="menu-bottom"></div>
+    </div>
+    <div class="dashboard-content">
+      <div class="dashboard-content-bg">
+        <div class="page-title">ORDER HISTORY</div>
+        <div class="orders-list">
+          <div class="order-history column-head">
+            <div class="order-column id">ID</div>
+            <div class="order-column date">Date</div>
+            <div class="order-column item">Item</div>
+            <div class="order-column qty">Qty</div>
+            <div class="order-column">Cost(&#8358;)</div>
+            <div class="order-column location">Location</div>
+            <div class="order-column">Total(&#8358;)</div>
+            <div class="order-column status-col">Status</div>
+          </div>
+          <div class="order-history order1">
+            <div class="order-column id">1</div>
+            <div class="order-column date">13-09-2018</div>
+            <div class="order-column item">Meet Pie</div>
+            <div class="order-column qty">3</div>
+            <div class="order-column">1000</div>
+            <div class="order-column location">Yaba</div>
+            <div class="order-column">3300</div>
+            <div class="order-column">Pending</div>
+          </div>
+          <div class="order-history order2">
+            <div class="order-column id">2</div>
+            <div class="order-column date">13-09-2018</div>
+            <div class="order-column item">Rice & Turkey</div>
+            <div class="order-column qty">5</div>
+            <div class="order-column">2000</div>
+            <div class="order-column location">Yaba</div>
+            <div class="order-column">10300</div>
+            <div class="order-column">Accepted</div>
+          </div>
+          <div class="order-history order3">
+            <div class="order-column id">3</div>
+            <div class="order-column date">13-09-2018</div>
+            <div class="order-column item">Pandoyam & Isiewu</div>
+            <div class="order-column qty">1</div>
+            <div class="order-column">2000</div>
+            <div class="order-column location">Ikorodu</div>
+            <div class="order-column">2500</div>
+            <div class="order-column">Declined</div>
+          </div>
+          <div class="order-history order4">
+              <div class="order-column id">4</div>
+              <div class="order-column date">13-09-2018</div>
+              <div class="order-column item">Sausage</div>
+              <div class="order-column qty">3</div>
+              <div class="order-column">1000</div>
+              <div class="order-column location">Yaba</div>
+              <div class="order-column">3300</div>
+              <div class="order-column">Completed</div>
+            </div>
+          <div class="order-history order1">
+            <div class="order-column id">5</div>
+            <div class="order-column date">13-09-2018</div>
+            <div class="order-column item">Meet Pie</div>
+            <div class="order-column qty">3</div>
+            <div class="order-column">1000</div>
+            <div class="order-column location">Yaba</div>
+            <div class="order-column">3300</div>
+            <div class="order-column">Pending</div>
+          </div>
+          <div class="order-history order2">
+              <div class="order-column id">6</div>
+              <div class="order-column date">13-09-2018</div>
+              <div class="order-column item">Rice & Turkey</div>
+              <div class="order-column qty">5</div>
+              <div class="order-column">2000</div>
+              <div class="order-column location">Yaba</div>
+              <div class="order-column">10300</div>
+              <div class="order-column">Accepted</div>
+            </div>
+          <div class="order-history order3">
+            <div class="order-column id">7</div>
+            <div class="order-column date">13-09-2018</div>
+            <div class="order-column item">Pandoyam & Isiewu</div>
+            <div class="order-column qty">1</div>
+            <div class="order-column">2000</div>
+            <div class="order-column location">Ikorodu</div>
+            <div class="order-column">2500</div>
+            <div class="order-column">Declined</div>
+          </div>
+          <div class="order-history order4">
+            <div class="order-column id">8</div>
+            <div class="order-column date">13-09-2018</div>
+            <div class="order-column item">Sausage</div>
+            <div class="order-column qty">3</div>
+            <div class="order-column">1000</div>
+            <div class="order-column location">Yaba</div>
+            <div class="order-column">3300</div>
+            <div class="order-column">Completed</div>
+          </div>
+        </div>
+
+        <!-- Mobile -->
+        <div class="order-mobile">
+          <div class="order1-mobile mobile">
+            <div class="head view">
+              <div class="order-column">ID</div>
+              <div class="order-column">Date</div>
+              <div class="order-column">Item</div>
+              <div class="order-column">Qty</div>
+              <div class="order-column">Cost(&#8358;)</div>
+              <div class="order-column">Location</div>
+              <div class="order-column">Total(&#8358;)</div>
+              <div class="order-column status-col">Status</div>
+            </div>
+            <div class="head-content view">
+              <div class="order-column">1</div>
+              <div class="order-column">13-09-2018</div>
+              <div class="order-column">Meet Pie</div>
+              <div class="order-column">3</div>
+              <div class="order-column">1000</div>
+              <div class="order-column">Yaba</div>
+              <div class="order-column">3000</div>
+              <div class="order-column status">Pending</div>
+            </div>
+          </div>
+          <div class="order2-mobile mobile">
+            <div class="head view">
+              <div class="order-column">ID</div>
+              <div class="order-column">Date</div>
+              <div class="order-column">Item</div>
+              <div class="order-column">Qty</div>
+              <div class="order-column">Cost(&#8358;)</div>
+              <div class="order-column">Location</div>
+              <div class="order-column">Total(&#8358;)</div>
+              <div class="order-column status-col">Status</div>
+            </div>
+            <div class="head-content view">
+              <div class="order-column">2</div>
+              <div class="order-column">13-09-2018</div>
+              <div class="order-column">Rice & Turkey</div>
+              <div class="order-column">5</div>
+              <div class="order-column">2000</div>
+              <div class="order-column">Yaba</div>
+              <div class="order-column">10000</div>
+              <div class="order-column status">Accepted</div>
+            </div>
+          </div>
+          <div class="order3-mobile mobile">
+            <div class="head view">
+              <div class="order-column">ID</div>
+              <div class="order-column">Date</div>
+              <div class="order-column">Item</div>
+              <div class="order-column">Qty</div>
+              <div class="order-column">Cost(&#8358;)</div>
+              <div class="order-column">Location</div>
+              <div class="order-column">Total(&#8358;)</div>
+              <div class="order-column status-col">Status</div>
+            </div>
+            <div class="head-content view">
+              <div class="order-column">3</div>
+              <div class="order-column">13-09-2018</div>
+              <div class="order-column">Pandoyam & Isiewu</div>
+              <div class="order-column">1</div>
+              <div class="order-column">2500</div>
+              <div class="order-column">Ikorodu</div>
+              <div class="order-column">2500</div>
+              <div class="order-column status">Declined</div>
+            </div>
+          </div>
+          <div class="order4-mobile mobile">
+            <div class="head view">
+              <div class="order-column">ID</div>
+              <div class="order-column">Date</div>
+              <div class="order-column">Item</div>
+              <div class="order-column">Qty</div>
+              <div class="order-column">Cost(&#8358;)</div>
+              <div class="order-column">Location</div>
+              <div class="order-column">Total(&#8358;)</div>
+              <div class="order-column status-col">Status</div>
+            </div>
+            <div class="head-content view">
+              <div class="order-column">4</div>
+              <div class="order-column">13-09-2018</div>
+              <div class="order-column">Sausage</div>
+              <div class="order-column">3</div>
+              <div class="order-column">1000</div>
+              <div class="order-column">Yaba</div>
+              <div class="order-column">3000</div>
+              <div class="order-column status">Completed</div>
+            </div>
+          </div>
+        </div>
+        <!-- Mobile -->
+
+      </div>
+
+    </div>
+  </div>
+  <a href="food-items.html"><div class="user-front">View menu</div></a>
+  <div class="scroll-top">&#9652;</div>
+
+  <footer class="footer">
+    &copy; <script>
+      document.write(new Date().getFullYear());
+    </script> <strong>Fast-Food-Fast</strong> developed & designed by <em>Marcdomain</em>
+  </footer>
+
+  <script src="js/scroll.js"></script>
+  <script src="js/status.js"></script>
+</body>
+
+</html>
