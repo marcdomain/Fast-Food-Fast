@@ -3,7 +3,7 @@ import pool from '../connection';
 const createMenusTable = `DROP TABLE IF EXISTS menus CASCADE;
 CREATE TABLE menus (
   id SERIAL PRIMARY KEY NOT NULL,
-  menu CHARACTER VARYING(30) UNIQUE NOT NULL,
+  menu CHARACTER VARYING(30) NOT NULL,
   description CHARACTER VARYING(100) NOT NULL,
   category CHARACTER VARYING(20) NOT NULL,
   quantity INTEGER NOT NULL,

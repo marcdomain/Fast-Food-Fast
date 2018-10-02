@@ -45,14 +45,6 @@ const invalidMenuCharacter = {
   price: '2500'
 };
 
-const existingMenu = {
-  menu: 'Eba, Vegetable, Isiewu',
-  description: 'This meal is fantastic. You will come for more',
-  category: 'local',
-  quantity: '10',
-  price: '2500'
-};
-
 const undefinedDescription = {
   menu: 'Semovita, Vegetable, Isiewu',
   category: 'local',
@@ -218,7 +210,7 @@ const invalidPriceCharacter = {
 };
 
 export {
-  correctMenu, undefinedMenu, emptyMenu, invalidMenuLength, invalidMenuCharacter, existingMenu,
+  correctMenu, undefinedMenu, emptyMenu, invalidMenuLength, invalidMenuCharacter,
   undefinedDescription, emptyDescription, invalidDescriptionLength, invalidDescriptionCharacter,
   undefinedCategory, emptyCategory, invalidCategory, undefinedQuantity, emptyQuantity,
   invalidQuantityLength, invalidQuantity, invalidQuantityCharacter, undefinedPrice, emptyPrice,

@@ -1,5 +1,7 @@
 import pool from '../db/connection';
-import { createMenu, queryAvailableMenu } from '../db/sqlQueries';
+import {
+  createMenu, queryAvailableMenu, updateMenu, deleteMenuById
+} from '../db/sqlQueries';
 
 /**
   * @description class representing Menu controller actions
@@ -79,8 +81,46 @@ class MenusHandler {
           message: error.message
         }));
   }
+
+  static updateMenuItem(request, response) {
+    const {
+      menu, description, category, quantity, price
+    } = request.body;
+    const { menuId } = request.params;
+    const variables = [menu, description, category, quantity, price, menuId];
+    pool.query(updateMenu, variables)
+      .then((result) => {
+        const updatedMenu = result.rows[0];
+        return response.status(200)
+          .json({
+            message: 'Updated successfully',
+            updatedMenu
+          });
+      });
+  }
+
+  static deleteMenu(request, response) {
+    const { menuId } = request.params;
+    pool.query(deleteMenuById, [menuId])
+      .then((result) => {
+        const deletedMenu = result.rows[0].menu;
+        return response.status(200)
+          .json({
+            message: `${deletedMenu} deleted successfully`
+          });
+      })
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
+  }
 }
 
-const { postMenu, getAllMenu } = MenusHandler;
+const {
+  postMenu, getAllMenu, updateMenuItem, deleteMenu
+} = MenusHandler;
 
-export { postMenu, getAllMenu };
+export {
+  postMenu, getAllMenu, updateMenuItem, deleteMenu
+};

@@ -3,7 +3,7 @@ import chaiHttp from 'chai-http';
 import app from '../../app';
 
 import {
-  correctMenu, undefinedMenu, emptyMenu, invalidMenuLength, invalidMenuCharacter, existingMenu,
+  correctMenu, undefinedMenu, emptyMenu, invalidMenuLength, invalidMenuCharacter,
   undefinedDescription, emptyDescription, invalidDescriptionLength, invalidDescriptionCharacter,
   undefinedCategory, emptyCategory, invalidCategory, undefinedQuantity, emptyQuantity,
   invalidQuantityLength, invalidQuantity, invalidQuantityCharacter, undefinedPrice, emptyPrice,
@@ -132,18 +132,6 @@ describe('Test POST MENU endpoint for admin userType', () => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
         expect(response.body.message).to.equal('Invalid menu character detected. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)');
-        done();
-      });
-  });
-  it('should return 409 for existing menu', (done) => {
-    chai.request(app)
-      .post('/api/v1/menu')
-      .set('authorization', generateToken)
-      .send(existingMenu)
-      .end((error, response) => {
-        expect(response).to.have.status(409);
-        expect(response.body).to.be.a('object');
-        expect(response.body.message).to.equal('Menu already exist. If you wish to update it, then use the modify menu endpoint');
         done();
       });
   });

@@ -36,9 +36,14 @@ const queryUsersById = 'select * from users where id = $1';
 
 const updateMenuQuantityAfterCancelOrder = 'update menus set quantity =+ $1 where id = $2';
 
+const updateMenu = 'update menus set menu = $1, description = $2, category = $3, quantity = $4, price = $5 where id = $6 returning *';
+
+const deleteMenuById = 'delete from menus where id = $1 returning *';
+
 export {
   createUser, queryUsersByEmail, queryUsersByPhone, createMenu, queryMenuTableByMenu,
   queryAvailableMenu, createOrder, queryMenuTableById, menuQuantityAfterOrder,
   selectUserOrderHistory, selectAllOrders, selectSpecificOrder, updateOrderStatus,
-  queryOrdersById, queryUsersById, returnNewOrder, updateMenuQuantityAfterCancelOrder
+  queryOrdersById, queryUsersById, returnNewOrder, updateMenuQuantityAfterCancelOrder,
+  updateMenu, deleteMenuById
 };
