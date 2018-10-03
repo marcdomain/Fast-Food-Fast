@@ -68,6 +68,8 @@ const login = (eventBtn) => {
       message = '&#9989';
       Utils.displayMessage(message, 'lime', 5);
       Utils.displayMessage(message, 'lime', 6);
+      Utils.clearLogin();
+
       localStorage.setItem('token', result.token);
       setTimeout(() => {
         location.assign('food-items.html');

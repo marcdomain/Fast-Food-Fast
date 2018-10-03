@@ -170,6 +170,8 @@ const signup = (event) => {
       Utils.displayMessage(message, 'lime', 2);
       Utils.displayMessage(message, 'lime', 3);
       Utils.displayMessage(message, 'lime', 4);
+      Utils.clearSignup();
+
       localStorage.setItem('token', data.token);
       setTimeout(() => {
         location.assign('food-items.html');
