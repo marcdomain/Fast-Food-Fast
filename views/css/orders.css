@@ -23,7 +23,6 @@ body {
   flex: 4;
   background-image: url('../img/banner1.jpg');
   background-size: cover;
-
 }
 
 .dashboard-content-bg {
@@ -207,10 +206,50 @@ body {
   max-width: 600px;
 }
 
+.unauthorized {
+  display: flex;
+  flex-direction: column;
+  margin: 50px auto;
+  padding: 50px 10px;
+  border-radius: 10px;
+  position: relative;
+  max-width: 600px;
+  text-align: center;
+}
+
+.unauthorized h1{
+  font-size: 3em;
+  color: #fff;
+}
+
+.unauthorized p{
+  color: orange;
+  font-size: 1.5em;
+  font-weight: bold;
+  transition: 1s;
+  transition-timing-function: ease-out;
+}
+
+.loader {
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid orange;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+  display: none;
+  position: absolute;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 form {
   display: flex;
   flex-direction: column;
-  background: rgba(36, 40, 38, 0.8);
+  background: rgba(102, 99, 88, 0.2);;
   padding: 20px;
   border-radius: 5px;
 }

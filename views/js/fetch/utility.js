@@ -1,5 +1,5 @@
-const baseURL = 'https://marcus-fast-food-fast.herokuapp.com/api/v1';
-// const baseURL = 'http://localhost:5030/api/v1';
+// const baseURL = 'https://marcus-fast-food-fast.herokuapp.com/api/v1';
+const baseURL = 'http://localhost:5030/api/v1';
 
 class Utils {
   static displayMessage(message, color, fieldIndex) {
@@ -7,10 +7,24 @@ class Utils {
     formAlert.innerHTML = message;
     formAlert.style.display = 'inline-block';
     formAlert.style.color = color;
+  }
+
+  static clearMessage(index) {
+    const formAlert = document.querySelectorAll('.formAlert')[index];
+    formAlert.style.display = 'none';
+  }
+
+  static notification(message, color, background) {
+    const pageAlert = document.querySelector('.pageAlert');
+    pageAlert.innerHTML = message;
+    pageAlert.style.color = color;
+    pageAlert.style.backgroundColor = background;
+    pageAlert.style.display = 'block';
 
     setTimeout(() => {
-      formAlert.style.display = 'none';
-    }, 5000);
+      pageAlert.style.backgroundColor = 'transparent';
+      pageAlert.style.color = 'transparent';
+    }, 8000);
   }
 
   static clearSignup() {

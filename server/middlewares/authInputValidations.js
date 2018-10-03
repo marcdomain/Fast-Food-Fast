@@ -153,12 +153,20 @@ class UserValidationHandler {
               sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
             });
         }
-        const validPhoneCharacter = /^[0-9]+$/;
+        const validPhoneCharacter = /^[0-9]*$/;
         if (!validPhoneCharacter.test(phone)) {
           return response.status(400)
             .json({
               status: 'Fail',
               message: 'Phone should be positive integer of length 7 to 13',
+              sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
+            });
+        }
+        if (!Number(phone)) {
+          return response.status(400)
+            .json({
+              status: 'Fail',
+              message: 'Phone should be a positive integer of length 7 to 13',
               sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
             });
         }

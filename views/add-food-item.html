@@ -8,6 +8,8 @@
   <title>Fast-Food-Fast | Orders</title>
   <link rel="stylesheet" href="css/orders.css">
   <link rel="icon" type="image/png" href="img/logo.png">
+  <script src="js/fetch/authorize-user.js"></script>
+  <script src="js/fetch/jwt-decode.min.js"></script>
 </head>
 
 <body>
@@ -34,23 +36,25 @@
       <div class="dashboard-content-bg">
         <div class="page-title">ADD FOOD ITEM</div>
         <div class="add-food-item">
-          <form action="admin-food-items.html">
-            <label for="item">Food item</label>
+          <form id="postmenu">
+            <label for="item">Food item: </label><span class="formAlert"></span>
             <input type="text" placeholder="Food item">
-            <label for="description">Description</label>
+            <label for="description">Description: </label><span class="formAlert"></span>
             <input type="text" placeholder="Describe item">
+            <label for="category">Category: </label><span class="formAlert"></span>
+            <input type="text" placeholder="Category">
+            <label for="imageURL">Image URL: </label><span class="formAlert"></span>
+            <input type="text" placeholder="Input ImageURL">
             <div class="sub-input">
               <div class="price">
-                <label for="price">Price</label>
-                <input type="text" placeholder="price">
+                <label for="price">Price: </label><span class="formAlert"></span>
+                <input type="text" placeholder="Price">
               </div>
               <div class="quantity">
-                <label for="quantity">Quantity</label>
+                <label for="quantity">Quantity: </label><span class="formAlert"></span>
                 <input type="number" placeholder="Available quantity">
               </div>
             </div>
-            <label for="category">Category</label>
-            <input type="text" placeholder="category">
             <input type="submit" value="Submit">
           </form>
 
@@ -71,7 +75,7 @@
   </footer>
 
   <script src="js/scroll.js"></script>
-  <script src="js/status.js"></script>
+  <!-- <script src="js/status.js"></script> -->
 </body>
 
 </html>
