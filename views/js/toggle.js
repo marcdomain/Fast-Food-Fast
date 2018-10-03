@@ -14,7 +14,7 @@ const authForm = () => {
       setInterval(() => {
         selectForm[1].removeAttribute('class');
         selectForm[1].setAttribute('class', 'form-after-click');
-      }, 100);
+      }, 50);
     }
     if (event.target.id === 'signup') {
       selectDiv[1].style.display = 'none';
@@ -24,7 +24,7 @@ const authForm = () => {
       setInterval(() => {
         selectForm[0].removeAttribute('class');
         selectForm[0].setAttribute('class', 'form-after-click');
-      }, 100);
+      }, 50);
     }
     if (event.target.id === 'login-modal') {
       selectDiv[0].style.display = 'none';

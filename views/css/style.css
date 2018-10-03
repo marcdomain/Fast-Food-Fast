@@ -259,14 +259,14 @@ nav ul li a {
   width: 200px;
   margin-top: 3%;
   transform: rotate(-30deg);
-  transition: 1s;
+  transition: 0.5s;
   transition-timing-function: ease-out;
   opacity: 0;
 }
 
 .form-after-click {
   transform: rotate(0);
-  transition: 1s;
+  transition: 0.5s;
   transition-timing-function: ease-out;
   opacity: 1;
 }
