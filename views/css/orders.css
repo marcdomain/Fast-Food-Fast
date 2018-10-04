@@ -59,7 +59,6 @@ body {
   font-weight: bold;
   display: none;
   position: absolute;
-  /* margin-left: 100px;  */
 }
 
 .all-orders {
@@ -292,6 +291,11 @@ form input {
   width: 100%;
   box-sizing: border-box;
   box-shadow: 1px 1px 2px 1px #203961;
+}
+
+form input[type='file'] {
+  background: #fff;
+  padding: 8px;
 }
 
 form input[type='submit'] {
