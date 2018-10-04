@@ -9,8 +9,6 @@ const postMenu = (eventObj) => {
   const quantity = document.querySelector('#quantity').value.trim();
   const price = document.querySelector('#price').value.trim();
 
-  // console.log('CATEGORY', category);
-
   fetch(`${baseURL}/menu`, {
     method: 'POST',
     headers: {
@@ -25,7 +23,7 @@ const postMenu = (eventObj) => {
     .then(response => response.json())
     .then((data) => {
       let message = '';
-      // console.log('DATA', data);
+
       message = 'Menu is undefined. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)';
       if (data.message === message) {
         Utils.displayMessage(data.message, 'red', 0);

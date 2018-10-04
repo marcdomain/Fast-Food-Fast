@@ -640,12 +640,16 @@ nav ul li a {
 }
 
 .footer {
-  min-height: 30px;
+  height: 10%;
   background: #203961;
   bottom: 0;
   text-align: center;
-  padding-top: 20px;
+  padding: 15px 0;
   color: #fff;
+}
+
+.foodContainer {
+  height: 90vh;
 }
 
 .user-front {
