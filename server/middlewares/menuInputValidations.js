@@ -23,14 +23,14 @@ class MenuValidationHandler {
 
   static postMenuValidator(request, response, next) {
     let {
-      menu, description, category, quantity, price
+      menu, description, category, imageURL, quantity, price
     } = request.body;
     if (menu === undefined) {
       return response.status(400)
         .json({
           status: 'Fail',
           message: 'Menu is undefined. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (typeof menu !== 'string') {
@@ -38,7 +38,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Menu should be a string. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (menu === '') {
@@ -46,7 +46,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Menu is empty. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     menu = menu.trim().toLowerCase().replace(/\s\s+/g, ' ');
@@ -55,7 +55,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Invalid menu length. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     const validMealCharacters = /^[a-z ,-]+$/i;
@@ -64,7 +64,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Invalid menu character detected. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (description === undefined) {
@@ -72,7 +72,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Description is undefined. Input characters of length 5 to 100 (alphanumeric, whitespace, comma, hyphen, fullstop)',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (typeof description !== 'string') {
@@ -80,7 +80,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Description should be a string. Input characters of length 5 to 100 (alphanumeric, whitespace, comma, hyphen, fullstop)',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (description === '') {
@@ -88,7 +88,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Description is empty. Input characters of length 5 to 100 (alphanumeric, whitespace, comma, hyphen, fullstop)',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     description = description.trim().replace(/\s\s+/g, ' ');
@@ -97,7 +97,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Invalid description length. Input characters of length 5 to 100 (alphanumeric, whitespace, comma, hyphen, fullstop)',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     const validDescriptionCharacter = /^[a-z0-9 .,-]+$/i;
@@ -106,7 +106,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Invalid description character detected. Input characters of length 5 to 100 (alphanumeric, whitespace, comma, hyphen, fullstop)',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (category === undefined) {
@@ -114,7 +114,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Category is undefined. Input characters of length 3 to 50 (alphanumeric, whitespace, and hyphen)',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (typeof category !== 'string') {
@@ -122,7 +122,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Category should be a string of length 3 to 50 (alphanumeric, whitespace, and hyphen)',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (category === '') {
@@ -130,7 +130,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Category is empty. Input characters of length 3 to 50 (alphanumeric, whitespace, and hyphen)',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     category = category.trim().toLowerCase().replace(/\s\s+/g, ' ');
@@ -140,7 +140,44 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Invalid category. Input characters of length 3 to 50 (alphanumeric, whitespace, and hyphen)',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
+        });
+    }
+    if (imageURL === undefined) {
+      return response.status(400)
+        .json({
+          status: 'Fail',
+          message: 'imageURL is undefined. Input a valid one',
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
+        });
+    }
+    if (typeof imageURL !== 'string') {
+      return response.status(400)
+        .json({
+          status: 'Fail',
+          message: 'imageURL should be a string',
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
+        });
+    }
+    if (imageURL === '') {
+      return response.status(400)
+        .json({
+          status: 'Fail',
+          message: 'imageURL is empty. Input a valid one',
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
+        });
+    }
+    imageURL = imageURL.trim().replace(/\s\s+/g, '');
+    const splitURL = imageURL.split('.');
+    const validImage = splitURL[splitURL.length - 1];
+
+    if (validImage.toLowerCase() !== 'jpg' && validImage.toLowerCase() !== 'jpeg'
+    && validImage.toLowerCase() !== 'png' && validImage.toLowerCase() !== 'gif') {
+      return response.status(400)
+        .json({
+          status: 'Fail',
+          message: 'Invalid imageURL detected. Valid format are .jpg, .jpeg, .png, .gif',
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (quantity === undefined) {
@@ -148,7 +185,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Quantity is undefined. Input positive integer greater than zero and of length 1 to 4',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (typeof quantity !== 'string') {
@@ -156,7 +193,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Quantity should be a string. Input positive integer greater than zero and of length 1 to 4',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (quantity === '') {
@@ -164,7 +201,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Quantity is empty. Input positive integer greater than zero and of length 1 to 4',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     quantity = quantity.trim();
@@ -173,7 +210,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Invalid quantity length. Input positive integer greater than zero and of length 1 to 4',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (quantity < 1) {
@@ -181,7 +218,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Invalid quantity. Input positive integer greater than zero and of length 1 to 4',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     const validQuantityCharacter = /^[0-9]+$/;
@@ -190,7 +227,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Invalid quantity character detected. Input positive integer greater than zero and of length 1 to 4',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (price === undefined) {
@@ -198,7 +235,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Price is undefined. Input positive integer greater than zero but less than length of 10',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (typeof price !== 'string') {
@@ -206,7 +243,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Price should be a string. Input positive integer greater than zero but less than length of 10',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     if (price === '') {
@@ -214,7 +251,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Price is empty. Input positive integer greater than zero but less than length of 10',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     price = price.trim();
@@ -223,7 +260,7 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Invalid price. Input positive integer greater than zero but less than length of 10',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     const validPriceCharacter = /^([0-9]){1,6}$/;
@@ -232,12 +269,13 @@ class MenuValidationHandler {
         .json({
           status: 'Fail',
           message: 'Invalid price character detected. Input positive integer greater than zero but less than length of 10',
-          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "quantity", "string", "price": "string"}'
+          sampleMenu: '{"menu": "string", "description": "string", "category": "string", "imageURL": "string", "quantity", "string", "price": "string"}'
         });
     }
     request.body.menu = menu;
     request.body.description = description;
     request.body.category = category;
+    request.body.imageURL = imageURL;
     request.body.quantity = quantity;
     request.body.price = price;
     next();

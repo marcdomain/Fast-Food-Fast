@@ -4,7 +4,7 @@ const queryUsersByEmail = 'select * from users where email = $1';
 
 const queryUsersByPhone = 'select * from users where phone = $1';
 
-const createMenu = 'insert into menus (menu, description, category, quantity, price) values ($1, $2, $3, $4, $5) returning *';
+const createMenu = 'insert into menus (menu, description, category, imageURL, quantity, price) values ($1, $2, $3, $4, $5, $6) returning *';
 
 const selectPriceFromMenu = 'select price from menus where id = $1';
 
@@ -36,9 +36,7 @@ const queryOrdersById = 'select * from orders where id = $1';
 
 const queryUsersById = 'select * from users where id = $1';
 
-const updateMenuQuantityAfterCancelOrder = 'update menus set quantity =+ $1 where id = $2';
-
-const updateMenu = 'update menus set menu = $1, description = $2, category = $3, quantity = $4, price = $5 where id = $6 returning *';
+const updateMenu = 'update menus set menu = $1, description = $2, category = $3, imageURL = $4, quantity = $5, price = $6 where id = $7 returning *';
 
 const deleteMenuById = 'delete from menus where id = $1 returning *';
 
@@ -46,6 +44,6 @@ export {
   createUser, queryUsersByEmail, queryUsersByPhone, createMenu, queryMenuTableByMenu,
   queryAvailableMenu, createOrder, queryMenuTableById, menuQuantityAfterOrder,
   selectUserOrderHistory, selectAllOrders, selectSpecificOrder, updateOrderStatus,
-  queryOrdersById, queryUsersById, returnNewOrder, updateMenuQuantityAfterCancelOrder,
+  queryOrdersById, queryUsersById, returnNewOrder,
   selectPriceFromMenu, updateMenu, deleteMenuById
 };

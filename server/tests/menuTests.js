@@ -7,8 +7,9 @@ import {
   undefinedDescription, emptyDescription, invalidDescriptionLength, invalidDescriptionCharacter,
   undefinedCategory, emptyCategory, invalidCategory, undefinedQuantity, emptyQuantity,
   invalidQuantityLength, invalidQuantity, invalidQuantityCharacter, undefinedPrice, emptyPrice,
-  invalidPrice, invalidPriceCharacter, correctMenu2, correctMenu3,
-  unstringedMenu, unstringedDescription, unstringedCategory, unstringedQuantity, unstringedPrice
+  invalidPrice, invalidPriceCharacter, correctMenu2, correctMenu3, updateMenu,
+  unstringedMenu, unstringedDescription, unstringedCategory, unstringedQuantity, unstringedPrice,
+  undefinedImageURL, unstringedImageURL, emptyImageURL, invalidImageFormat
 } from './mockData/menuMock';
 
 const { expect } = chai;
@@ -267,6 +268,54 @@ describe('Test POST MENU endpoint for admin userType', () => {
         done();
       });
   });
+  it('should return 400 for undefined imageURL', (done) => {
+    chai.request(app)
+      .post('/api/v1/menu')
+      .set('authorization', generateToken)
+      .send(undefinedImageURL)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('imageURL is undefined. Input a valid one');
+        done();
+      });
+  });
+  it('should return 400 for unstringed imageURL', (done) => {
+    chai.request(app)
+      .post('/api/v1/menu')
+      .set('authorization', generateToken)
+      .send(unstringedImageURL)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('imageURL should be a string');
+        done();
+      });
+  });
+  it('should return 400 for empty imageURL', (done) => {
+    chai.request(app)
+      .post('/api/v1/menu')
+      .set('authorization', generateToken)
+      .send(emptyImageURL)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('imageURL is empty. Input a valid one');
+        done();
+      });
+  });
+  it('should return 400 for invalid imageURL format', (done) => {
+    chai.request(app)
+      .post('/api/v1/menu')
+      .set('authorization', generateToken)
+      .send(invalidImageFormat)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Invalid imageURL detected. Valid format are .jpg, .jpeg, .png, .gif');
+        done();
+      });
+  });
   it('should return 400 for undefined quantity', (done) => {
     chai.request(app)
       .post('/api/v1/menu')
@@ -431,9 +480,9 @@ describe('GET Specific Menu', () => {
 describe('Update specific Menu', () => {
   it('Should return 200 for success', (done) => {
     chai.request(app)
-      .put('/api/v1/menu/1')
+      .put('/api/v1/menu/2')
       .set('authorization', generateToken)
-      .send(correctMenu)
+      .send(updateMenu)
       .end((error, response) => {
         expect(response).to.have.status(200);
         expect(response.body).to.be.a('object');

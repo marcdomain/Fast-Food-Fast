@@ -23,12 +23,13 @@ class MenusHandler {
 
   static postMenu(request, response) {
     const {
-      menu, description, category, quantity, price
+      menu, description, category, imageURL, quantity, price
     } = request.body;
     const variables = [
       menu,
       description,
       category,
+      imageURL,
       quantity,
       price
     ];
@@ -93,10 +94,10 @@ class MenusHandler {
 
   static updateMenuItem(request, response) {
     const {
-      menu, description, category, quantity, price
+      menu, description, category, imageURL, quantity, price
     } = request.body;
     const { menuId } = request.params;
-    const variables = [menu, description, category, quantity, price, menuId];
+    const variables = [menu, description, category, imageURL, quantity, price, menuId];
     pool.query(updateMenu, variables)
       .then((result) => {
         const updatedMenu = result.rows[0];

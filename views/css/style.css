@@ -245,7 +245,7 @@ nav ul li a {
 }
 
 .auth-form {
-  background: rgba(122, 56, 36, 0.4);
+  background: rgba(102, 99, 88, 0.2);
   max-width: 500px;
   padding: 20px;
   border: 1px solid white;
@@ -271,14 +271,19 @@ nav ul li a {
   opacity: 1;
 }
 
-.auth-form form label, .formAlert {
+.auth-form form label {
   display: block;
   float: left;
   padding: 5px;
 }
 
 .formAlert {
-  font-size: 15px;
+  font-size: 16px;
+  padding: 3px;
+  float: left;
+  border-radius: 5px;
+  display: none;
+  font-weight: bold
 }
 
 .auth-form input{

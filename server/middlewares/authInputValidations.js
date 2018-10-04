@@ -81,7 +81,7 @@ class UserValidationHandler {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Email should be a string. Input an email 10 to 50 characters',
+          message: 'Email should be a string. Input an email 8 to 50 characters',
           sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
         });
     }
@@ -89,7 +89,7 @@ class UserValidationHandler {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Email field cannot be empty. Input an email 10 to 50 characters',
+          message: 'Email field cannot be empty. Input an email 8 to 50 characters',
           sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
         });
     }
@@ -103,11 +103,11 @@ class UserValidationHandler {
         });
     }
     email = email.toLowerCase().trim();
-    if (email.length < 10 || email.length > 50) {
+    if (email.length < 8 || email.length > 50) {
       return response.status(400)
         .json({
           status: 'Fail',
-          message: 'Email should be 10 to 50 characters',
+          message: 'Email should be 8 to 50 characters',
           sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
         });
     }
@@ -153,12 +153,20 @@ class UserValidationHandler {
               sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
             });
         }
-        const validPhoneCharacter = /^[0-9]+$/;
+        const validPhoneCharacter = /^[0-9]*$/;
         if (!validPhoneCharacter.test(phone)) {
           return response.status(400)
             .json({
               status: 'Fail',
               message: 'Phone should be positive integer of length 7 to 13',
+              sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
+            });
+        }
+        if (!Number(phone)) {
+          return response.status(400)
+            .json({
+              status: 'Fail',
+              message: 'Phone should be a positive integer of length 7 to 13',
               sampleCredentials: '{"name": "string", "email": "string", "phone": "string", "address", "string", "password": "string"}'
             });
         }
