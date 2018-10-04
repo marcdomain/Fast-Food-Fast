@@ -70,7 +70,7 @@ const emptyEmail = {
 
 const invalidEmailLength = {
   name: 'marc marc',
-  email: 'ab@cd.ng',
+  email: 'a@c.gov',
   phone: '07065266169',
   address: 'Andela EPIC Tower',
   password: 'marcpass'
