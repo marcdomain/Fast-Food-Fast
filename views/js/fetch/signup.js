@@ -56,15 +56,15 @@ const signup = (event) => {
         return;
       }
 
-      message = 'Email should be a string. Input an email 10 to 50 characters';
+      message = 'Email should be a string. Input an email 8 to 50 characters';
       if (data.message === message) {
         Utils.displayMessage(data.message, 'red', 1);
         return;
       }
 
-      message = 'Email field cannot be empty. Input an email 10 to 50 characters';
+      message = 'Email field cannot be empty. Input an email 8 to 50 characters';
       if (data.message === message) {
-        Utils.displayMessage('Input an email 10 to 50 characters', 'red', 1);
+        Utils.displayMessage('Input an email 8 to 50 characters', 'red', 1);
         return;
       }
 
@@ -74,7 +74,7 @@ const signup = (event) => {
         return;
       }
 
-      message = 'Email should be 10 to 50 characters';
+      message = 'Email should be 8 to 50 characters';
       if (data.message === message) {
         Utils.displayMessage(data.message, 'red', 1);
         return;

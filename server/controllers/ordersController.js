@@ -1,7 +1,7 @@
 import pool from '../db/connection';
 import {
   createOrder, selectUserOrderHistory, selectAllOrders, selectSpecificOrder,
-  updateOrderStatus, queryUsersById, returnNewOrder, updateMenuQuantityAfterCancelOrder,
+  updateOrderStatus, queryUsersById, returnNewOrder,
   queryUsersByPhone,
 } from '../db/sqlQueries';
 
@@ -226,13 +226,10 @@ class OrderHandler {
     const { orderId } = request.params;
     pool.query(updateOrderStatus, ['Cancelled', orderId])
       .then((result) => {
-        const cancelledOrder = result.rows[0];
-        return pool.query(updateMenuQuantityAfterCancelOrder,
-          [cancelledOrder.quantity, cancelledOrder.mealId])
-          .then(() => response.status(200)
-            .json({
-              message: 'Order is cancelled'
-            }));
+        return response.status(200)
+          .json({
+            message: 'Order is cancelled'
+          });
       })
       .catch(error => response.status(500)
         .json({
