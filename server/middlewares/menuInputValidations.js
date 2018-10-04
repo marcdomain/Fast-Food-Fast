@@ -170,8 +170,9 @@ class MenuValidationHandler {
     imageURL = imageURL.trim().replace(/\s\s+/g, '');
     const splitURL = imageURL.split('.');
     const validImage = splitURL[splitURL.length - 1];
-    if (validImage.toLowerCase() !== 'jpg' || validImage.toLowerCase() !== 'jpeg'
-    || validImage.toLowerCase() !== 'png' || validImage.toLowerCase() !== 'gif') {
+
+    if (validImage.toLowerCase() !== 'jpg' && validImage.toLowerCase() !== 'jpeg'
+    && validImage.toLowerCase() !== 'png' && validImage.toLowerCase() !== 'gif') {
       return response.status(400)
         .json({
           status: 'Fail',

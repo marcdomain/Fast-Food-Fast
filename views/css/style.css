@@ -283,19 +283,7 @@ nav ul li a {
   float: left;
   border-radius: 5px;
   display: none;
-}
-
-.pageAlert{
-  padding-top: 12px;
-  height: 30px;
-  text-align: center;
-  background: rgb(69, 92, 141);
-  color: #fff;
-  font-size: 1em;
-  font-weight: bold;
-  transition-timing-function: ease-out;
-  transition: 1s;
-  background: transparent;
+  font-weight: bold
 }
 
 .auth-form input{

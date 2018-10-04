@@ -7,6 +7,10 @@ class Utils {
     formAlert.innerHTML = message;
     formAlert.style.display = 'inline-block';
     formAlert.style.color = color;
+
+    if (message === 'Menu created successfully') {
+      formAlert.style.backgroundColor = 'none';
+    }
   }
 
   static clearMessage(index) {
@@ -38,5 +42,14 @@ class Utils {
   static clearLogin() {
     document.querySelector('#email1').value = '';
     document.querySelector('#password1').value = '';
+  }
+
+  static clearPostMenu() {
+    document.querySelector('#menu').value = '';
+    document.querySelector('#description').value = '';
+    document.querySelector('#category').value = '';
+    document.querySelector('#imageURL').value = '';
+    document.querySelector('#quantity').value = '';
+    document.querySelector('#price').value = '';
   }
 }

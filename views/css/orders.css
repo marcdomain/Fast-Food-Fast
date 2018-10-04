@@ -39,6 +39,29 @@ body {
   font-weight: bold;
 }
 
+.pageAlert{
+  padding-top: 12px;
+  height: 30px;
+  text-align: center;
+  background: rgb(69, 92, 141);
+  color: #fff;
+  font-size: 1em;
+  font-weight: bold;
+  transition-timing-function: ease-out;
+  transition: 1s;
+  background: transparent;
+}
+
+.formAlert {
+  font-size: 16px;
+  padding: 3px;
+  float: left;
+  font-weight: bold;
+  display: none;
+  position: absolute;
+  /* margin-left: 100px;  */
+}
+
 .all-orders {
   display: flex;
   flex-direction: column;

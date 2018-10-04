@@ -1,5 +1,5 @@
-const postMenu = (event) => {
-  event.preventDefault();
+const postMenu = (eventObj) => {
+  eventObj.preventDefault();
   const token = localStorage.getItem('token');
 
   const menu = document.querySelector('#menu').value.trim();
@@ -9,7 +9,9 @@ const postMenu = (event) => {
   const quantity = document.querySelector('#quantity').value.trim();
   const price = document.querySelector('#price').value.trim();
 
-  fetch(`${baseURL}/api/v1/menu`, {
+  // console.log('CATEGORY', category);
+
+  fetch(`${baseURL}/menu`, {
     method: 'POST',
     headers: {
       Accept: 'application/json, text/plain, */*',
@@ -23,7 +25,7 @@ const postMenu = (event) => {
     .then(response => response.json())
     .then((data) => {
       let message = '';
-
+      // console.log('DATA', data);
       message = 'Menu is undefined. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)';
       if (data.message === message) {
         Utils.displayMessage(data.message, 'red', 0);
@@ -38,19 +40,19 @@ const postMenu = (event) => {
 
       message = 'Menu is empty. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 0);
+        Utils.displayMessage('Input alphabets, whitespace, comma, hyphen; length 3 to 30', 'red', 0);
         return;
       }
 
       message = 'Invalid menu length. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 0);
+        Utils.displayMessage('Input alphabets, whitespace, comma, hyphen; length 3 to 30', 'red', 0);
         return;
       }
 
       message = 'Invalid menu character detected. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 0);
+        Utils.displayMessage('Input alphabets, whitespace, comma, hyphen; length 3 to 30', 'red', 0);
         return;
       }
 
@@ -68,19 +70,19 @@ const postMenu = (event) => {
 
       message = 'Description is empty. Input characters of length 5 to 100 (alphanumeric, whitespace, comma, hyphen, fullstop)';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 1);
+        Utils.displayMessage('Input alphanumerics, whitespace, comma, hyphen, fullstop; length 5 to 100', 'red', 1);
         return;
       }
 
       message = 'Invalid description length. Input characters of length 5 to 100 (alphanumeric, whitespace, comma, hyphen, fullstop)';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 1);
+        Utils.displayMessage('Input alphanumerics, whitespace, comma, hyphen, fullstop; length 5 to 100', 'red', 1);
         return;
       }
 
       message = 'Invalid description character detected. Input characters of length 5 to 100 (alphanumeric, whitespace, comma, hyphen, fullstop)';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 1);
+        Utils.displayMessage('Input alphanumerics, whitespace, comma, hyphen, fullstop; length 5 to 100', 'red', 1);
         return;
       }
 
@@ -98,13 +100,13 @@ const postMenu = (event) => {
 
       message = 'Category is empty. Input characters of length 3 to 50 (alphanumeric, whitespace, and hyphen)';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 2);
+        Utils.displayMessage('Input alphanumerics, whitespace, hyphen; length 3 to 50', 'red', 2);
         return;
       }
 
       message = 'Invalid category. Input characters of length 3 to 50 (alphanumeric, whitespace, and hyphen)';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 2);
+        Utils.displayMessage('Input alphanumerics, whitespace, hyphen; length 3 to 50', 'red', 2);
         return;
       }
 
@@ -128,7 +130,7 @@ const postMenu = (event) => {
 
       message = 'Invalid imageURL detected. Valid format are .jpg, .jpeg, .png, .gif';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 3);
+        Utils.displayMessage('Invalid imageURL. Valid format are .jpg .jpeg .png .gif', 'red', 3);
         return;
       }
 
@@ -146,25 +148,25 @@ const postMenu = (event) => {
 
       message = 'Quantity is empty. Input positive integer greater than zero and of length 1 to 4';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 4);
+        Utils.displayMessage('Input positive integer greater than zero and of length 1 to 4', 'red', 4);
         return;
       }
 
       message = 'Invalid quantity length. Input positive integer greater than zero and of length 1 to 4';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 4);
+        Utils.displayMessage('Input positive integer greater than zero and of length 1 to 4', 'red', 4);
         return;
       }
 
       message = 'Invalid quantity. Input positive integer greater than zero and of length 1 to 4';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 4);
+        Utils.displayMessage('Input positive integer greater than zero and of length 1 to 4', 'red', 4);
         return;
       }
 
       message = 'Invalid quantity character detected. Input positive integer greater than zero and of length 1 to 4';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 4);
+        Utils.displayMessage('Input positive integer greater than zero and of length 1 to 4', 'red', 4);
         return;
       }
 
@@ -182,19 +184,19 @@ const postMenu = (event) => {
 
       message = 'Price is empty. Input positive integer greater than zero but less than length of 10';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 5);
+        Utils.displayMessage('Input positive integer greater than zero and length 1 - 10', 'red', 5);
         return;
       }
 
       message = 'Invalid price. Input positive integer greater than zero but less than length of 10';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 5);
+        Utils.displayMessage('Input positive integer greater than zero and length 1 - 10', 'red', 5);
         return;
       }
 
       message = 'Invalid price character detected. Input positive integer greater than zero but less than length of 10';
       if (data.message === message) {
-        Utils.displayMessage(data.message, 'red', 5);
+        Utils.displayMessage('Input positive integer greater than zero and length 1 - 10', 'red', 5);
         return;
       }
 
@@ -218,15 +220,15 @@ const postMenu = (event) => {
 
       message = 'Menu created successfully';
       if (data.message === message) {
-        Utils.notification(data.message, 'white', 'red');
-        return;
-      }
-
-      message = 'Menu created successfully';
-      if (data.message === message) {
+        Utils.notification(data.message, 'white', 'green');
         message = '&#9989';
         Utils.displayMessage(message, 'lime', 0);
         Utils.displayMessage(message, 'lime', 1);
+        Utils.displayMessage(message, 'lime', 2);
+        Utils.displayMessage(message, 'lime', 3);
+        Utils.displayMessage(message, 'lime', 4);
+        Utils.displayMessage(message, 'lime', 5);
+        Utils.clearPostMenu();
 
         setTimeout(() => {
           location.assign('add-food-item.html');
@@ -239,3 +241,32 @@ const postMenu = (event) => {
 };
 
 document.querySelector('#postmenu').addEventListener('submit', postMenu);
+
+const menuItem = document.querySelector('.menuItem');
+const clearError = (event) => {
+  if (event.target === menuItem) {
+    Utils.clearMessage(0);
+  }
+  if (event.target === description) {
+    Utils.clearMessage(1);
+  }
+  if (event.target === category) {
+    Utils.clearMessage(2);
+  }
+  if (event.target === imageURL) {
+    Utils.clearMessage(3);
+  }
+  if (event.target === quantity) {
+    Utils.clearMessage(4);
+  }
+  if (event.target === price) {
+    Utils.clearMessage(5);
+  }
+};
+
+document.querySelector('.menuItem').addEventListener('click', clearError);
+document.querySelector('#description').addEventListener('click', clearError);
+document.querySelector('#category').addEventListener('click', clearError);
+document.querySelector('#imageURL').addEventListener('click', clearError);
+document.querySelector('#quantity').addEventListener('click', clearError);
+document.querySelector('#price').addEventListener('click', clearError);

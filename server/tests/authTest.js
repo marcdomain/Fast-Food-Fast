@@ -96,7 +96,7 @@ describe('Test for Signup User', () => {
       .send(unstringedEmail)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Email should be a string. Input an email 10 to 50 characters');
+        expect(response.body.message).to.equal('Email should be a string. Input an email 6 to 50 characters');
         done();
       });
   });
@@ -106,7 +106,7 @@ describe('Test for Signup User', () => {
       .send(emptyEmail)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Email field cannot be empty. Input an email 10 to 50 characters');
+        expect(response.body.message).to.equal('Email field cannot be empty. Input an email 6 to 50 characters');
         done();
       });
   });
@@ -116,7 +116,7 @@ describe('Test for Signup User', () => {
       .send(invalidEmailLength)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.message).to.equal('Email should be 10 to 50 characters');
+        expect(response.body.message).to.equal('Email should be 6 to 50 characters');
         done();
       });
   });

@@ -4,7 +4,7 @@ const queryUsersByEmail = 'select * from users where email = $1';
 
 const queryUsersByPhone = 'select * from users where phone = $1';
 
-const createMenu = 'insert into menus (menu, description, category, quantity, price) values ($1, $2, $3, $4, $5) returning *';
+const createMenu = 'insert into menus (menu, description, category, imageURL, quantity, price) values ($1, $2, $3, $4, $5, $6) returning *';
 
 const selectPriceFromMenu = 'select price from menus where id = $1';
 
