@@ -408,6 +408,7 @@ div.menuName {
   background: #e59400;
   padding: 2px 5px;
   border-radius: 5px;
+  cursor: pointer;
   box-shadow: 1px 1px 2px 1px #004466;
 }
 .quantityform {
@@ -420,13 +421,14 @@ form input[type='number'] {
   width: 70px;
   padding: 3px 5px;
 }
-form input[type='submit'] {
+form input[type='submit'].input {
   background: green;
   color: #fff;
   outline: none;
   border: none;
   font-weight: bold;
   padding: 5px;
+  cursor: pointer;
 }
 
 .food-items {
