@@ -35,7 +35,6 @@ const postMenu = (eventObj) => {
   const description = document.querySelector('#description').value.trim();
   const category = document.querySelector('#category').value.trim();
   const imageURL = imageLink;
-  console.log('IMAGE URL', imageURL);
   const quantity = document.querySelector('#quantity').value.trim();
   const price = document.querySelector('#price').value.trim();
 
