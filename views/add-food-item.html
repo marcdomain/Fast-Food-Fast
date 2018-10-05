@@ -44,8 +44,8 @@
             <input type="text" id="description" class="description" placeholder="Describe item">
             <label for="category">Category: <span class="formAlert"></span></label>
             <input type="text" id="category" class="category" placeholder="Category">
-            <label for="imageURL">Image URL: <span class="formAlert"></span></label>
-            <input type="text" id="imageURL" class="imageURL" placeholder="Input ImageURL">
+            <label for="imageURL">Image: <span class="formAlert"></span></label>
+            <input type="file" accept="image/*" id="imageURL" class="imageURL">
             <div class="sub-input">
               <div class="price">
                 <label for="price">Price: <span class="formAlert"></span></label>
@@ -75,10 +75,10 @@
     </script> <strong>Fast-Food-Fast</strong> developed & designed by <em>Marcdomain</em>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
   <script src="js/scroll.js"></script>
   <script src="js/fetch/utility.js"></script>
   <script src="js/fetch/post-menu.js"></script>
-  <!-- <script src="js/status.js"></script> -->
 </body>
 
 </html>

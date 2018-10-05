@@ -21,49 +21,49 @@ const login = (eventBtn) => {
 
       message = 'Email is undefined';
       if (result.message === message) {
-        Utils.displayMessage(result.message, 'white', 5);
+        Utils.displayMessage(result.message, 'red', 5);
         return;
       }
 
       message = 'Email should be a string';
       if (result.message === message) {
-        Utils.displayMessage(result.message, 'white', 5);
+        Utils.displayMessage(result.message, 'red', 5);
         return;
       }
 
       message = 'Email cannot be empty.';
       if (result.message === message) {
-        Utils.displayMessage(result.message, 'white', 5);
+        Utils.displayMessage(result.message, 'red', 5);
         return;
       }
 
       message = 'Email not found. Please signup';
       if (result.message === message) {
-        Utils.displayMessage(result.message, 'white', 5);
+        Utils.displayMessage(result.message, 'red', 5);
         return;
       }
 
       message = 'Password is undefined. Please input your password';
       if (result.message === message) {
-        Utils.displayMessage(result.message, 'white', 6);
+        Utils.displayMessage(result.message, 'red', 6);
         return;
       }
 
       message = 'Password should be a string';
       if (result.message === message) {
-        Utils.displayMessage(result.message, 'white', 6);
+        Utils.displayMessage(result.message, 'red', 6);
         return;
       }
 
       message = 'Password is empty. Please input your password';
       if (result.message === message) {
-        Utils.displayMessage('Passeord cannot be empty', 'white', 6);
+        Utils.displayMessage('Passeord cannot be empty', 'red', 6);
         return;
       }
 
       message = 'Incorrect password. Please input your correct password';
       if (result.message === message) {
-        Utils.displayMessage('Incorrect password', 'white', 6);
+        Utils.displayMessage('Incorrect password', 'red', 6);
         return;
       }
 

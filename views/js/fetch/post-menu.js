@@ -1,3 +1,32 @@
+const cloudinaryURL = 'https://api.cloudinary.com/v1_1/duk5ix8wp/upload';
+const cloudinaryUploadPreset = 'omrikp6i';
+
+let imageLink;
+
+const imageUpload = document.querySelector('.imageURL');
+imageUpload.addEventListener('change', (event) => {
+  let image = event.target.files[0];
+
+  let formData = new FormData();
+  formData.append('file', image);
+  formData.append('upload_preset', cloudinaryUploadPreset);
+
+  axios({
+    url: cloudinaryURL,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: formData
+  })
+    .then((response) => {
+      imageLink = response.data.secure_url;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
 const postMenu = (eventObj) => {
   eventObj.preventDefault();
   const token = localStorage.getItem('token');
@@ -5,11 +34,9 @@ const postMenu = (eventObj) => {
   const menu = document.querySelector('#menu').value.trim();
   const description = document.querySelector('#description').value.trim();
   const category = document.querySelector('#category').value.trim();
-  const imageURL = document.querySelector('#imageURL').value.trim();
+  const imageURL = imageLink;
   const quantity = document.querySelector('#quantity').value.trim();
   const price = document.querySelector('#price').value.trim();
-
-  // console.log('CATEGORY', category);
 
   fetch(`${baseURL}/menu`, {
     method: 'POST',
@@ -25,7 +52,7 @@ const postMenu = (eventObj) => {
     .then(response => response.json())
     .then((data) => {
       let message = '';
-      // console.log('DATA', data);
+
       message = 'Menu is undefined. Input characters of length 3 to 30 (alphabets, whitespace, comma, hyphen)';
       if (data.message === message) {
         Utils.displayMessage(data.message, 'red', 0);
