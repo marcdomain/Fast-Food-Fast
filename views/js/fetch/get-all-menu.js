@@ -26,7 +26,7 @@ const getAvailableMenu = (event) => {
         let quantityInput = document.createElement('DIV');
         quantityInput.innerHTML = `
           <form id='order${item.id}'>
-            <input type='number' id='quantity${item.id}' placeholder='Qty' class='input'>
+            <input type='number' id='quantity${item.id}' placeholder='Qty' class='input' max="${item.quantity}" min="1">
             <input type='submit' id='submit${item.id}' value='send' class='input'>
           </form>
         `;
@@ -34,9 +34,10 @@ const getAvailableMenu = (event) => {
         description.setAttribute('class', 'description');
         let orderAction = document.createElement('DIV');
         orderAction.setAttribute('class', 'orderAction');
-        let orderBtn = document.createElement('SPAN');
+        let orderBtn = document.createElement('INPUT');
         orderBtn.setAttribute('class', 'orderBtn');
-        orderBtn.innerHTML = 'order now';
+        orderBtn.setAttribute('readonly', 'readonly');
+        orderBtn.value = 'order now';
 
         let price = document.createElement('DIV');
         price.setAttribute('class', 'price');
@@ -45,7 +46,9 @@ const getAvailableMenu = (event) => {
         quantityInput.setAttribute('class', 'quantityform');
         const showQuantity = () => {
           const quantityFields = document.querySelectorAll('.quantityform');
+          const clickedOrderBtn = document.querySelectorAll('.orderBtn');
           quantityFields[index].style.display = 'block';
+          clickedOrderBtn[index].style.backgroundColor = 'gray';
         };
         orderBtn.addEventListener('click', showQuantity);
 
