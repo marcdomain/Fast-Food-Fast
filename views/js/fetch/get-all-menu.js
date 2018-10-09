@@ -9,7 +9,6 @@ const getAvailableMenu = () => {
   })
     .then(response => response.json())
     .then((data) => {
-
       let menuContainer = document.querySelector('.foodContainer');
 
       data.allMenu.forEach((item, index, menuArray) => {
@@ -50,7 +49,7 @@ const getAvailableMenu = () => {
         let orderBtn = document.createElement('INPUT');
         orderBtn.setAttribute('class', 'orderBtn');
         orderBtn.setAttribute('readonly', 'readonly');
-        orderBtn.value = 'order now';
+        orderBtn.value = 'Add to cart';
 
         let price = document.createElement('DIV');
         price.setAttribute('class', 'price');
@@ -89,7 +88,6 @@ const getAvailableMenu = () => {
           orderArray.push(newOrder);
           console.log('NEW ORDER', newOrder);
           console.log('ORDER ARRAY', orderArray);
-          // return orderArray;
         };
         document.querySelector(`#submit${item.id}`).addEventListener('click', orderCart);
 
