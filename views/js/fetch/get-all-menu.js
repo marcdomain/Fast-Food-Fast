@@ -1,4 +1,5 @@
-const getAvailableMenu = (event) => {
+const orderArray = [];
+const getAvailableMenu = () => {
   fetch(`${baseURL}/menu`, {
     method: 'GET',
     headers: {
@@ -11,7 +12,7 @@ const getAvailableMenu = (event) => {
 
       let menuContainer = document.querySelector('.foodContainer');
 
-      data.allMenu.forEach((item, index, itemArray) => {
+      data.allMenu.forEach((item, index, menuArray) => {
         let newMenu = document.createElement('DIV');
         let menuName = document.createElement('DIV');
         menuName.innerHTML = `${item.menu}`;
@@ -25,9 +26,21 @@ const getAvailableMenu = (event) => {
         let description = document.createElement('DIV');
         let quantityInput = document.createElement('DIV');
         quantityInput.innerHTML = `
-          <form id='order${item.id}'>
-            <input type='number' id='quantity${item.id}' placeholder='Qty' class='input' max="${item.quantity}" min="1">
-            <input type='submit' id='submit${item.id}' value='send' class='input'>
+          <form class="form${item.id}">
+            <input type='number' value='${item.id}' class='menuId' id='menuId${item.id}' hidden>
+            <select id='quantity${item.id}' class='input qty${item.id}' max="${item.quantity}">
+              <option value='1'>1</option>
+              <option value='2'>2</option>
+              <option value='3'>3</option>
+              <option value='4'>4</option>
+              <option value='5'>5</option>
+              <option value='6'>6</option>
+              <option value='7'>7</option>
+              <option value='8'>8</option>
+              <option value='9'>9</option>
+              <option value='10'>10</option>
+            </select>
+            <input type='submit' id='submit${item.id}' value='send' class='input send'>
           </form>
         `;
         description.innerHTML = `${item.description}`;
@@ -37,7 +50,7 @@ const getAvailableMenu = (event) => {
         let orderBtn = document.createElement('INPUT');
         orderBtn.setAttribute('class', 'orderBtn');
         orderBtn.setAttribute('readonly', 'readonly');
-        orderBtn.value = 'order now';
+        orderBtn.value = 'Add to cart';
 
         let price = document.createElement('DIV');
         price.setAttribute('class', 'price');
@@ -67,8 +80,30 @@ const getAvailableMenu = (event) => {
         newMenu.appendChild(details);
         newMenu.appendChild(price);
         menuContainer.appendChild(newMenu);
+
+        const orderCart = (eventObject) => {
+          eventObject.preventDefault();
+          const newOrder = {};
+          newOrder.menuId = document.querySelector(`#menuId${item.id}`).value;
+          newOrder.quantity = document.querySelector(`.qty${item.id}`).value;
+          orderArray.push(newOrder);
+          console.log('NEW ORDER', newOrder);
+          console.log('ORDER ARRAY', orderArray);
+        };
+        document.querySelector(`#submit${item.id}`).addEventListener('click', orderCart);
+
+        const orderAmount = () => {
+          const orderQty = document.querySelector(`.qty${item.id}`).value;
+          const amount = orderQty * item.price;
+          price.innerHTML = `&#8358;${amount}`;
+          price.style.textDecoration = 'underline';
+          price.style.textDecorationStyle = 'double';
+          price.style.textDecorationColor = 'lime';
+          price.style.fontWeight = 'bold';
+        };
+        document.querySelector(`.qty${item.id}`).addEventListener('change', orderAmount);
       });
-      document.querySelector('.foodContainer').innerHTML = [...menuContainer];
+      return menuContainer;
     })
     .catch((error) => {
       console.log('Error from catch', error);
