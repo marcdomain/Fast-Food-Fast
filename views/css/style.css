@@ -1,13 +1,13 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: fantasy;
+  font-family: Comfortaa;
   font-size: 17px;
   overflow-x: hidden;
 }
 
 header {
-  background: rgb(31, 56, 95);
+  background: #52bad5;
   height: 60px;
   color: #fff;
   font-size: 20px;
@@ -199,7 +199,7 @@ nav ul li a {
 }
 
 .progress-color {
-  background: #e65c00;
+  background: #52bad5;
   width: 1%;
   height: 100%;
   border-radius: 10px;
@@ -361,7 +361,7 @@ nav ul li a {
   display: flex;
   max-width: 1250px;
   justify-content: space-between;
-  margin: 30px auto;
+  margin: 25px auto;
   flex-wrap: wrap;
   padding: 0 10px;
 }
@@ -379,7 +379,7 @@ nav ul li a {
   width: 100%;
 }
 div.menuName {
-  background: #004466;
+  background: #52bad5;
   text-align: center;
   color: #fff;
   padding: 5px;
@@ -442,6 +442,20 @@ form input[type='submit'].input {
 }
 .input {
   outline: none;
+}
+.order-cart {
+  background: green;
+  max-width: 105px;
+  color: #fff;
+  font-weight: bold;
+  position: fixed;
+  height: 15px;
+  z-index: 1;
+  padding: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 2px 2px 3px 0 #404040;
+  cursor: pointer;
 }
 
 .orders-list {
@@ -506,7 +520,7 @@ form input[type='submit'].input {
 
 .footer {
   height: 10%;
-  background: #203961;
+  background: #52bad5;
   bottom: 0;
   text-align: center;
   padding: 15px 0;

@@ -1,4 +1,5 @@
 const orderArray = [];
+let noDuplicateItems;
 const getAvailableMenu = () => {
   fetch(`${baseURL}/menu`, {
     method: 'GET',
@@ -10,21 +11,21 @@ const getAvailableMenu = () => {
     .then(response => response.json())
     .then((data) => {
 
-      let menuContainer = document.querySelector('.foodContainer');
+      const menuContainer = document.querySelector('.foodContainer');
 
       data.allMenu.forEach((item, index, menuArray) => {
-        let newMenu = document.createElement('DIV');
-        let menuName = document.createElement('DIV');
+        const newMenu = document.createElement('DIV');
+        const menuName = document.createElement('DIV');
         menuName.innerHTML = `${item.menu}`;
         menuName.setAttribute('class', 'menuName');
-        let image = document.createElement('IMG');
+        const image = document.createElement('IMG');
         image.setAttribute('class', 'menuImage');
 
         image.src = `${item.imageurl}`;
 
-        let details = document.createElement('DIV');
-        let description = document.createElement('DIV');
-        let quantityInput = document.createElement('DIV');
+        const details = document.createElement('DIV');
+        const description = document.createElement('DIV');
+        const quantityInput = document.createElement('DIV');
         quantityInput.innerHTML = `
           <form class="form${item.id}">
             <input type='number' value='${item.id}' class='menuId' id='menuId${item.id}' hidden>
@@ -45,25 +46,16 @@ const getAvailableMenu = () => {
         `;
         description.innerHTML = `${item.description}`;
         description.setAttribute('class', 'description');
-        let orderAction = document.createElement('DIV');
+        const orderAction = document.createElement('DIV');
         orderAction.setAttribute('class', 'orderAction');
-        let orderBtn = document.createElement('INPUT');
+        const orderBtn = document.createElement('INPUT');
         orderBtn.setAttribute('class', 'orderBtn');
         orderBtn.setAttribute('readonly', 'readonly');
         orderBtn.value = 'Add to cart';
 
-        let price = document.createElement('DIV');
+        const price = document.createElement('DIV');
         price.setAttribute('class', 'price');
         price.innerHTML = `&#8358;${item.price}`;
-
-        quantityInput.setAttribute('class', 'quantityform');
-        const showQuantity = () => {
-          const quantityFields = document.querySelectorAll('.quantityform');
-          const clickedOrderBtn = document.querySelectorAll('.orderBtn');
-          quantityFields[index].style.display = 'block';
-          clickedOrderBtn[index].style.backgroundColor = 'gray';
-        };
-        orderBtn.addEventListener('click', showQuantity);
 
         orderAction.appendChild(orderBtn);
         orderAction.appendChild(quantityInput);
@@ -81,16 +73,14 @@ const getAvailableMenu = () => {
         newMenu.appendChild(price);
         menuContainer.appendChild(newMenu);
 
-        const orderCart = (eventObject) => {
-          eventObject.preventDefault();
-          const newOrder = {};
-          newOrder.menuId = document.querySelector(`#menuId${item.id}`).value;
-          newOrder.quantity = document.querySelector(`.qty${item.id}`).value;
-          orderArray.push(newOrder);
-          console.log('NEW ORDER', newOrder);
-          console.log('ORDER ARRAY', orderArray);
+        quantityInput.setAttribute('class', 'quantityform');
+        const showQuantity = () => {
+          const quantityFields = document.querySelectorAll('.quantityform');
+          const clickedOrderBtn = document.querySelectorAll('.orderBtn');
+          quantityFields[index].style.display = 'block';
+          clickedOrderBtn[index].style.backgroundColor = 'gray';
         };
-        document.querySelector(`#submit${item.id}`).addEventListener('click', orderCart);
+        orderBtn.addEventListener('click', showQuantity);
 
         const orderAmount = () => {
           const orderQty = document.querySelector(`.qty${item.id}`).value;
@@ -102,6 +92,34 @@ const getAvailableMenu = () => {
           price.style.fontWeight = 'bold';
         };
         document.querySelector(`.qty${item.id}`).addEventListener('change', orderAmount);
+
+        const orderItemsFunction = (eventObject) => {
+          eventObject.preventDefault();
+          const newOrder = {};
+          newOrder.menuId = document.querySelector(`#menuId${item.id}`).value;
+          newOrder.quantity = document.querySelector(`.qty${item.id}`).value;
+
+          if (orderArray.length > 0) {
+            orderArray.forEach((orderObj, count, userOrderArr) => {
+              if (Number(orderObj.menuId) !== Number(newOrder.menuId)) {
+                orderArray.push(newOrder);
+                return;
+              }
+              if (Number(orderObj.menuId) === Number(newOrder.menuId)) {
+                orderArray.splice(count, 1, newOrder);
+              }
+            });
+            noDuplicateItems = orderArray.filter((order, orderIndex, arr) => orderIndex === arr.indexOf(order));
+            localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
+            console.log('SANITIZED ORDER', noDuplicateItems);
+            return;
+          }
+          orderArray.push(newOrder);
+          noDuplicateItems = orderArray.filter((order, orderIndex, arr) => orderIndex === arr.indexOf(order));
+          console.log('FIRST SANITIZED ORDER', noDuplicateItems);
+          localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
+        };
+        document.querySelector(`#submit${item.id}`).addEventListener('click', orderItemsFunction);
       });
       return menuContainer;
     })
@@ -109,6 +127,7 @@ const getAvailableMenu = () => {
       console.log('Error from catch', error);
     });
 };
+
 
 const scrollPage = () => {
   const scrollTopBtn = document.querySelector('.scroll-top');
