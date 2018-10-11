@@ -10,7 +10,6 @@ const getAvailableMenu = () => {
   })
     .then(response => response.json())
     .then((data) => {
-
       const menuContainer = document.querySelector('.foodContainer');
 
       data.allMenu.forEach((item, index, menuArray) => {
@@ -41,7 +40,7 @@ const getAvailableMenu = () => {
               <option value='9'>9</option>
               <option value='10'>10</option>
             </select>
-            <input type='submit' id='submit${item.id}' value='send' class='input send'>
+            <input type='submit' id='submit${item.id}' value='add' class='input send'>
           </form>
         `;
         description.innerHTML = `${item.description}`;
@@ -111,15 +110,142 @@ const getAvailableMenu = () => {
             });
             noDuplicateItems = orderArray.filter((order, orderIndex, arr) => orderIndex === arr.indexOf(order));
             localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
-            console.log('SANITIZED ORDER', noDuplicateItems);
             return;
           }
           orderArray.push(newOrder);
           noDuplicateItems = orderArray.filter((order, orderIndex, arr) => orderIndex === arr.indexOf(order));
-          console.log('FIRST SANITIZED ORDER', noDuplicateItems);
           localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
         };
         document.querySelector(`#submit${item.id}`).addEventListener('click', orderItemsFunction);
+
+        const cartDiv = document.querySelector('#cartDiv');
+        const pageAlert = document.querySelector('.pageAlert');
+        const showCart = () => {
+          cartDiv.style.display = 'block';
+          menuContainer.style.marginTop = '100px';
+          pageAlert.style.display = 'none';
+        };
+        document.querySelector(`#submit${item.id}`).addEventListener('click', showCart);
+
+        // Place Order Starts Here
+
+        const placeOrder = (event) => {
+          event.preventDefault();
+
+          const decodeUser = (t) => {
+            const token = {};
+            token.raw = t;
+            token.header = JSON.parse(window.atob(t.split('.')[0]));
+            token.payload = JSON.parse(window.atob(t.split('.')[1]));
+            return (token);
+          };
+          let token = localStorage.getItem('token');
+          let decoded = decodeUser(token);
+
+          const userId = decoded.payload.payload.usertype.id;
+          const location = document.querySelector('.deliver-to').value.trim();
+          const orderItems = JSON.parse(localStorage.getItem('orderItems'));
+
+          if (index === 0) {
+            fetch(`${baseURL}/orders`, {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json, text/plain, */*',
+                'Content-type': 'application/json',
+                Authorization: token
+              },
+              body: JSON.stringify({
+                userId, orderItems, location
+              })
+            })
+              .then(data => data.json())
+              .then((response) => {
+                let message = '';
+
+                message = 'Invalid location. Input a string character of length 5 to 100 (alphanumeric, whitespace, comma, fullstop, and hypen are allowed)';
+                if (response.message === message) {
+                  Utils.notification('Invalid location. Input 5 to 100 characters. Remove all special characters', 'white', 'red');
+                  return;
+                }
+
+                message = 'Invalid location length. Input a string character of length 5 to 100 (alphanumeric, whitespace, comma, fullstop, and hypen are allowed)';
+                if (response.message === message) {
+                  Utils.notification('Invalid location. Input 5 to 100 characters. Remove all special characters', 'white', 'red');
+                  return;
+                }
+
+                message = 'Invalid location character. Input a string character of length 5 to 100 (alphanumeric, whitespace, comma, fullstop, and hypen are allowed)';
+                if (response.message === message) {
+                  Utils.notification('Invalid location. Input 5 to 100 characters. Remove all special characters', 'white', 'red');
+                  return;
+                }
+
+                message = 'menuId is undefined. Please input menuId as a positive integer greater than zero';
+                if (response.message === message) {
+                  Utils.notification(response.message, 'white', 'red');
+                  return;
+                }
+
+                message = 'menuId is empty. Please input menuId as a positive integer greater than zero';
+                if (response.message === message) {
+                  Utils.notification(response.message, 'white', 'red');
+                  return;
+                }
+
+                message = 'Invalid menuId detected. It should be a positive integer greater than zero';
+                if (response.message === message) {
+                  Utils.notification(response.message, 'white', 'red');
+                  return;
+                }
+
+                message = `menuId '${item.id}' is out of range. It should be less than millions`;
+                if (response.message === message) {
+                  Utils.notification(response.message, 'white', 'red');
+                  return;
+                }
+
+                message = 'Invalid quantity detected. It should be a positive integer greater than zero';
+                if (response.message === message) {
+                  Utils.notification(response.message, 'white', 'red');
+                  return;
+                }
+
+                message = `Sorry the menu with 'id: ${item.id}' does not exist`;
+                if (response.message === message) {
+                  Utils.notification(response.message, 'white', 'red');
+                  return;
+                }
+
+                message = `Sorry, '${item.menu} (menuId: ${item.id})' is currently out of stock. Check again later`;
+                if (response.message === message) {
+                  Utils.notification(response.message, 'white', 'red');
+                  return;
+                }
+
+                message = `Maximum quantity of '${item.menu} (menuId: ${item.id})' you can order at this time is ${item.quantity}`;
+                if (response.message === message) {
+                  Utils.notification(response.message, 'white', 'red');
+                  return;
+                }
+
+                message = 'Order placed successfully';
+                if (response.message === message) {
+                  Utils.notification('ORDER PLACED SUCCESSFULLY', 'white', 'green');
+                }
+                const cartDiv = document.querySelector('#cartDiv');
+                const menuContainer = document.querySelector('.foodContainer');
+                cartDiv.style.display = 'none';
+                menuContainer.style.marginTop = '25px';
+                localStorage.removeItem('orderItems');
+              })
+              .catch((error) => {
+                console.log('Catch place order error', error);
+              });
+          }
+        };
+
+        document.querySelector('.order-form').addEventListener('submit', placeOrder);
+        // Place Order Ends Here
       });
       return menuContainer;
     })

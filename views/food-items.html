@@ -30,8 +30,16 @@
       </nav>
     </div>
   </header>
-  <div class="order-cart">
-    Submit Order
+  <div class="pageAlert">
+
+  </div>
+  <div class="order-cart" id="cartDiv">
+    <span>Deliver to your residence?</span><br>
+    <form class="order-form">
+      Yes: <input type="checkbox" value="" checked>
+      No: <input type="text" placeholder="Input location" class="deliver-to" minlength="5" maxlength="100"><br>
+      <input type="submit" value="Submit Order" id="cartBtn">
+    </form>
   </div>
   
   <div class="foodContainer">
@@ -49,6 +57,7 @@
 
   <script src="js/fetch/utility.js"></script>
   <script src="js/fetch/get-all-menu.js"></script>
+  <script src="js/fetch/placeOrder.js"></script>
   <script src="js/fetch/logout.js"></script>
 </body>
 
