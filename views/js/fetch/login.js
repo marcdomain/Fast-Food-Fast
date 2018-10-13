@@ -84,8 +84,6 @@ const login = (eventBtn) => {
 
       let { token } = result;
       let decoded = jwtDecode(token);
-      console.log('DECODED', decoded);
-      console.log('USERTYPE', decoded.payload.payload.usertype);
 
       if (decoded.payload.payload.usertype === 'admin') {
         setTimeout(() => {

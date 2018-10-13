@@ -11,4 +11,4 @@ let decoded = decodeUser(token);
 
 if (decoded.payload.payload.usertype !== 'admin') {
   location.assign('unauthorized.html');
-};
+}
