@@ -23,7 +23,7 @@ const welcomeWords = () => {
   words.map((v, i, arr) => {
       setInterval(() => {
           document.querySelector('.words').innerHTML = arr[Math.floor(Math.random()*arr.length)].word;
-      }, 10000)
+      }, 10000);
   });
 
   const bgColor = document.querySelector('.progress-color');   
