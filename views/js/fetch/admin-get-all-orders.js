@@ -11,7 +11,6 @@ const getAllOrders = () => {
   })
     .then(data => data.json())
     .then((response) => {
-      console.log('ALL ORDERS', response);
       const allOrdersTable = document.querySelector('.all-orders-table');
 
       response.allOrders.forEach((order, index, orderArray) => {
@@ -23,9 +22,9 @@ const getAllOrders = () => {
           const itemRow = document.createElement('TR');
           itemRow.innerHTML = `
             <td>
-              Meal: &nbsp; &nbsp; &nbsp; &nbsp;${item.menu} <br>
-              Quantity: &nbsp;${item.quantity} <br>
-              Amount: &nbsp; &#8358;${item.amount}
+              <strong>Meal:</strong> &nbsp; &nbsp; &nbsp; &nbsp; ${item.menu} <br>
+              <strong>Quantity:</strong> &nbsp;${item.quantity} <br>
+              <strong>Amount:</strong> &nbsp; &#8358; ${item.amount}
             </td>
           `;
           eachOrderTable.appendChild(itemRow);

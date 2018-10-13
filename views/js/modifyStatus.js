@@ -4,8 +4,6 @@ const selectStatus = () => {
   const processOrder = document.querySelectorAll('.process');
   const completeOrder = document.querySelectorAll('.complete');
 
-  console.log('CANCEL ORDER ARRAY', cancelOrder);
-
   const cancelled = (event) => {
     cancelOrder.forEach((value, i, cancelArr) => {
       if (event.target === cancelArr[i]) {
