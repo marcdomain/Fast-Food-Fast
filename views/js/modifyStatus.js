@@ -1,14 +1,15 @@
 const selectStatus = () => {
-  const row = document.querySelectorAll('.row');
+  const status = document.querySelectorAll('.status');
   const cancelOrder = document.querySelectorAll('.cancel');
   const processOrder = document.querySelectorAll('.process');
   const completeOrder = document.querySelectorAll('.complete');
 
+  console.log('CANCEL ORDER ARRAY', cancelOrder);
 
   const cancelled = (event) => {
-    cancelOrder.forEach((_v, i, cancelArr) => {
+    cancelOrder.forEach((value, i, cancelArr) => {
       if (event.target === cancelArr[i]) {
-        row[i].innerHTML = 'Cancelled';
+        status[i].innerHTML = 'Cancelled';
       }
     });
   };
@@ -17,7 +18,7 @@ const selectStatus = () => {
   }
 
   const processing = (event) => {
-    processOrder.forEach((_v, i, processArr) => {
+    processOrder.forEach((value, i, processArr) => {
       if (event.target === processArr[i]) {
         processArr[i].setAttribute('class', 'processing');
         processArr[i].innerHTML = 'Processing';
@@ -32,9 +33,9 @@ const selectStatus = () => {
 
 
   const complete = (event) => {
-    completeOrder.forEach((_v, i, completeArr) => {
+    completeOrder.forEach((value, i, completeArr) => {
       if (event.target === completeArr[i]) {
-        row[i].innerHTML = 'Completed';
+        status[i].innerHTML = 'Completed';
       }
     });
   };
@@ -43,4 +44,6 @@ const selectStatus = () => {
   }
 };
 
-window.onload = selectStatus();
+setTimeout(() => {
+  selectStatus();
+}, 500);
