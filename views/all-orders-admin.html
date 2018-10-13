@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Fast-Food-Fast | Orders</title>
+  <link rel="stylesheet" href="css/orders.css">
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <script src="js/fetch/authorize-user.js"></script>
+  <script src="js/fetch/jwt-decode.min.js"></script>
+</head>
+
+<body>
+  <div class="dashboard">
+    <div class="dashboard-menu">
+      <div class="menu-top">
+        <div class="welcome">
+          <a href="food-items.html"><img src="img/logo.png" alt="logo"></a>
+          <span><a href="food-items.html">Fast Food Fast</a> </span>
+        </div>
+        <a href="add-food-item.html">
+          <div class="menu menu1">Add Item &#10148;</div>
+        </a>
+        <a href="admin-food-items.html">
+          <div class="menu menu1">All Food Items &#10148;</div>
+        </a>
+        <a href="#">
+          <div class="menu menu2">All orders &#10148;</div>
+        </a>
+      </div>
+      <div class="menu-bottom"></div>
+    </div>
+
+    <div class="dashboard-content">
+
+      <div class="toggle-menu" id="toggle-menu">
+       <strong>options</strong><span>&#10149;</span>
+      </div>
+
+      <div class="dashboard-content-bg">
+        <div class="page-title all-orders">
+          <div>MEAL ORDERS LIST</div>
+        </div>
+        <div class="orders-list">
+          <table class="all-orders-table">
+            <tr>
+              <th>ID</th>
+              <th>Date</th>
+              <th>Phone</th>
+              <th>Location</th>
+              <th class="items-head">Order Items</th>
+              <th>Total</th>
+              <th>Status</th>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="scroll-top">&#9652;</div>
+  <a href="food-items.html">
+    <div class="user-front">View menu</div>
+  </a>
+
+  <footer class="footer">
+    &copy; <script>
+      document.write(new Date().getFullYear());
+    </script> <strong>Fast-Food-Fast</strong> developed & designed by <em>Marcdomain</em>
+  </footer>
+
+  <script src="js/fetch/utility.js"></script>
+  <script src="js/fetch/admin-get-all-orders.js"></script>
+  <script src="js/scroll.js"></script>
+  <script src="js/modifyStatus.js"></script>
+  <script src="js/fetch/toggle-menu.js"></script>
+</body>
+
+</html>

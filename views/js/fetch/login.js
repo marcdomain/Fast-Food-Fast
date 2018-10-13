@@ -87,7 +87,7 @@ const login = (eventBtn) => {
 
       if (decoded.payload.payload.usertype === 'admin') {
         setTimeout(() => {
-          location.assign('admin-orders.html');
+          location.assign('all-orders-admin.html');
         }, 1000);
         return;
       }
