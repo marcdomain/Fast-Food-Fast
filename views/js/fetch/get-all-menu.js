@@ -1,4 +1,4 @@
-const orderArray = [];
+let orderArray = [];
 let noDuplicateItems;
 const getAvailableMenu = () => {
   fetch(`${baseURL}/menu`, {
@@ -170,7 +170,7 @@ const getAvailableMenu = () => {
                 userId, orderItems, location
               })
             })
-              .then(data => data.json())
+              .then(feedback => feedback.json())
               .then((response) => {
                 let message = '';
 
@@ -249,9 +249,7 @@ const getAvailableMenu = () => {
                 cartDiv.style.display = 'none';
                 menuContainer.style.marginTop = '25px';
                 localStorage.removeItem('orderItems');
-                // setTimeout(() => {
-                //   location.assign('index.html');
-                // }, 6000);
+                orderArray = [];
               })
               .catch((error) => {
                 console.log('Catch place order error', error);
