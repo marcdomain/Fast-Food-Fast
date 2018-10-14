@@ -4,9 +4,27 @@ const selectStatus = () => {
   const processOrder = document.querySelectorAll('.process');
   const completeOrder = document.querySelectorAll('.complete');
 
+  const token = localStorage.getItem('token');
+
   const cancelled = (event) => {
     cancelOrder.forEach((value, i, cancelArr) => {
       if (event.target === cancelArr[i]) {
+        console.log('VALUE OF i', `${i + 1}`);
+        fetch(`${baseURL}/orders/${i + 1}/cancel`, {
+          method: 'PUT',
+          headers: {
+            Accept: 'application/json, text/plain, */*',
+            'Content-type': 'application/json',
+            Authorization: token
+          }
+        })
+          .then(response => response.json())
+          .then((data) => {
+            console.log('DATA', data);
+          })
+          .catch((error) => {
+            console.log('Cancel order catch error', error);
+          });
         status[i].innerHTML = 'Cancelled';
       }
     });
