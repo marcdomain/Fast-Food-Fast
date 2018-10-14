@@ -73,9 +73,10 @@ const getAvailableMenu = () => {
         menuContainer.appendChild(newMenu);
 
         quantityInput.setAttribute('class', 'quantityform');
+
+        const quantityFields = document.querySelectorAll('.quantityform');
+        const clickedOrderBtn = document.querySelectorAll('.orderBtn');
         const showQuantity = () => {
-          const quantityFields = document.querySelectorAll('.quantityform');
-          const clickedOrderBtn = document.querySelectorAll('.orderBtn');
           quantityFields[index].style.display = 'block';
           clickedOrderBtn[index].style.backgroundColor = 'gray';
         };
@@ -92,6 +93,14 @@ const getAvailableMenu = () => {
         };
         document.querySelector(`.qty${item.id}`).addEventListener('change', orderAmount);
 
+        const decodeUser = (t) => {
+          const token = {};
+          token.raw = t;
+          token.header = JSON.parse(window.atob(t.split('.')[0]));
+          token.payload = JSON.parse(window.atob(t.split('.')[1]));
+          return (token);
+        };
+        let token = localStorage.getItem('token');
         const orderItemsFunction = (eventObject) => {
           eventObject.preventDefault();
           const newOrder = {};
@@ -114,6 +123,13 @@ const getAvailableMenu = () => {
           }
           orderArray.push(newOrder);
           noDuplicateItems = orderArray.filter((order, orderIndex, arr) => orderIndex === arr.indexOf(order));
+
+          if (!token) {
+            setTimeout(() => {
+              location.assign('index.html');
+            }, 4000);
+            return;
+          }
           localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
         };
         document.querySelector(`#submit${item.id}`).addEventListener('click', orderItemsFunction);
@@ -121,6 +137,10 @@ const getAvailableMenu = () => {
         const cartDiv = document.querySelector('#cartDiv');
         const pageAlert = document.querySelector('.pageAlert');
         const showCart = () => {
+          if (!token) {
+            Utils.notification('Please Signup/Login to continue', 'white', 'red');
+            return;
+          }
           cartDiv.style.display = 'block';
           menuContainer.style.marginTop = '100px';
           pageAlert.style.display = 'none';
@@ -132,17 +152,9 @@ const getAvailableMenu = () => {
         const placeOrder = (event) => {
           event.preventDefault();
 
-          const decodeUser = (t) => {
-            const token = {};
-            token.raw = t;
-            token.header = JSON.parse(window.atob(t.split('.')[0]));
-            token.payload = JSON.parse(window.atob(t.split('.')[1]));
-            return (token);
-          };
-          let token = localStorage.getItem('token');
           let decoded = decodeUser(token);
 
-          const userId = decoded.payload.payload.usertype.id;
+          const userId = decoded.payload.payload.id;
           const location = document.querySelector('.deliver-to').value.trim();
           const orderItems = JSON.parse(localStorage.getItem('orderItems'));
 
@@ -237,6 +249,9 @@ const getAvailableMenu = () => {
                 cartDiv.style.display = 'none';
                 menuContainer.style.marginTop = '25px';
                 localStorage.removeItem('orderItems');
+                // setTimeout(() => {
+                //   location.assign('index.html');
+                // }, 6000);
               })
               .catch((error) => {
                 console.log('Catch place order error', error);

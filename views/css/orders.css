@@ -31,7 +31,7 @@ body {
   font-weight: bold;
 }
 
-.pageAlert{
+.pageAlert {
   padding-top: 12px;
   height: 30px;
   text-align: center;
@@ -42,6 +42,8 @@ body {
   transition-timing-function: ease-out;
   transition: 1s;
   background: transparent;
+  position: fixed;
+  width: 100%;
 }
 
 .formAlert {
@@ -52,6 +54,7 @@ body {
   display: none;
   position: absolute;
 }
+
 /* */
 .orders-list {
   margin: 50px auto;
@@ -59,62 +62,83 @@ body {
   padding: 20px;
   border-radius: 10px;
   max-width: 1200px;
-  overflow-x:auto;
+  overflow-x: auto;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
 }
-th, td {
+
+th,
+td {
   text-align: left;
   padding: 8px;
 }
+
 th.items-head {
   text-align: center;
 }
+
 tr:nth-child(even) {
   background-color: #cccccc
 }
+
 tr:nth-child(odd) {
   background-color: #efefef
 }
+
 tr:first-child {
   background-color: #52bad5;
   color: #fff;
 }
+
 .items {
   max-width: 350px;
   min-width: 250px;
-  max-height: 150px;
+  max-height: 80px;
   overflow: auto;
   border: gray 1px solid;
 }
+
 .items tr:nth-child(even) {
   background: gray;
   color: #fff
 }
+
 .items tr:nth-child(odd) {
   background: #f3f3f3;
   color: #000;
 }
-.complete, .process, .cancel {
+
+.complete,
+.process,
+.cancel {
   cursor: pointer;
   padding: 3px;
   color: #fff;
   border-radius: 5px;
   box-shadow: 1px 1px 2px 1px gray;
 }
+
+.db-status {
+  display: none;
+}
+
 .process {
   background: green;
 }
+
 .cancel {
   background: red;
 }
+
 .complete {
   display: none;
   background: green;
 }
+
 /*  */
 
 .all-orders {
@@ -139,14 +163,14 @@ tr:first-child {
   margin-left: 0
 }
 
-.dashboard-content-bg div.page-title span{
+.dashboard-content-bg div.page-title span {
   background: #e59400;
   padding: 5px 10px;
   border-radius: 50%;
   cursor: pointer;
 }
 
-.dashboard-menu{
+.dashboard-menu {
   background: #52bad5;
   flex-direction: column;
   display: none;
@@ -207,18 +231,18 @@ tr:first-child {
   cursor: pointer;
 }
 
-.menu-top > a {
+.menu-top>a {
   text-decoration: none;
   color: #000;
 }
 
-.menu-top > a > div {
+.menu-top>a>div {
   margin-top: 20px;
 }
 
 .menu-top img {
   height: 60px;
-  width:45px;
+  width: 45px;
 }
 
 .add-food-item {
@@ -243,12 +267,12 @@ tr:first-child {
   text-align: center;
 }
 
-.unauthorized h1{
+.unauthorized h1 {
   font-size: 3em;
   color: #fff;
 }
 
-.unauthorized p{
+.unauthorized p {
   color: #52bad5;
   font-size: 1.5em;
   font-weight: bold;
@@ -268,14 +292,20 @@ tr:first-child {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 form {
   display: flex;
   flex-direction: column;
-  background: rgba(102, 99, 88, 0.2);;
+  background: rgba(102, 99, 88, 0.2);
+  ;
   padding: 20px;
   border-radius: 5px;
 }
@@ -314,26 +344,29 @@ form input[type='submit'] {
   width: 100%
 }
 
-.price, .quantity {
+.price,
+.quantity {
   display: flex;
   flex: 1;
   flex-direction: column;
 }
 
-.edit, .delete {
+.edit,
+.delete {
   font-size: 18px;
   cursor: pointer;
 }
 
-.edit, .mark-complete {
+.edit,
+.mark-complete {
   color: green;
 }
 
 .scroll-top {
-  color: #e59400; 
-  font-size: 20px; 
-  position: fixed; 
-  bottom: 20px; 
+  color: #e59400;
+  font-size: 20px;
+  position: fixed;
+  bottom: 20px;
   right: 30px;
   cursor: pointer;
   padding: 0 7px;
@@ -343,10 +376,10 @@ form input[type='submit'] {
 }
 
 .user-front {
-  color: black; 
-  font-size: 14px; 
-  position: fixed; 
-  bottom: 10px; 
+  color: black;
+  font-size: 14px;
+  position: fixed;
+  bottom: 10px;
   right: 60px;
   cursor: pointer;
   padding: 8px;
