@@ -18,7 +18,7 @@ const queryMenuTableById = 'select * from menus where id = $1';
 
 const menuQuantityAfterOrder = 'update menus set quantity = $1 where id = $2';
 
-const selectUserOrderHistory = `select orders.id, orders.orderItems, orders.total, orders.orderDate, orders.location, users.phone 
+const selectUserOrderHistory = `select orders.id, orders.orderItems, orders.total, orders.orderDate, orders.location, users.phone, orders.status 
 from orders left join users on orders.userId = users.id  where orders.userId=$1 order by id desc`;
 
 const selectAllOrders = `select orders.id, orders.orderItems, orders.total, orders.orderDate, orders.location, users.phone,

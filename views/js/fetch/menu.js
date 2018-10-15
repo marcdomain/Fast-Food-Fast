@@ -1,6 +1,31 @@
 let orderArray = [];
 let noDuplicateItems;
 const getAvailableMenu = () => {
+  const decodeUser = (t) => {
+    const token = {};
+    token.raw = t;
+    token.header = JSON.parse(window.atob(t.split('.')[0]));
+    token.payload = JSON.parse(window.atob(t.split('.')[1]));
+    return (token);
+  };
+
+  const token = localStorage.getItem('token');
+  const adminView = document.querySelector('.admin-view');
+  if (!token) {
+    const profile = document.querySelector('.username');
+    const logout = document.querySelector('.logout');
+    profile.style.display = 'none';
+    logout.style.display = 'none';
+    adminView.style.display = 'none';
+  }
+  if (token) {
+    let decoded = decodeUser(token);
+    const { usertype } = decoded.payload.payload;
+    if (usertype !== 'admin') {
+      adminView.style.display = 'none';
+    }
+  }
+
   fetch(`${baseURL}/menu`, {
     method: 'GET',
     headers: {
@@ -93,14 +118,6 @@ const getAvailableMenu = () => {
         };
         document.querySelector(`.qty${item.id}`).addEventListener('change', orderAmount);
 
-        const decodeUser = (t) => {
-          const token = {};
-          token.raw = t;
-          token.header = JSON.parse(window.atob(t.split('.')[0]));
-          token.payload = JSON.parse(window.atob(t.split('.')[1]));
-          return (token);
-        };
-        let token = localStorage.getItem('token');
         const orderItemsFunction = (eventObject) => {
           eventObject.preventDefault();
           const newOrder = {};

@@ -87,13 +87,13 @@ const login = (eventBtn) => {
 
       if (decoded.payload.payload.usertype === 'admin') {
         setTimeout(() => {
-          location.assign('all-orders-admin.html');
+          location.assign('orders-admin.html');
         }, 1000);
         return;
       }
 
       setTimeout(() => {
-        location.assign('food-items.html');
+        location.assign('menu.html');
       }, 1000);
     })
     .catch((error) => {

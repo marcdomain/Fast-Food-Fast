@@ -183,7 +183,7 @@ const signup = (event) => {
       localStorage.setItem('token', data.token);
 
       setTimeout(() => {
-        location.assign('food-items.html');
+        location.assign('menu.html');
       }, 1000);
     })
     .catch((error) => {
