@@ -1,7 +1,17 @@
-const getAllOrders = () => {
-  const token = localStorage.getItem('token');
+const decodeUser = (t) => {
+  const token = {};
+  token.raw = t;
+  token.header = JSON.parse(window.atob(t.split('.')[0]));
+  token.payload = JSON.parse(window.atob(t.split('.')[1]));
+  return (token);
+};
+const token = localStorage.getItem('token');
+const decoded = decodeUser(token);
 
-  fetch(`${baseURL}/orders`, {
+const userId = decoded.payload.payload.id;
+
+const userOrders = () => {
+  fetch(`${baseURL}/users/${userId}/orders`, {
     method: 'GET',
     headers: {
       Accept: 'application/json, text/plain, */*',
@@ -13,7 +23,7 @@ const getAllOrders = () => {
     .then((response) => {
       const allOrdersTable = document.querySelector('.all-orders-table');
 
-      response.allOrders.forEach((order, index, orderArray) => {
+      response.orderHistory.forEach((order, index, orderArray) => {
         const eachOrderDiv = document.createElement('DIV');
         eachOrderDiv.setAttribute('class', 'items');
         const eachOrderTable = document.createElement('TABLE');
@@ -42,9 +52,7 @@ const getAllOrders = () => {
           <td height="150" width="350">${eachOrderDiv.outerHTML}</td>
           <td>&#8358;${order.total}</td>
           <td class="status">
-            <span class="process">process</span> <br><br>
-            <span class="cancel">cancel</span>
-            <span class="complete">complete</span>
+            ${order.status}
           </td>
         `;
         allOrdersTable.appendChild(newTableRow);
@@ -55,4 +63,4 @@ const getAllOrders = () => {
       console.log('Catch get all orders error', error);
     });
 };
-getAllOrders();
+userOrders();

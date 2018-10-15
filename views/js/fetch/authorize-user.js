@@ -6,8 +6,13 @@ const decodeUser = (t) => {
   return (token);
 };
 
-let token = localStorage.getItem('token');
-let decoded = decodeUser(token);
+const token = localStorage.getItem('token');
+
+if (!token) {
+  location.assign('unauthorized.html');
+}
+
+const decoded = decodeUser(token);
 
 if (decoded.payload.payload.usertype !== 'admin') {
   location.assign('unauthorized.html');

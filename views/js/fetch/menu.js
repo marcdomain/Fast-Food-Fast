@@ -1,6 +1,31 @@
-const orderArray = [];
+let orderArray = [];
 let noDuplicateItems;
 const getAvailableMenu = () => {
+  const decodeUser = (t) => {
+    const token = {};
+    token.raw = t;
+    token.header = JSON.parse(window.atob(t.split('.')[0]));
+    token.payload = JSON.parse(window.atob(t.split('.')[1]));
+    return (token);
+  };
+
+  const token = localStorage.getItem('token');
+  const adminView = document.querySelector('.admin-view');
+  if (!token) {
+    const profile = document.querySelector('.username');
+    const logout = document.querySelector('.logout');
+    profile.style.display = 'none';
+    logout.style.display = 'none';
+    adminView.style.display = 'none';
+  }
+  if (token) {
+    let decoded = decodeUser(token);
+    const { usertype } = decoded.payload.payload;
+    if (usertype !== 'admin') {
+      adminView.style.display = 'none';
+    }
+  }
+
   fetch(`${baseURL}/menu`, {
     method: 'GET',
     headers: {
@@ -73,9 +98,10 @@ const getAvailableMenu = () => {
         menuContainer.appendChild(newMenu);
 
         quantityInput.setAttribute('class', 'quantityform');
+
+        const quantityFields = document.querySelectorAll('.quantityform');
+        const clickedOrderBtn = document.querySelectorAll('.orderBtn');
         const showQuantity = () => {
-          const quantityFields = document.querySelectorAll('.quantityform');
-          const clickedOrderBtn = document.querySelectorAll('.orderBtn');
           quantityFields[index].style.display = 'block';
           clickedOrderBtn[index].style.backgroundColor = 'gray';
         };
@@ -114,6 +140,13 @@ const getAvailableMenu = () => {
           }
           orderArray.push(newOrder);
           noDuplicateItems = orderArray.filter((order, orderIndex, arr) => orderIndex === arr.indexOf(order));
+
+          if (!token) {
+            setTimeout(() => {
+              location.assign('index.html');
+            }, 4000);
+            return;
+          }
           localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
         };
         document.querySelector(`#submit${item.id}`).addEventListener('click', orderItemsFunction);
@@ -121,6 +154,10 @@ const getAvailableMenu = () => {
         const cartDiv = document.querySelector('#cartDiv');
         const pageAlert = document.querySelector('.pageAlert');
         const showCart = () => {
+          if (!token) {
+            Utils.notification('Please Signup/Login to continue', 'white', 'red');
+            return;
+          }
           cartDiv.style.display = 'block';
           menuContainer.style.marginTop = '100px';
           pageAlert.style.display = 'none';
@@ -132,17 +169,9 @@ const getAvailableMenu = () => {
         const placeOrder = (event) => {
           event.preventDefault();
 
-          const decodeUser = (t) => {
-            const token = {};
-            token.raw = t;
-            token.header = JSON.parse(window.atob(t.split('.')[0]));
-            token.payload = JSON.parse(window.atob(t.split('.')[1]));
-            return (token);
-          };
-          let token = localStorage.getItem('token');
           let decoded = decodeUser(token);
 
-          const userId = decoded.payload.payload.usertype.id;
+          const userId = decoded.payload.payload.id;
           const location = document.querySelector('.deliver-to').value.trim();
           const orderItems = JSON.parse(localStorage.getItem('orderItems'));
 
@@ -158,7 +187,7 @@ const getAvailableMenu = () => {
                 userId, orderItems, location
               })
             })
-              .then(data => data.json())
+              .then(feedback => feedback.json())
               .then((response) => {
                 let message = '';
 
@@ -237,6 +266,7 @@ const getAvailableMenu = () => {
                 cartDiv.style.display = 'none';
                 menuContainer.style.marginTop = '25px';
                 localStorage.removeItem('orderItems');
+                orderArray = [];
               })
               .catch((error) => {
                 console.log('Catch place order error', error);

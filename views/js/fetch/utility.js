@@ -1,4 +1,5 @@
 const baseURL = 'https://marcus-fast-food-fast.herokuapp.com/api/v1';
+// const baseURL = 'http://localhost:5030/api/v1';
 
 class Utils {
   static displayMessage(message, color, fieldIndex) {
@@ -27,7 +28,7 @@ class Utils {
     setTimeout(() => {
       pageAlert.style.backgroundColor = 'transparent';
       pageAlert.style.color = 'transparent';
-    }, 8000);
+    }, 6000);
   }
 
   static clearSignup() {
