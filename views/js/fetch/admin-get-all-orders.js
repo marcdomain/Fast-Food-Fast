@@ -53,26 +53,25 @@ const getAllOrders = () => {
         allOrdersTable.appendChild(newTableRow);
 
         // Modify status starts here
-        const status = document.querySelectorAll(`#db-status${order.id}`);
+        const status = document.querySelector(`#db-status${order.id}`);
         const dummyStatus = document.querySelector(`#dummy-status${order.id}`);
         const processId = document.querySelector(`#process${order.id}`);
         const completeId = document.querySelector(`#complete${order.id}`);
         const cancelId = document.querySelector(`#cancel${order.id}`);
         const breakId = document.querySelector(`#break${order.id}`);
 
-        if (status[0].innerHTML === 'Cancelled') {
+        if (status.innerHTML === 'Cancelled' || status.innerHTML === 'Completed') {
           dummyStatus.style.display = 'none';
-          status[0].style.display = 'block';
+          status.style.display = 'block';
           return;
         }
 
-        if (status[0].innerHTML === 'Processing') {
-          status[0].style.display = 'block';
+        if (status.innerHTML === 'Processing') {
+          status.style.display = 'block';
           completeId.style.display = 'block';
           cancelId.style.display = 'none';
           processId.style.display = 'none';
           breakId.style.display = 'none';
-          return;
         }
 
         setTimeout(() => {
@@ -88,7 +87,6 @@ const getAllOrders = () => {
               })
                 .then(feedback => feedback.json())
                 .then((data) => {
-                  console.log('DATA', data);
                   let message = '';
 
                   message = 'Invalid URL. orderId should be a positive integer greater than zero';
@@ -105,7 +103,7 @@ const getAllOrders = () => {
 
                   message = 'Sorry, this order cannot be updated at this time';
                   if (data.message === message) {
-                    Utils.notification(data.message, 'white', 'red');
+                    Utils.notification(`Order ${order.id} cannot be updated at this time`, 'white', 'red');
                     return;
                   }
 
@@ -135,7 +133,6 @@ const getAllOrders = () => {
               })
                 .then(feedback => feedback.json())
                 .then((data) => {
-                  console.log('DATA', data);
                   let message = '';
 
                   message = 'Invalid URL. orderId should be a positive integer greater than zero';
@@ -152,7 +149,7 @@ const getAllOrders = () => {
 
                   message = 'Sorry, this order cannot be updated at this time';
                   if (data.message === message) {
-                    Utils.notification(data.message, 'white', 'red');
+                    Utils.notification(`Order ${order.id} cannot be updated at this time`, 'white', 'red');
                     return;
                   }
 
@@ -172,6 +169,55 @@ const getAllOrders = () => {
             }
           };
           processId.addEventListener('click', processOrder);
+          // End Process Order
+
+          const completeOrder = (eventObject) => {
+            console.log('HEYYYYYYYYYYY');
+            if (eventObject.target === completeId) {
+              fetch(`${baseURL}/orders/${order.id}/complete`, {
+                method: 'PUT',
+                headers: {
+                  Accept: 'application/json, text/plain, */*',
+                  'Content-type': 'application/json',
+                  Authorization: token
+                }
+              })
+                .then(feedback => feedback.json())
+                .then((data) => {
+                  let message = '';
+
+                  message = 'Invalid URL. orderId should be a positive integer greater than zero';
+                  if (data.message === message) {
+                    Utils.notification(data.message, 'white', 'red');
+                    return;
+                  }
+
+                  message = 'Sorry, this order does not exists.';
+                  if (data.message === message) {
+                    Utils.notification('Sorry, this order does not exist', 'white', 'red');
+                    return;
+                  }
+
+                  message = 'This order can only be completed after its been placed on processing';
+                  if (data.message === message) {
+                    Utils.notification(data.message, 'white', 'red');
+                    return;
+                  }
+
+                  message = 'Order is completed';
+                  if (data.message === message) {
+                    Utils.notification(`Order ${order.id} is completed`, 'white', 'green');
+                  }
+                })
+                .catch((error) => {
+                  console.log('Process order catch error', error);
+                });
+              dummyStatus.innerHTML = 'Completed';
+              status.style.display = 'none';
+            }
+          };
+          completeId.addEventListener('click', completeOrder);
+          // End Complete Order
         }, 500);
         // Modify status ends here
       });
