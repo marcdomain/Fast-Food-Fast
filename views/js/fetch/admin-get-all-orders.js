@@ -44,9 +44,9 @@ const getAllOrders = () => {
           <td class="status">
             <span class="db-status" id="db-status${order.id}">${order.status}</span>
             <div class="dummy-status" id="dummy-status${order.id}">
-              <span class="process">process</span> <br><br>
+              <span class="process" id="process${order.id}">process</span><span id="break${order.id}"><br><br></span>
               <span class="cancel" id="cancel${order.id}">cancel</span>
-              <span class="complete">complete</span>
+              <span class="complete" id="complete${order.id}">complete</span>
             </div>
           </td>
         `;
@@ -55,16 +55,27 @@ const getAllOrders = () => {
         // Modify status starts here
         const status = document.querySelectorAll(`#db-status${order.id}`);
         const dummyStatus = document.querySelector(`#dummy-status${order.id}`);
+        const processId = document.querySelector(`#process${order.id}`);
+        const completeId = document.querySelector(`#complete${order.id}`);
+        const cancelId = document.querySelector(`#cancel${order.id}`);
+        const breakId = document.querySelector(`#break${order.id}`);
 
-        console.log('VALUE OF status', status[0].innerHTML);
         if (status[0].innerHTML === 'Cancelled') {
           dummyStatus.style.display = 'none';
           status[0].style.display = 'block';
           return;
         }
-        setTimeout(() => {
-          const cancelId = document.querySelector(`#cancel${order.id}`);
 
+        if (status[0].innerHTML === 'Processing') {
+          status[0].style.display = 'block';
+          completeId.style.display = 'block';
+          cancelId.style.display = 'none';
+          processId.style.display = 'none';
+          breakId.style.display = 'none';
+          return;
+        }
+
+        setTimeout(() => {
           const cancelOrder = (event) => {
             if (event.target === cancelId) {
               fetch(`${baseURL}/orders/${order.id}/cancel`, {
@@ -80,6 +91,24 @@ const getAllOrders = () => {
                   console.log('DATA', data);
                   let message = '';
 
+                  message = 'Invalid URL. orderId should be a positive integer greater than zero';
+                  if (data.message === message) {
+                    Utils.notification(data.message, 'white', 'red');
+                    return;
+                  }
+
+                  message = 'Sorry, this order does not exists.';
+                  if (data.message === message) {
+                    Utils.notification('Sorry, this order does not exist', 'white', 'red');
+                    return;
+                  }
+
+                  message = 'Sorry, this order cannot be updated at this time';
+                  if (data.message === message) {
+                    Utils.notification(data.message, 'white', 'red');
+                    return;
+                  }
+
                   message = 'Order is cancelled';
                   if (data.message === message) {
                     Utils.notification(`Order ${order.id} is cancelled`, 'white', 'green');
@@ -92,6 +121,57 @@ const getAllOrders = () => {
             }
           };
           cancelId.addEventListener('click', cancelOrder);
+          // End Cancel Order
+
+          const processOrder = (event) => {
+            if (event.target === processId) {
+              fetch(`${baseURL}/orders/${order.id}/process`, {
+                method: 'PUT',
+                headers: {
+                  Accept: 'application/json, text/plain, */*',
+                  'Content-type': 'application/json',
+                  Authorization: token
+                }
+              })
+                .then(feedback => feedback.json())
+                .then((data) => {
+                  console.log('DATA', data);
+                  let message = '';
+
+                  message = 'Invalid URL. orderId should be a positive integer greater than zero';
+                  if (data.message === message) {
+                    Utils.notification(data.message, 'white', 'red');
+                    return;
+                  }
+
+                  message = 'Sorry, this order does not exists.';
+                  if (data.message === message) {
+                    Utils.notification('Sorry, this order does not exist', 'white', 'red');
+                    return;
+                  }
+
+                  message = 'Sorry, this order cannot be updated at this time';
+                  if (data.message === message) {
+                    Utils.notification(data.message, 'white', 'red');
+                    return;
+                  }
+
+                  message = 'Order is currently processing';
+                  if (data.message === message) {
+                    Utils.notification(`Order ${order.id} is currently processing`, 'white', 'green');
+                  }
+                })
+                .catch((error) => {
+                  console.log('Process order catch error', error);
+                });
+
+              cancelId.style.display = 'none';
+              processId.setAttribute('class', 'processing');
+              processId.innerHTML = 'Processing';
+              completeId.style.display = 'block';
+            }
+          };
+          processId.addEventListener('click', processOrder);
         }, 500);
         // Modify status ends here
       });
