@@ -46,6 +46,10 @@ body {
   width: 100%;
 }
 
+.padAlertDiv {
+  margin-top: 70px;
+}
+
 .formAlert {
   font-size: 16px;
   padding: 3px;
