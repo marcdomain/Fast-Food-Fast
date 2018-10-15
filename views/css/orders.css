@@ -233,6 +233,7 @@ tr:first-child {
   border-radius: 10px;
   box-shadow: 1px 1px 2px 1px gray;
   cursor: pointer;
+  text-align: center;
 }
 
 .menu-top>a {
