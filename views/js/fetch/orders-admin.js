@@ -12,7 +12,7 @@ const getAllOrders = () => {
     .then(data => data.json())
     .then((response) => {
       const allOrdersTable = document.querySelector('.all-orders-table');
-
+      console.log('RESPONSE', response);
       response.allOrders.forEach((order, index, orderArray) => {
         const eachOrderDiv = document.createElement('DIV');
         eachOrderDiv.setAttribute('class', 'items');
@@ -37,7 +37,7 @@ const getAllOrders = () => {
           <td>
             ${new Date(order.orderdate).toString().split(' GMT')[0]}
           </td>
-          <td>${order.phone}</td>
+          <td><a href="specific-user-orders-admin.html" class="phone" id="phone${order.id}">${order.phone}</a></td>
           <td>${order.location}</td>
           <td height="80" width="350">${eachOrderDiv.outerHTML}</td>
           <td>&#8358;${order.total}</td>
@@ -51,6 +51,11 @@ const getAllOrders = () => {
           </td>
         `;
         allOrdersTable.appendChild(newTableRow);
+        const getUserId = () => {
+          localStorage.setItem('userId', order.userid);
+          localStorage.setItem('email', order.email);
+        };
+        document.querySelector(`#phone${order.id}`).addEventListener('click', getUserId);
 
         // Modify status starts here
         const status = document.querySelector(`#db-status${order.id}`);
