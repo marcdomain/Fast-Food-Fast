@@ -6,7 +6,18 @@ const decodeUser = (t) => {
   return (token);
 };
 const token = localStorage.getItem('token');
+
+const adminView = document.querySelector('.user-front');
+if (!token) {
+  adminView.style.display = 'none';
+  location.assign('menu.html');
+}
+
 const decoded = decodeUser(token);
+const { usertype } = decoded.payload.payload;
+if (usertype !== 'admin') {
+  adminView.style.display = 'none';
+}
 
 const userId = decoded.payload.payload.id;
 

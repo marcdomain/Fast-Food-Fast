@@ -103,6 +103,7 @@ tr:first-child {
   min-width: 250px;
   max-height: 80px;
   overflow: auto;
+  border-radius: 10px;
   border: gray 1px solid;
 }
 
@@ -149,7 +150,6 @@ tr:first-child {
   color: green;
   font-weight: bold;
 }
-/*  */
 
 .dashboard-content-bg div.page-title span {
   background: #e59400;
