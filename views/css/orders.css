@@ -143,29 +143,13 @@ tr:first-child {
   background: green;
 }
 
+.phone {
+  cursor: pointer;
+  text-decoration: underline;
+  color: green;
+  font-weight: bold;
+}
 /*  */
-
-.all-orders {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between
-}
-
-.modify-icons {
-  display: flex;
-  justify-content: center;
-  padding-top: 20px;
-}
-
-.modify-icons div {
-  text-decoration: none;
-  font-size: 30px;
-  margin-left: 20px
-}
-
-.modify-icons div:first-child {
-  margin-left: 0
-}
 
 .dashboard-content-bg div.page-title span {
   background: #e59400;
