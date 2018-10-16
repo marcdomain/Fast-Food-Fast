@@ -12,6 +12,8 @@ const createOrder = 'insert into orders (userId, orderItems, total, location) va
 
 const queryMenuTableByMenu = 'select * from menus where menu = $1';
 
+const selectAllMenu = 'select * from menus';
+
 const queryAvailableMenu = 'select * from menus where quantity > 0 order by id desc';
 
 const queryMenuTableById = 'select * from menus where id = $1';
@@ -45,5 +47,5 @@ export {
   queryAvailableMenu, createOrder, queryMenuTableById, menuQuantityAfterOrder,
   selectUserOrderHistory, selectAllOrders, selectSpecificOrder, updateOrderStatus,
   queryOrdersById, queryUsersById, returnNewOrder,
-  selectPriceFromMenu, updateMenu, deleteMenuById
+  selectPriceFromMenu, updateMenu, deleteMenuById, selectAllMenu
 };

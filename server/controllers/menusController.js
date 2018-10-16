@@ -1,6 +1,6 @@
 import pool from '../db/connection';
 import {
-  createMenu, queryAvailableMenu, updateMenu, deleteMenuById
+  createMenu, queryAvailableMenu, updateMenu, deleteMenuById, selectAllMenu
 } from '../db/sqlQueries';
 
 /**
@@ -49,7 +49,7 @@ class MenusHandler {
   }
 
   /**
-  * @description - This method is responsible for getting all available menu
+  * @description - This method is responsible for getting all available menu (where stock quantity > 0)
   *
   * @static
   * @param {object} request - Request sent to the router
@@ -65,7 +65,7 @@ class MenusHandler {
       .then((result) => {
         const allMenu = result.rows;
         if (allMenu.length === 0) {
-          return response.status(200)
+          return response.status(404)
             .json({
               message: 'Menu list is empty at this time. Please check again later'
             });
@@ -73,6 +73,41 @@ class MenusHandler {
         return response.status(200)
           .json({
             message: 'List of Available Menu',
+            allMenu
+          });
+      })
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
+  }
+
+  /**
+  * @description - This method is responsible for getting all menu irrespective of stock quantity
+  *
+  * @static
+  * @param {object} request - Request sent to the router
+  * @param {object} response - Response sent from the controller
+  *
+  * @returns {object} - status and object representing response message
+  *
+  * @memberof MenusHandler
+  */
+
+  static getAllMenuAdminDashboard(request, response) {
+    pool.query(selectAllMenu)
+      .then((result) => {
+        const allMenu = result.rows;
+        if (allMenu.length === 0) {
+          return response.status(404)
+            .json({
+              message: 'You are yet to upload menu. Start uploading now'
+            });
+        }
+        return response.status(200)
+          .json({
+            message: 'List of All Menu in Database',
             allMenu
           });
       })
@@ -128,9 +163,9 @@ class MenusHandler {
 }
 
 const {
-  postMenu, getAllMenu, updateMenuItem, deleteMenu, getSpecificMenu
+  postMenu, getAllMenu, updateMenuItem, deleteMenu, getSpecificMenu, getAllMenuAdminDashboard
 } = MenusHandler;
 
 export {
-  postMenu, getAllMenu, updateMenuItem, deleteMenu, getSpecificMenu
+  postMenu, getAllMenu, updateMenuItem, deleteMenu, getSpecificMenu, getAllMenuAdminDashboard
 };

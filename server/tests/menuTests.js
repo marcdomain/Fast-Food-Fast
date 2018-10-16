@@ -63,6 +63,33 @@ describe('Create Token For Admin', () => {
   });
 });
 
+describe('Test GET available menu before posting menu', () => {
+  it('Should return 404 for empty menu', (done) => {
+    chai.request(app)
+      .get('/api/v1/menu')
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Menu list is empty at this time. Please check again later');
+        done();
+      });
+  });
+});
+
+describe('Test GET all menu in databse before posting menu', () => {
+  it('Should return 404 for empty menu', (done) => {
+    chai.request(app)
+      .get('/api/v1/menu/admin')
+      .set('authorization', generateToken)
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('You are yet to upload menu. Start uploading now');
+        done();
+      });
+  });
+});
+
 describe('Test POST MENU endpoint for admin userType', () => {
   it('should return 201 for success', (done) => {
     chai.request(app)
@@ -458,6 +485,20 @@ describe('GET All Available Menu', () => {
         expect(response).to.have.status(200);
         expect(response.body).to.be.a('object');
         expect(response.body.message).to.equal('List of Available Menu');
+        done();
+      });
+  });
+});
+
+describe('GET All Menu in Database', () => {
+  it('Should return 200 for success', (done) => {
+    chai.request(app)
+      .get('/api/v1/menu/admin')
+      .set('authorization', generateToken)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('List of All Menu in Database');
         done();
       });
   });
