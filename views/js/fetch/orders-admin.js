@@ -43,7 +43,9 @@ const getAllOrders = () => {
           <td>
             ${new Date(order.orderdate).toString().split(' GMT')[0]}
           </td>
+
           <td><a href="specific-user-orders-admin.html" class="phone" id="phone${order.id}">${order.phone}</a></td>
+
           <td>${order.location}</td>
           <td height="80" width="350">${eachOrderDiv.outerHTML}</td>
           <td>&#8358;${order.total}</td>
@@ -57,6 +59,7 @@ const getAllOrders = () => {
           </td>
         `;
         allOrdersTable.appendChild(newTableRow);
+
         const getUserId = () => {
           localStorage.setItem('userId', order.userid);
           localStorage.setItem('email', order.email);
