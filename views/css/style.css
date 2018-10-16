@@ -1,7 +1,7 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: Comfortaa;
+  font-family: 'Comfortaa';
   font-size: 17px;
   overflow-x: hidden;
 }
@@ -59,7 +59,6 @@ nav .username sup {
   font-weight: bold;
   line-height: 5px;
   font-size: 14px;
-  color: #e59400;
   text-decoration: underline
 }
 
@@ -358,7 +357,7 @@ nav ul li a {
   padding: 0 7px;
   border-radius: 50%;
   background: #efefef;
-  box-shadow: 1px 1px 2px 1px #004466;
+  box-shadow: 1px 1px 2px 1px gray;
 }
 
 
@@ -586,7 +585,7 @@ input.deliver-to {
 }
 
 .user-front {
-  color: black;
+  color: #fff;
   font-size: 14px;
   position: fixed;
   bottom: 10px;
@@ -594,8 +593,8 @@ input.deliver-to {
   cursor: pointer;
   padding: 5px;
   border-radius: 10px;
-  background: #e59400;
-  box-shadow: 1px 1px 2px 1px #203961;
+  background: #e65c00;
+  box-shadow: 1px 1px 2px 1px gray;
 }
 
 @media(max-width: 1160px) {

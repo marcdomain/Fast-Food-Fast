@@ -1,7 +1,7 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: fantasy;
+  font-family: 'Comfortaa';
   font-size: 17px;
   overflow-x: hidden;
   height: 100vh;
@@ -59,7 +59,6 @@ body {
   position: absolute;
 }
 
-/* */
 .orders-list {
   margin: 50px auto;
   background: rgba(194, 209, 202, 0.2);
@@ -193,12 +192,13 @@ tr:first-child {
   margin-top: 20px;
 }
 
-/* .item-first-row {
-  background: #efefef
-} */
+.menu-image {
+  width: 100px;
+  height: 70px;
+}
 
 .dashboard-content-bg div.page-title span {
-  background: #e59400;
+  background: #e65c00;
   padding: 5px 10px;
   border-radius: 50%;
   cursor: pointer;
@@ -211,7 +211,7 @@ tr:first-child {
   position: fixed;
   height: 95vh;
   padding: 20px;
-  box-shadow: 1px 1px 2px 1px #000;
+  box-shadow: 2px 2px 5px 2px gray;
   transition: 0.5s;
   transition-timing-function: ease-out;
 }
@@ -231,9 +231,9 @@ tr:first-child {
 
 .toggle-menu span {
   padding: 0 5px;
-  background: orange;
+  background: #e65c00;
   border-radius: 5px;
-  box-shadow: 1px 1px 2px 1px #000;
+  box-shadow: 1px 1px 2px 1px gray;
   cursor: pointer;
   float: right;
   font-size: 25px;
@@ -390,15 +390,26 @@ form input[type='submit'] {
 .delete {
   font-size: 18px;
   cursor: pointer;
+  border-radius: 50%;
+  padding: 3px 6px;
+  background: #fff;
+  box-shadow: 1px 1px 2px 1px gray;
 }
 
-.edit,
-.mark-complete {
+.edit {
   color: green;
 }
 
+.delete {
+  color: red;
+}
+
+.modify {
+  width: 75px;
+}
+
 .scroll-top {
-  color: #e59400;
+  color: #e65c00;
   font-size: 20px;
   position: fixed;
   bottom: 20px;
@@ -407,7 +418,7 @@ form input[type='submit'] {
   padding: 0 7px;
   border-radius: 50%;
   background: #efefef;
-  box-shadow: 1px 1px 2px 1px #203961;
+  box-shadow: 1px 1px 2px 1px gray;
 }
 
 .user-front {
@@ -419,8 +430,9 @@ form input[type='submit'] {
   cursor: pointer;
   padding: 8px;
   border-radius: 10px;
-  background: #e59400;
-  box-shadow: 1px 1px 2px 1px #203961;
+  background: #e65c00;
+  color: #fff;
+  box-shadow: 1px 1px 2px 1px gray;
 }
 
 .footer {

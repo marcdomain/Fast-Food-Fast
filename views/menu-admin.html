@@ -17,35 +17,58 @@
     <div class="dashboard-menu">
       <div class="menu-top">
         <div class="welcome">
-          <a href="food-items.html"><img src="img/logo.png" alt="logo"></a>
-          <span><a href="food-items.html">Fast Food Fast</a> </span>
+          <a href="menu.html"><img src="img/logo.png" alt="logo"></a>
+          <span><a href="menu.html">Fast Food Fast</a> </span>
         </div>
-        <a href="add-food-item.html">
+        <a href="add-menu.html">
           <div class="menu menu1">Add Item &#10148;</div>
         </a>
         <a href="#">
-          <div class="menu menu1">All Food Items &#10148;</div>
+          <div class="menu menu1">Food Items &#10148;</div>
         </a>
-        <a href="all-orders-admin.html">
+        <a href="orders-admin.html">
           <div class="menu menu2">All orders &#10148;</div>
+        </a>
+        <a href="#">
+          <div class="menu menu2 logout">Logout &#10148;</div>
         </a>
       </div>
       <div class="menu-bottom"></div>
     </div>
     <div class="dashboard-content">
+      <div class="toggle-menu" id="toggle-menu">
+        <strong>options</strong><span>&#10149;</span>
+      </div>
       <div class="dashboard-content-bg">
+        <div class="pageAlert padAlertDiv">
+
+        </div>
         <div class="page-title">FOOD ITEMS LIST</div>
-        <!-- ///////////////////////////////////////////////////////////////////////////////////////////// -->
-        
-        <!-- ///////////////////////////////////////////////////////////////////////////////////////////// -->
+
+        <div class="orders-list">
+          <table class="all-menu-table">
+            <tr>
+              <th>ID</th>
+              <th>Menu</th>
+              <th>Image</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Modify</th>
+            </tr>
+          </table>
+        </div>
 
       </div>
 
     </div>
   </div>
-  
+
   <div class="scroll-top">&#9652;</div>
-  <a href="food-items.html"><div class="user-front">View menu</div></a>
+  <a href="menu.html">
+    <div class="user-front">View menu</div>
+  </a>
 
   <footer class="footer">
     &copy; <script>
@@ -54,7 +77,10 @@
   </footer>
 
   <script src="js/scroll.js"></script>
-  <script src="js/status.js"></script>
+  <script src="js/fetch/utility.js"></script>
+  <script src="js/fetch/menu-admin.js"></script>
+  <script src="js/fetch/toggle-menu.js"></script>
+  <script src="js/fetch/logout.js"></script>
 </body>
 
 </html>

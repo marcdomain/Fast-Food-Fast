@@ -17,6 +17,7 @@ Below are the features of Fast-Food-Fast Application at this point
 - User can Login <br>
 - Admin can post menu <br>
 - User can get all available menu <br>
+- Admin can get all menu (in stock or out of stock)<br>
 - User can post Orders to the app <br>
 - User can get his/her order history<br/>
 - Admin can also get order history of specific user <br>
@@ -67,6 +68,12 @@ Below are the features of Fast-Food-Fast Application at this point
 <tr>
 <td>GET</td> <td>api/v1/menu</td>  <td>Get All Available Menu</td>
 <td>"Authorization": "token" or undefined</td>
+<td>{<br>message: "string"<br>allMenu: {object}<br>}</td>
+</tr>
+
+<tr>
+<td>GET</td> <td>api/v1/menu/admin</td>  <td>Get All Menu in Database</td>
+<td>"Authorization": "token"</td>
 <td>{<br>message: "string"<br>allMenu: {object}<br>}</td>
 </tr>
 
