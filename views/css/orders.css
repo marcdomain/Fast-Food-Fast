@@ -144,12 +144,58 @@ tr:first-child {
   background: green;
 }
 
-.phone {
+.phone,
+.orderId {
   cursor: pointer;
   text-decoration: underline;
   color: green;
   font-weight: bold;
 }
+
+.modal {
+  background: rgba(36, 40, 38, 0.8);
+  min-height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  color: #fff;
+  display: none;
+}
+
+.specific-order {
+  margin: 50px auto;
+  max-width: 1000px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+}
+
+.order-details,
+.user-details {
+  flex: 1;
+  padding: 20px 10px;
+  overflow-x: auto;
+}
+
+.order-title,
+.user-title {
+  text-align: center;
+  font-weight: bold;
+  background: #52bad5;
+  padding: 8px;
+}
+
+.order-data,
+.user-data {
+  color: #000;
+  margin-top: 20px;
+}
+
+/* .item-first-row {
+  background: #efefef
+} */
 
 .dashboard-content-bg div.page-title span {
   background: #e59400;
