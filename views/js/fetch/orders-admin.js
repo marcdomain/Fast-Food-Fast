@@ -80,7 +80,6 @@ const getAllOrders = () => {
           })
             .then(result => result.json())
             .then((feedback) => {
-              console.log('SPECIFIC ORDER FEEDBACK', feedback);
               const orderTitle = document.querySelector('.order-title');
               orderTitle.innerHTML = `ORDER #${feedback.foundOrder.id}`;
               const orderDataTable = document.createElement('TABLE');
