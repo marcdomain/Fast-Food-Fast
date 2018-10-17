@@ -1,3 +1,13 @@
+localStorage.removeItem('menuURL');
+localStorage.removeItem('menuName');
+localStorage.removeItem('menuImageURL');
+localStorage.removeItem('menuCategory');
+localStorage.removeItem('menuDescription');
+localStorage.removeItem('menuQuantity');
+localStorage.removeItem('menuPrice');
+localStorage.removeItem('userId');
+localStorage.removeItem('email');
+
 const decodeUser = (t) => {
   const token = {};
   token.raw = t;
@@ -33,6 +43,15 @@ const userOrders = () => {
     .then(data => data.json())
     .then((response) => {
       const allOrdersTable = document.querySelector('.all-orders-table');
+      let message = '';
+      message = 'Your order history is empty. Visit menu page and start placing your orders';
+      if (response.message === message) {
+        Utils.notification('You have no order history at this time. Start placing orders now', 'white', 'red');
+        setTimeout(() => {
+          location.assign('menu.html');
+        }, 6100);
+        return;
+      }
 
       response.orderHistory.forEach((order, index, orderArray) => {
         const eachOrderDiv = document.createElement('DIV');

@@ -160,7 +160,7 @@ tr:first-child {
   left: 0;
   position: absolute;
   color: #fff;
-  /* display: none; */
+  display: none;
 }
 
 .specific-order {
@@ -199,7 +199,7 @@ tr:first-child {
 }
 
 .confirm-form {
-  margin: 50px auto;
+  margin: 150px auto;
   max-width: 400px;
   border: #efefef 1px solid;
   border-radius: 10px;
@@ -209,11 +209,12 @@ tr:first-child {
 .confirm-form form {
   background: rgba(36, 40, 38, 0.8);
 }
- .confirm-form form input[type='submit'] {
-   background: red;
-   font-weight: bold;
-   font-size: 15px;
- }
+
+.confirm-form form input[type='submit'] {
+  background: red;
+  font-weight: bold;
+  font-size: 15px;
+}
 
 .confirm-text {
   text-align: center;
@@ -232,8 +233,9 @@ tr:first-child {
   flex-direction: column;
   display: none;
   position: fixed;
+  z-index: 1;
   height: 95vh;
-  padding: 20px;
+  padding: 20px 50px;
   box-shadow: 2px 2px 5px 2px gray;
   transition: 0.5s;
   transition-timing-function: ease-out;
@@ -241,15 +243,16 @@ tr:first-child {
 
 .toggle-menu {
   background: #52bad5;
-  width: 90px;
+  width: 100px;
   height: 35px;
   text-align: center;
   position: fixed;
   color: #fff;
   transition: 0.5s;
   transition-timing-function: ease-out;
-  padding: 3px 10px;
+  padding: 15px 10px;
   line-height: 30px;
+  z-index: 2;
 }
 
 .toggle-menu span {
@@ -395,6 +398,13 @@ form input[type='submit'] {
   color: #fff;
   font-weight: bold;
   cursor: pointer;
+}
+
+form input[type='reset'] {
+  display: none;
+  background: red;
+  color: #fff;
+  font-weight: bold;
 }
 
 .sub-input {

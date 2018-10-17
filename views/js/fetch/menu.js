@@ -1,3 +1,13 @@
+localStorage.removeItem('menuURL');
+localStorage.removeItem('menuName');
+localStorage.removeItem('menuImageURL');
+localStorage.removeItem('menuCategory');
+localStorage.removeItem('menuDescription');
+localStorage.removeItem('menuQuantity');
+localStorage.removeItem('menuPrice');
+localStorage.removeItem('userId');
+localStorage.removeItem('email');
+
 let orderArray = [];
 let noDuplicateItems;
 const getAvailableMenu = () => {
