@@ -1,3 +1,13 @@
+localStorage.removeItem('menuURL');
+localStorage.removeItem('menuName');
+localStorage.removeItem('menuImageURL');
+localStorage.removeItem('menuCategory');
+localStorage.removeItem('menuDescription');
+localStorage.removeItem('menuQuantity');
+localStorage.removeItem('menuPrice');
+localStorage.removeItem('userId');
+localStorage.removeItem('email');
+
 const getAllOrders = () => {
   const displayModal = document.querySelector('.modal');
   window.onclick = (event) => {
@@ -18,6 +28,12 @@ const getAllOrders = () => {
     .then(data => data.json())
     .then((response) => {
       const allOrdersTable = document.querySelector('.all-orders-table');
+      let message = '';
+      message = 'No orders have been placed. Please check again later';
+      if (response.message === message) {
+        Utils.notification(response.message, 'white', 'red');
+        return;
+      }
 
       response.allOrders.forEach((order, index, orderArray) => {
         const eachOrderDiv = document.createElement('DIV');
@@ -193,7 +209,6 @@ const getAllOrders = () => {
               })
                 .then(feedback => feedback.json())
                 .then((data) => {
-                  let message = '';
 
                   message = 'Invalid URL. orderId should be a positive integer greater than zero';
                   if (data.message === message) {
@@ -239,7 +254,6 @@ const getAllOrders = () => {
               })
                 .then(feedback => feedback.json())
                 .then((data) => {
-                  let message = '';
 
                   message = 'Invalid URL. orderId should be a positive integer greater than zero';
                   if (data.message === message) {
@@ -290,7 +304,6 @@ const getAllOrders = () => {
               })
                 .then(feedback => feedback.json())
                 .then((data) => {
-                  let message = '';
 
                   message = 'Invalid URL. orderId should be a positive integer greater than zero';
                   if (data.message === message) {

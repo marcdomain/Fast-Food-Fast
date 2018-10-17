@@ -1,11 +1,11 @@
 const toggleMenu = document.querySelector('.toggle-menu');
 const switchDirection = document.querySelector('.toggle-menu span');
+const dashboardOptions = document.querySelector('.dashboard-menu');
 
-const displayMenuDashboard = () => {
-  const dashboardOptions = document.querySelector('.dashboard-menu');
+const toggleMenuDashboard = () => {
   if (dashboardOptions.style.display === 'block') {
     dashboardOptions.style.display = 'none';
-    toggleMenu.style.width = '90px';
+    toggleMenu.style.width = '100px';
     switchDirection.style.transform = 'scaleX(1)';
   } else {
     dashboardOptions.style.display = 'block';
@@ -13,4 +13,4 @@ const displayMenuDashboard = () => {
     switchDirection.style.transform = 'scaleX(-1)';
   }
 };
-toggleMenu.addEventListener('click', displayMenuDashboard);
+toggleMenu.addEventListener('click', toggleMenuDashboard);
