@@ -44,6 +44,7 @@ body {
   background: transparent;
   position: fixed;
   width: 100%;
+  z-index: 10;
 }
 
 .padAlertDiv {
@@ -159,7 +160,7 @@ tr:first-child {
   left: 0;
   position: absolute;
   color: #fff;
-  display: none;
+  /* display: none; */
 }
 
 .specific-order {
@@ -195,6 +196,28 @@ tr:first-child {
 .menu-image {
   width: 100px;
   height: 70px;
+}
+
+.confirm-form {
+  margin: 50px auto;
+  max-width: 400px;
+  border: #efefef 1px solid;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.confirm-form form {
+  background: rgba(36, 40, 38, 0.8);
+}
+ .confirm-form form input[type='submit'] {
+   background: red;
+   font-weight: bold;
+   font-size: 15px;
+ }
+
+.confirm-text {
+  text-align: center;
+  margin: 5px 0 50px 0;
 }
 
 .dashboard-content-bg div.page-title span {

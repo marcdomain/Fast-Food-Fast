@@ -36,6 +36,12 @@ const getAvailableMenu = () => {
     .then(response => response.json())
     .then((data) => {
       const menuContainer = document.querySelector('.foodContainer');
+      let message = '';
+      message = 'Menu list is empty at this time. Please check again later';
+      if (data.message === message) {
+        Utils.notification('Menu is empty at this time. Please check again later', 'white', 'red');
+        return;
+      }
 
       data.allMenu.forEach((item, index, menuArray) => {
         const newMenu = document.createElement('DIV');
