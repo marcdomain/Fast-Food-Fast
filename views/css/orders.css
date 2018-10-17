@@ -233,7 +233,7 @@ tr:first-child {
   padding: 0 5px;
   background: #e65c00;
   border-radius: 5px;
-  box-shadow: 1px 1px 2px 1px gray;
+  box-shadow: 1px 1px 2px 1px #404040;
   cursor: pointer;
   float: right;
   font-size: 25px;
@@ -261,7 +261,7 @@ tr:first-child {
   padding: 8px;
   background: #efefef;
   border-radius: 10px;
-  box-shadow: 1px 1px 2px 1px gray;
+  box-shadow: 1px 1px 2px 1px #404040;
   cursor: pointer;
   text-align: center;
 }
@@ -359,7 +359,7 @@ form input {
   margin-bottom: 10px;
   width: 100%;
   box-sizing: border-box;
-  box-shadow: 1px 1px 2px 1px #203961;
+  box-shadow: 1px 1px 2px 1px #595959;
 }
 
 form input[type='file'] {
@@ -418,7 +418,7 @@ form input[type='submit'] {
   padding: 0 7px;
   border-radius: 50%;
   background: #efefef;
-  box-shadow: 1px 1px 2px 1px gray;
+  box-shadow: 1px 1px 2px 1px #404040;
 }
 
 .user-front {
@@ -432,7 +432,7 @@ form input[type='submit'] {
   border-radius: 10px;
   background: #e65c00;
   color: #fff;
-  box-shadow: 1px 1px 2px 1px gray;
+  box-shadow: 1px 1px 2px 1px #404040;
 }
 
 .footer {

@@ -219,7 +219,7 @@ nav ul li a {
   font-family: fantasy;
   outline: none;
   display: inline-block;
-  box-shadow: 1px 1px 1px 1px #404040;
+  box-shadow: 1px 1px 1px 1px #1a1a1a;
   cursor: pointer;
 }
 
@@ -229,7 +229,7 @@ nav ul li a {
 
 .auth-btn input:hover {
   font-weight: bold;
-  box-shadow: 1px 3px 2px 1px #000;
+  box-shadow: 1px 3px 2px 1px #1a1a1a;
 }
 
 .modal {
@@ -357,7 +357,7 @@ nav ul li a {
   padding: 0 7px;
   border-radius: 50%;
   background: #efefef;
-  box-shadow: 1px 1px 2px 1px gray;
+  box-shadow: 1px 1px 2px 1px #404040;
 }
 
 
@@ -431,7 +431,7 @@ div.menuName {
   width: auto;
   outline: none;
   color: #fff;
-  box-shadow: 1px 1px 2px 1px #000;
+  box-shadow: 1px 1px 2px 1px #1a1a1a;
 }
 
 .quantityform {
@@ -594,7 +594,7 @@ input.deliver-to {
   padding: 5px;
   border-radius: 10px;
   background: #e65c00;
-  box-shadow: 1px 1px 2px 1px gray;
+  box-shadow: 1px 1px 2px 1px #404040;
 }
 
 @media(max-width: 1160px) {
