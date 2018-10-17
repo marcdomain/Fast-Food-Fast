@@ -2,18 +2,18 @@ const correctMenu = {
   menu: 'Eba, Vegetable, Isiewu',
   description: 'This meal is fantastic. You will come for more',
   category: 'local',
-  imageURL: 'https://i.kinja-img.com/gawker-media/image/upload/s--yQNssSv---/c_scale,f_auto,fl_progressive,q_80,w_800/hrp50xxvosnilpawgsjr.jpg',
+  imageURL: 'https://res.cloudinary.com/duk5ix8wp/image/upload/v1538727231/hrksiwxoqsnbk7zob0a1.jpg',
   quantity: '100',
   price: '2500'
 };
 
 const correctMenu2 = {
-  menu: 'Rice and Turkey',
-  description: 'This meal is fantastic. You will come for more',
-  category: 'local',
-  imageURL: 'https://i.kinja-img.com/gawker-media/image/upload/s--yQNssSv---/c_scale,f_auto,fl_progressive,q_80,w_800/hrp50xxvosnilpawgsjr.jpg',
-  quantity: '80',
-  price: '2500'
+  menu: 'Coca cola',
+  description: 'Chilled and refreshing',
+  category: 'Drinks',
+  imageURL: 'https://res.cloudinary.com/duk5ix8wp/image/upload/v1539063817/mfj9epgqaqbtpqdocet4.jpg',
+  quantity: '200',
+  price: '250'
 };
 
 const correctMenu3 = {
@@ -28,8 +28,8 @@ const correctMenu3 = {
 const updateMenu = {
   menu: 'Rice and Turkeys',
   description: 'This meal is fantastic. You will come for more',
-  category: 'local',
-  imageURL: 'https://i.kinja-img.com/gawker-media/image/upload/s--yQNssSv---/c_scale,f_auto,fl_progressive,q_80,w_800/hrp50xxvosnilpawgsjr.jpg',
+  category: 'Rice',
+  imageURL: 'https://res.cloudinary.com/duk5ix8wp/image/upload/v1538727565/qbarjc1aex9exxtf6ekm.jpg',
   quantity: '80',
   price: '2500'
 };

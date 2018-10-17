@@ -1,25 +1,7 @@
-const decodeUser = (t) => {
-  const token = {};
-  token.raw = t;
-  token.header = JSON.parse(window.atob(t.split('.')[0]));
-  token.payload = JSON.parse(window.atob(t.split('.')[1]));
-  return (token);
-};
-const token = localStorage.getItem('token');
+const userInfo = document.querySelector('.user-info');
+userInfo.innerHTML = `ORDER HISTORY OF <br><em>${localStorage.getItem('email')}</em>`;
 
-const adminView = document.querySelector('.user-front');
-if (!token) {
-  adminView.style.display = 'none';
-  location.assign('menu.html');
-}
-
-const decoded = decodeUser(token);
-const { usertype } = decoded.payload.payload;
-if (usertype !== 'admin') {
-  adminView.style.display = 'none';
-}
-
-const userId = decoded.payload.payload.id;
+const userId = localStorage.getItem('userId');
 
 const userOrders = () => {
   fetch(`${baseURL}/users/${userId}/orders`, {

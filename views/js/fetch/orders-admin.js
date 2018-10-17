@@ -1,4 +1,10 @@
 const getAllOrders = () => {
+  const displayModal = document.querySelector('.modal');
+  window.onclick = (event) => {
+    if (event.target === displayModal) {
+      displayModal.style.display = 'none';
+    }
+  };
   const token = localStorage.getItem('token');
 
   fetch(`${baseURL}/orders`, {
@@ -33,11 +39,11 @@ const getAllOrders = () => {
 
         const newTableRow = document.createElement('TR');
         newTableRow.innerHTML = `
-          <td>${order.id}</td>
+          <td class="orderId" id="orderId${order.id}">${order.id}</td>
           <td>
             ${new Date(order.orderdate).toString().split(' GMT')[0]}
           </td>
-          <td>${order.phone}</td>
+          <td><a href="specific-user-orders-admin.html" class="phone" id="phone${order.id}">${order.phone}</a></td>
           <td>${order.location}</td>
           <td height="80" width="350">${eachOrderDiv.outerHTML}</td>
           <td>&#8358;${order.total}</td>
@@ -51,7 +57,108 @@ const getAllOrders = () => {
           </td>
         `;
         allOrdersTable.appendChild(newTableRow);
+        const getUserId = () => {
+          localStorage.setItem('userId', order.userid);
+          localStorage.setItem('email', order.email);
+        };
+        document.querySelector(`#phone${order.id}`).addEventListener('click', getUserId);
 
+        const fetchSpecificOrder = () => {
+          const modal = document.querySelector('.modal');
+          modal.style.display = 'block';
+
+          const specificOrder = document.querySelector('.specific-order');
+          const orderData = document.querySelector('.order-data');
+          const userData = document.querySelector('.user-data');
+          fetch(`${baseURL}/orders/${order.id}`, {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json, text/plain, */*',
+              'Content-type': 'application/json',
+              Authorization: token
+            }
+          })
+            .then(result => result.json())
+            .then((feedback) => {
+              console.log('SPECIFIC ORDER FEEDBACK', feedback);
+              const orderTitle = document.querySelector('.order-title');
+              orderTitle.innerHTML = `ORDER #${feedback.foundOrder.id}`;
+              const orderDataTable = document.createElement('TABLE');
+
+              const orderItemDiv = document.createElement('DIV');
+              orderItemDiv.setAttribute('class', 'items');
+              const orderItemTable = document.createElement('TABLE');
+
+              feedback.foundOrder.orderitems.forEach((items) => {
+                const orderItemRow = document.createElement('TR');
+                orderItemRow.innerHTML = `
+                  <td>
+                    <strong>Meal:</strong> &nbsp; &nbsp; &nbsp; &nbsp; ${items.menu} <br>
+                    <strong>Quantity:</strong> &nbsp;${items.quantity} <br>
+                    <strong>Amount:</strong> &nbsp; &#8358; ${items.amount}
+                  </td>
+                `;
+                orderItemTable.appendChild(orderItemRow);
+              });
+              orderItemDiv.appendChild(orderItemTable);
+
+              orderDataTable.innerHTML = `
+                <tr style="background: #efefef; color: #000">
+                  <td>Date:</td>
+                  <td>${new Date(feedback.foundOrder.orderdate).toString().split(' GMT')[0]}</td>
+                </tr>
+                <tr>
+                  <td>Phone:</td>
+                  <td>${feedback.foundOrder.phone}</td>
+                </tr>
+                <tr>
+                  <td>Location:</td>
+                  <td>${feedback.foundOrder.location}</td>
+                </tr>
+                <tr>
+                  <td>Items:</td>
+                  <td>${orderItemDiv.outerHTML}</td>
+                </tr>
+                <tr>
+                  <td>Total:</td>
+                  <td>&#8358;${feedback.foundOrder.total}</td>
+                </tr>
+              `;
+              orderData.innerHTML = orderDataTable.outerHTML;
+
+              const userTitle = document.querySelector('.user-title');
+              userTitle.innerHTML = 'USER DETAILS';
+              const userDataTable = document.createElement('TABLE');
+              userDataTable.innerHTML = `
+                <tr style="background: #efefef; color: #000">
+                  <td>Name:</td>
+                  <td>${feedback.userData.name}</td>
+                </tr>
+                <tr>
+                  <td>Phone:</td>
+                  <td>${feedback.userData.phone}</td>
+                </tr>
+                <tr>
+                  <td>Email:</td>
+                  <td>${feedback.userData.email}</td>
+                </tr>
+                <tr>
+                  <td>Residence:</td>
+                  <td>${feedback.userData.address}</td>
+                </tr>
+                <tr>
+                  <td>User type:</td>
+                  <td>${feedback.userData.usertype}</td>
+                </tr>
+              `;
+              userData.innerHTML = userDataTable.outerHTML;
+            })
+            .catch((error) => {
+              console.log('Catch specific order error', error);
+            });
+          return specificOrder;
+        };
+        document.querySelector(`#orderId${order.id}`).addEventListener('click', fetchSpecificOrder);
         // Modify status starts here
         const status = document.querySelector(`#db-status${order.id}`);
         const dummyStatus = document.querySelector(`#dummy-status${order.id}`);
