@@ -1,3 +1,13 @@
+localStorage.removeItem('menuURL');
+localStorage.removeItem('menuName');
+localStorage.removeItem('menuImageURL');
+localStorage.removeItem('menuCategory');
+localStorage.removeItem('menuDescription');
+localStorage.removeItem('menuQuantity');
+localStorage.removeItem('menuPrice');
+localStorage.removeItem('userId');
+localStorage.removeItem('email');
+
 const fetchAllMenu = () => {
   const displayModal = document.querySelector('.modal');
   window.onclick = (event) => {
@@ -29,7 +39,7 @@ const fetchAllMenu = () => {
         return;
       }
 
-      data.allMenu.forEach((foodItem) => {
+      data.allMenu.forEach((foodItem, index, foodItemArr) => {
         const newTableRow = document.createElement('TR');
         newTableRow.innerHTML = `
           <td>${foodItem.id}</td>
@@ -42,7 +52,7 @@ const fetchAllMenu = () => {
           <td width="75">
             <div class="modify">
               <span class="delete" id="delete${foodItem.id}">&#10006;</span>&ensp;
-              <span class="edit">&#9998;</span>
+              <span class="edit" id="edit${foodItem.id}">&#9998;</span>
             </div>
           </td>
         `;
@@ -71,6 +81,9 @@ const fetchAllMenu = () => {
               message = `${foodItem.menu} deleted successfully`;
               if (response.message === message) {
                 Utils.notification(`#${foodItem.id} ${foodItem.menu} deleted successfully`, 'white', 'green');
+                setTimeout(() => {
+                  location.assign('menu-admin.html');
+                }, 6000);
               }
             })
             .catch((error) => {
@@ -78,6 +91,20 @@ const fetchAllMenu = () => {
             });
         };
         document.querySelector('#delete-form').addEventListener('submit', deleteMenu);
+
+        const editId = document.querySelector(`#edit${foodItem.id}`);
+        const getEditId = () => {
+          URL = `${baseURL}/menu/${foodItem.id}`;
+          localStorage.setItem('menuURL', URL);
+          localStorage.setItem('menuName', `${foodItem.menu}`);
+          localStorage.setItem('menuImageURL', `${foodItem.imageurl}`);
+          localStorage.setItem('menuCategory', `${foodItem.category}`);
+          localStorage.setItem('menuDescription', `${foodItem.description}`);
+          localStorage.setItem('menuQuantity', `${foodItem.quantity}`);
+          localStorage.setItem('menuPrice', `${foodItem.price}`);
+          location.assign('add-menu.html');
+        };
+        editId.addEventListener('click', getEditId);
       });
     })
     .catch((error) => {

@@ -1,5 +1,15 @@
 const userInfo = document.querySelector('.user-info');
-userInfo.innerHTML = `ORDER HISTORY OF <br><em>${localStorage.getItem('email')}</em>`;
+
+const userEmail = localStorage.getItem('email');
+userInfo.innerHTML = `ORDER HISTORY OF <br><em>${userEmail}</em>`;
+
+localStorage.removeItem('menuURL');
+localStorage.removeItem('menuName');
+localStorage.removeItem('menuImageURL');
+localStorage.removeItem('menuCategory');
+localStorage.removeItem('menuDescription');
+localStorage.removeItem('menuQuantity');
+localStorage.removeItem('menuPrice');
 
 const userId = localStorage.getItem('userId');
 
@@ -15,6 +25,16 @@ const userOrders = () => {
     .then(data => data.json())
     .then((response) => {
       const allOrdersTable = document.querySelector('.all-orders-table');
+
+      let message = '';
+      message = `${userEmail.split('@')[0]} order history is empty at this time. Please check again later`;
+      if (response.message === message) {
+        Utils.notification(`${userEmail} has no history at this time. Start placing orders now`, 'white', 'red');
+        setTimeout(() => {
+          location.assign('orders-admin.html');
+        }, 3000);
+        return;
+      }
 
       response.orderHistory.forEach((order, index, orderArray) => {
         const eachOrderDiv = document.createElement('DIV');
