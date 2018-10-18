@@ -2,7 +2,6 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Comfortaa';
-  font-size: 17px;
   overflow-x: hidden;
   height: 100vh;
 }
@@ -14,12 +13,12 @@ body {
 .dashboard-content {
   background-image: url('../img/banner1.jpg');
   background-size: cover;
-  height: 100vh;
+  height: 100%;
 }
 
 .dashboard-content-bg {
   background: rgba(36, 40, 38, 0.8);
-  min-height: 100%;
+  height: 100%;
   width: 100%;
 }
 
@@ -103,8 +102,7 @@ tr:first-child {
   min-width: 250px;
   max-height: 80px;
   overflow: auto;
-  border-radius: 10px;
-  border: gray 1px solid;
+  box-shadow: 1px 1px 2px 1px gray;
 }
 
 .items tr:nth-child(even) {
@@ -285,19 +283,28 @@ tr:first-child {
 
 .menu {
   padding: 8px;
-  background: #efefef;
+  background: green;
+  color: #fff;
   border-radius: 10px;
   box-shadow: 1px 1px 2px 1px #404040;
   cursor: pointer;
   text-align: center;
 }
 
-.menu-top>a {
-  text-decoration: none;
-  color: #000;
+.menu-options {
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh;
+  padding: 10px;
+  overflow-y: auto;
 }
 
-.menu-top>a>div {
+.menu-options>a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.menu-options>a>div {
   margin-top: 20px;
 }
 

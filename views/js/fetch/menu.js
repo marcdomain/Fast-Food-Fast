@@ -21,14 +21,16 @@ const getAvailableMenu = () => {
 
   const token = localStorage.getItem('token');
   const adminView = document.querySelector('.admin-view');
+  const nav = document.querySelector('nav');
+  const guest = document.querySelector('nav.guest');
   if (!token) {
-    const profile = document.querySelector('.username');
-    const logout = document.querySelector('.logout');
-    profile.style.display = 'none';
-    logout.style.display = 'none';
+    nav.style.display = 'none';
+    guest.style.display = 'block';
     adminView.style.display = 'none';
   }
   if (token) {
+    nav.style.display = 'block';
+    guest.style.display = 'none';
     let decoded = decodeUser(token);
     const { usertype } = decoded.payload.payload;
     if (usertype !== 'admin') {
@@ -159,7 +161,7 @@ const getAvailableMenu = () => {
 
           if (!token) {
             setTimeout(() => {
-              location.assign('index.html');
+              location.assign('menu.html');
             }, 4000);
             return;
           }
@@ -314,7 +316,5 @@ const scrollPage = () => {
   scrollTopBtn.addEventListener('click', selectSection);
 };
 
-window.onload = () => {
-  getAvailableMenu();
-  scrollPage();
-};
+getAvailableMenu();
+scrollPage();
