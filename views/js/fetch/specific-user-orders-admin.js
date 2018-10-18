@@ -64,11 +64,68 @@ const userOrders = () => {
           <td>${order.location}</td>
           <td height="150" width="350">${eachOrderDiv.outerHTML}</td>
           <td>&#8358;${order.total}</td>
-          <td class="status">
+          <td class="status currentStatus" id="currentStatus${order.id}">
             ${order.status}
           </td>
         `;
         allOrdersTable.appendChild(newTableRow);
+
+        newTableRow.setAttribute('id', `row${order.id}`);
+        const targetRow = document.querySelector(`#row${order.id}`);
+        const status = document.querySelector(`#currentStatus${order.id}`).innerText;
+
+        const newOrdersBtn = document.querySelector('#newOrders');
+        const newOrders = () => {
+          if (status === 'New' && targetRow.style.display === 'none') {
+            targetRow.style.display = 'table-row';
+          }
+          if (status !== 'New') {
+            targetRow.style.display = 'none';
+          }
+        };
+        newOrdersBtn.addEventListener('click', newOrders);
+
+        const processingOrdersBtn = document.querySelector('#processingOrders');
+        const processingOrders = () => {
+          if (status === 'Processing' && targetRow.style.display === 'none') {
+            targetRow.style.display = 'table-row';
+          }
+          if (status !== 'Processing') {
+            targetRow.style.display = 'none';
+          }
+        };
+        processingOrdersBtn.addEventListener('click', processingOrders);
+
+        const cancelledOrdersBtn = document.querySelector('#cancelledOrders');
+        const cancelledOrders = () => {
+          if (status === 'Cancelled' && targetRow.style.display === 'none') {
+            targetRow.style.display = 'table-row';
+          }
+          if (status !== 'Cancelled') {
+            targetRow.style.display = 'none';
+          }
+        };
+        cancelledOrdersBtn.addEventListener('click', cancelledOrders);
+
+        const completedOrdersBtn = document.querySelector('#completedOrders');
+        const completedOrders = () => {
+          if (status === 'Completed' && targetRow.style.display === 'none') {
+            targetRow.style.display = 'table-row';
+          }
+          if (status !== 'Completed') {
+            targetRow.style.display = 'none';
+          }
+        };
+        completedOrdersBtn.addEventListener('click', completedOrders);
+
+        const allOrdersBtn = document.querySelector('#allOrders');
+        const allOrders = () => {
+          if (status) {
+            targetRow.style.display = 'table-row';
+          }
+        };
+        allOrdersBtn.addEventListener('click', allOrders);
+
       });
       return allOrdersTable;
     })
