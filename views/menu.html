@@ -23,8 +23,20 @@
           <li class="dropdown">
             <span>&#8801;</span>
             <div class="dropdown-content">
-                <a href="orders.html">Profile <sup>70</sup></a>
-                <a href="#">Logout</a>
+                <a href="orders.html">Profile</a>
+                <a href="#" class="logout">Logout</a>
+            </div>
+          </li>
+      </nav>
+      <nav class="guest">
+        <ul>
+          <li class="signup-menu"><a id="signup">Signup</a></li>
+          <li class="login-menu"><a id="login">Login</a></li>
+          <li class="dropdown">
+            <span>&#8801;</span>
+            <div class="dropdown-content">
+                <a href="#" id="signup-drop">Signup</a>
+                <a href="#" id="login-drop">Login</a>
             </div>
           </li>
       </nav>
@@ -45,6 +57,44 @@
   <div class="foodContainer">
     
   </div>
+
+  <div class="modal">
+    <div class="auth-modal-content">
+
+      <div class="auth-form">
+        <form class="form-before-click" id="signupForm">
+          <span class="close close-signup">&#10062;</span> <br>
+          <legend class="form-title">SIGNUP</legend>
+          <label for="name">Name: </label><span class="formAlert"></span>
+          <input type="text" name="name" class="fullname" id="name" required placeholder="Enter full name">
+          <label for="email">Email: </label><span class="formAlert"></span>
+          <input type="email" name="email" class="email" id="email" required placeholder="example@domain.com">
+          <label for="phone">Phone: </label><span class="formAlert"></span>
+          <input type="phone" name="phone" class="phone" id="phone" required placeholder="Phone (080.....)">
+          <label for="phone">Address: </label><span class="formAlert"></span>
+          <input type="text" name="address" class="address" id="address" required placeholder="Residential address">
+          <label for="password">Password: </label><span class="formAlert"></span>
+          <input type="password" class="password" id="password" name="password" required placeholder="Create password">
+          <input type="submit" value="Submit">
+        </form>
+        <p>Have an account? <span id="login-modal">Login</span></p>
+      </div>
+
+      <div class="auth-form">
+        <form class="form-before-click" id="loginForm">
+          <span class="close close-login">&#10062;</span> <br>
+          <legend class="form-title">LOGIN</legend>
+          <label for="email">Email: </label><span class="formAlert"></span>
+          <input type="email" name="email" id="email1" class="email1" required placeholder="example@domain.com">
+          <label for="password">Password: </label><span class="formAlert"></span>
+          <input type="password" id="password1" class="password1" name="password" required placeholder="Input your password">
+          <input type="submit" value="Submit">
+        </form>
+        <p>I'm new here. <span id="signup-modal">Signup</span></p>
+      </div>
+
+    </div>
+  </div>
   
   <div class="scroll-top">&#9652;</div>
   <a href="menu-admin.html" class="admin-view"><div class="user-front">Admin dashboard</div></a>
@@ -57,6 +107,10 @@
 
   <script src="js/fetch/utility.js"></script>
   <script src="js/fetch/menu.js"></script>
+  <script src="js/toggle-auth.js"></script>
+  <script src="js/fetch/signup.js"></script>
+  <script src="js/fetch/login.js"></script>
+  <script src="js/fetch/jwt-decode.min.js"></script>
   <script src="js/fetch/logout.js"></script>
 </body>
 

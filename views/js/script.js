@@ -42,5 +42,4 @@ const welcomeWords = () => {
 
 window.onload = () => {
   welcomeWords();
-  // orderHandler();
-}
+};
