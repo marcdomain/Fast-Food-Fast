@@ -10,32 +10,35 @@ localStorage.removeItem('email');
 
 let orderArray = [];
 let noDuplicateItems;
-const getAvailableMenu = () => {
-  const decodeUser = (t) => {
-    const token = {};
-    token.raw = t;
-    token.header = JSON.parse(window.atob(t.split('.')[0]));
-    token.payload = JSON.parse(window.atob(t.split('.')[1]));
-    return (token);
-  };
 
-  const token = localStorage.getItem('token');
-  const adminView = document.querySelector('.admin-view');
-  if (!token) {
-    const profile = document.querySelector('.username');
-    const logout = document.querySelector('.logout');
-    profile.style.display = 'none';
-    logout.style.display = 'none';
+const decodeUser = (t) => {
+  const token = {};
+  token.raw = t;
+  token.header = JSON.parse(window.atob(t.split('.')[0]));
+  token.payload = JSON.parse(window.atob(t.split('.')[1]));
+  return (token);
+};
+
+const token = localStorage.getItem('token');
+const adminView = document.querySelector('.admin-view');
+const nav = document.querySelector('nav');
+const guest = document.querySelector('nav.guest');
+if (!token) {
+  nav.style.display = 'none';
+  guest.style.display = 'block';
+  adminView.style.display = 'none';
+}
+if (token) {
+  nav.style.display = 'block';
+  guest.style.display = 'none';
+  const decoded = decodeUser(token);
+  const { usertype } = decoded.payload.payload;
+  if (usertype !== 'admin') {
     adminView.style.display = 'none';
   }
-  if (token) {
-    let decoded = decodeUser(token);
-    const { usertype } = decoded.payload.payload;
-    if (usertype !== 'admin') {
-      adminView.style.display = 'none';
-    }
-  }
+}
 
+const getAvailableMenu = () => {
   fetch(`${baseURL}/menu`, {
     method: 'GET',
     headers: {
@@ -159,7 +162,7 @@ const getAvailableMenu = () => {
 
           if (!token) {
             setTimeout(() => {
-              location.assign('index.html');
+              location.assign('menu.html');
             }, 4000);
             return;
           }
@@ -167,15 +170,18 @@ const getAvailableMenu = () => {
         };
         document.querySelector(`#submit${item.id}`).addEventListener('click', orderItemsFunction);
 
-        const cartDiv = document.querySelector('#cartDiv');
+        // const cartDiv = document.querySelector('#cartDiv');
+        const toggleCart = document.querySelector('.toggle-cart');
+        const cartDashboard = document.querySelector('.cart-dashboard');
         const pageAlert = document.querySelector('.pageAlert');
         const showCart = () => {
           if (!token) {
             Utils.notification('Please Signup/Login to continue', 'white', 'red');
             return;
           }
-          cartDiv.style.display = 'block';
-          menuContainer.style.marginTop = '100px';
+          // cartDiv.style.display = 'block';
+          toggleCart.style.display = 'block';
+          // menuContainer.style.marginTop = '100px';
           pageAlert.style.display = 'none';
         };
         document.querySelector(`#submit${item.id}`).addEventListener('click', showCart);
@@ -185,7 +191,7 @@ const getAvailableMenu = () => {
         const placeOrder = (event) => {
           event.preventDefault();
 
-          let decoded = decodeUser(token);
+          const decoded = decodeUser(token);
 
           const userId = decoded.payload.payload.id;
           const location = document.querySelector('.deliver-to').value.trim();
@@ -205,8 +211,6 @@ const getAvailableMenu = () => {
             })
               .then(feedback => feedback.json())
               .then((response) => {
-                let message = '';
-
                 message = 'Invalid location. Input a string character of length 5 to 100 (alphanumeric, whitespace, comma, fullstop, and hypen are allowed)';
                 if (response.message === message) {
                   Utils.notification('Invalid location. Input 5 to 100 characters. Remove all special characters', 'white', 'red');
@@ -277,9 +281,9 @@ const getAvailableMenu = () => {
                 if (response.message === message) {
                   Utils.notification('ORDER PLACED SUCCESSFULLY', 'white', 'green');
                 }
-                const cartDiv = document.querySelector('#cartDiv');
-                const menuContainer = document.querySelector('.foodContainer');
-                cartDiv.style.display = 'none';
+
+                cartDashboard.style.display = 'none';
+                toggleCart.style.display = 'none';
                 menuContainer.style.marginTop = '25px';
                 localStorage.removeItem('orderItems');
                 orderArray = [];
@@ -314,7 +318,5 @@ const scrollPage = () => {
   scrollTopBtn.addEventListener('click', selectSection);
 };
 
-window.onload = () => {
-  getAvailableMenu();
-  scrollPage();
-};
+getAvailableMenu();
+scrollPage();
