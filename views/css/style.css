@@ -54,13 +54,6 @@ nav .username a {
   cursor: pointer;
 }
 
-nav .username sup {
-  font-weight: bold;
-  line-height: 5px;
-  font-size: 14px;
-  text-decoration: underline
-}
-
 nav ul li a {
   text-decoration: none;
   color: #fff;
@@ -79,11 +72,11 @@ nav ul li a {
 .dropdown-content {
   display: none;
   position: absolute;
-  z-index: 2;
+  z-index: 20;
 }
 
 .dropdown:hover .dropdown-content {
-  background: rgba(31, 56, 95, 0.5);
+  background: rgba(82, 187, 213, 0.5);
   padding: 10px;
   height: 90px;
   width: 80px;
@@ -95,26 +88,8 @@ nav ul li a {
   margin-top: 15px;
   padding: 5px;
   border-radius: 10px;
-  background: rgb(31, 56, 95);
+  background: rgb(82, 187, 213);
   font-size: 16px;
-}
-
-.dropdown-content a sup {
-  color: #e59400;
-  font-size: 12px;
-}
-
-.banner {
-  height: 550px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.banner1 {
-  background-image: url('../img/banner1.jpg');
-  background-size: 100% 100%;
-  height: 100%;
-  width: 100%;
 }
 
 .page-title span {
@@ -666,8 +641,14 @@ input.deliver-to {
     display: none;
   }
 
+  #signup,
+  #login {
+    display: none;
+  }
+
   .dropdown {
     display: inline-block;
+    float: right;
   }
 }
 
