@@ -73,6 +73,63 @@ const getAllOrders = () => {
           </td>
         `;
         allOrdersTable.appendChild(newTableRow);
+
+        newTableRow.setAttribute('id', `row${order.id}`);
+        const targetRow = document.querySelector(`#row${order.id}`);
+        const orderStatus = document.querySelector(`#db-status${order.id}`).innerText;
+
+        const newOrdersBtn = document.querySelector('#newOrders');
+        const newOrders = () => {
+          if (orderStatus === 'New' && targetRow.style.display === 'none') {
+            targetRow.style.display = 'table-row';
+          }
+          if (orderStatus !== 'New') {
+            targetRow.style.display = 'none';
+          }
+        };
+        newOrdersBtn.addEventListener('click', newOrders);
+
+        const processingOrdersBtn = document.querySelector('#processingOrders');
+        const processingOrders = () => {
+          if (orderStatus === 'Processing' && targetRow.style.display === 'none') {
+            targetRow.style.display = 'table-row';
+          }
+          if (orderStatus !== 'Processing') {
+            targetRow.style.display = 'none';
+          }
+        };
+        processingOrdersBtn.addEventListener('click', processingOrders);
+
+        const cancelledOrdersBtn = document.querySelector('#cancelledOrders');
+        const cancelledOrders = () => {
+          if (orderStatus === 'Cancelled' && targetRow.style.display === 'none') {
+            targetRow.style.display = 'table-row';
+          }
+          if (orderStatus !== 'Cancelled') {
+            targetRow.style.display = 'none';
+          }
+        };
+        cancelledOrdersBtn.addEventListener('click', cancelledOrders);
+
+        const completedOrdersBtn = document.querySelector('#completedOrders');
+        const completedOrders = () => {
+          if (orderStatus === 'Completed' && targetRow.style.display === 'none') {
+            targetRow.style.display = 'table-row';
+          }
+          if (orderStatus !== 'Completed') {
+            targetRow.style.display = 'none';
+          }
+        };
+        completedOrdersBtn.addEventListener('click', completedOrders);
+
+        const allOrdersBtn = document.querySelector('#allOrders');
+        const allOrders = () => {
+          if (orderStatus) {
+            targetRow.style.display = 'table-row';
+          }
+        };
+        allOrdersBtn.addEventListener('click', allOrders);
+
         const getUserId = () => {
           localStorage.setItem('userId', order.userid);
           localStorage.setItem('email', order.email);
