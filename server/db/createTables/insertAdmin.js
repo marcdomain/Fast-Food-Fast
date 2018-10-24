@@ -8,7 +8,7 @@ const variables = ['Admin', 'admin@gmail.com', '08082300954', 'Andela EPIC Tower
 class InsertAdminHandler {
   static createAdmin() {
     const create = pool.query(sql, variables)
-      .then((result => console.log(`Admin account ${result.command}ED`)))
+      .then((() => console.log('Admin signed up')))
       .catch((error) => {
         console.log(error);
       });

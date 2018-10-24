@@ -27,7 +27,6 @@ const fetchAllMenu = () => {
   })
     .then(response => response.json())
     .then((data) => {
-      console.log('MENU DATA', data);
       const allmenuTable = document.querySelector('.all-menu-table');
       let message = '';
       message = 'You are yet to upload menu. Start uploading now';

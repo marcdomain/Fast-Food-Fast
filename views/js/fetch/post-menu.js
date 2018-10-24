@@ -45,7 +45,7 @@ if (menuURL) {
   document.querySelector('.menuQuantity').value = localStorage.getItem('menuQuantity');
   document.querySelector('.menuCategory').value = localStorage.getItem('menuCategory');
   document.querySelector('.menuImageURL').value = localStorage.getItem('menuImageURL');
-  Utils.displayMessage('Leave empty if you prefer existing image', 'yellow', 3);
+  Utils.displayMessage('Leave empty if you prefer existing image', '#e65c00', 3);
 }
 
 const postMenu = (eventObj) => {
@@ -516,7 +516,7 @@ const postMenu = (eventObj) => {
           localStorage.removeItem('menuQuantity');
           localStorage.removeItem('menuPrice');
           Utils.clearPostMenu();
-  
+
           setTimeout(() => {
             location.assign('menu-admin.html');
           }, 2000);

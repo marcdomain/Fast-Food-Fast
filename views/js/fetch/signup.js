@@ -184,7 +184,7 @@ const signup = (event) => {
 
       setTimeout(() => {
         location.assign('menu.html');
-      }, 1000);
+      }, 500);
     })
     .catch((error) => {
       console.log('Info From Catch', error);
