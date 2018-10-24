@@ -516,7 +516,7 @@ const postMenu = (eventObj) => {
           localStorage.removeItem('menuQuantity');
           localStorage.removeItem('menuPrice');
           Utils.clearPostMenu();
-  
+
           setTimeout(() => {
             location.assign('menu-admin.html');
           }, 2000);
