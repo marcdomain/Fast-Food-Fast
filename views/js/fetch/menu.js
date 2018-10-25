@@ -278,15 +278,20 @@ const getAvailableMenu = () => {
               totalAmount += Number(cartItem.amount);
               quantitySum += Number(cartItem.quantity);
 
-              const cartQuantity = document.querySelector(`#cartQuantity${i}`);
-              const updateOrderQuantity = () => {
-                noDuplicateItems[i].quantity = cartQuantity.value;
-                localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
-              };
-              cartQuantity.addEventListener('change', updateOrderQuantity);
             });
             cartTotal.innerHTML = `TOTAL = &#8358;${totalAmount}`;
             totalQuantity.innerHTML = quantitySum;
+
+            const cartQuantity = document.querySelectorAll('.cartQuantity');
+            const updateOrderQuantity = () => {
+              for (let i = 0; i < cartItems.length; i++) {
+                noDuplicateItems[i].quantity = cartQuantity[i].value;
+                localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
+              }
+            };
+            for (let j = 0; j < cartItems.length; j++) {
+              cartQuantity[j].addEventListener('change', updateOrderQuantity);
+            }
           }
         };
         document.querySelector(`#submit${item.id}`).addEventListener('click', orderItemsFunction);
@@ -390,6 +395,9 @@ const getAvailableMenu = () => {
                   menuContainer.style.marginTop = '25px';
                   localStorage.removeItem('orderItems');
                   orderArray = [];
+                  // setTimeout(() => {
+                  //   location.assign('menu.html');
+                  // }, 2000);
                 }
               })
               .catch((error) => {
