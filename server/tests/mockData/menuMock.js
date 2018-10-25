@@ -22,7 +22,16 @@ const correctMenu3 = {
   category: 'local',
   imageURL: 'https://i.kinja-img.com/gawker-media/image/upload/s--yQNssSv---/c_scale,f_auto,fl_progressive,q_80,w_800/hrp50xxvosnilpawgsjr.jpg',
   quantity: '80',
-  price: '2500'
+  price: '2000'
+};
+
+const correctMenu4 = {
+  menu: 'Mixed Drinks',
+  description: 'Chilled and refreshing',
+  category: 'local',
+  imageURL: 'https://res.cloudinary.com/duk5ix8wp/image/upload/v1539063817/mfj9epgqaqbtpqdocet4.jpg',
+  quantity: '80',
+  price: '250'
 };
 
 const updateMenu = {
@@ -305,5 +314,6 @@ export {
   invalidQuantityLength, invalidQuantity, invalidQuantityCharacter, undefinedPrice, emptyPrice,
   invalidPriceLength, invalidPrice, invalidPriceCharacter, correctMenu2, correctMenu3,
   unstringedMenu, unstringedDescription, unstringedCategory, unstringedQuantity, unstringedPrice,
-  updateMenu, undefinedImageURL, unstringedImageURL, emptyImageURL, invalidImageFormat
+  updateMenu, undefinedImageURL, unstringedImageURL, emptyImageURL, invalidImageFormat,
+  correctMenu4
 };

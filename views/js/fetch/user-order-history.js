@@ -30,7 +30,7 @@ if (usertype !== 'admin') {
 }
 
 const userId = decoded.payload.payload.id;
-const email = decoded.payload.payload.email;
+const { email } = decoded.payload.payload;
 
 const userOrders = () => {
   fetch(`${baseURL}/users/${userId}/orders`, {

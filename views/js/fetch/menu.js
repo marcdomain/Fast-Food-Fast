@@ -10,34 +10,97 @@ localStorage.removeItem('email');
 
 let orderArray = [];
 let noDuplicateItems;
-const getAvailableMenu = () => {
-  const decodeUser = (t) => {
-    const token = {};
-    token.raw = t;
-    token.header = JSON.parse(window.atob(t.split('.')[0]));
-    token.payload = JSON.parse(window.atob(t.split('.')[1]));
-    return (token);
-  };
 
-  const token = localStorage.getItem('token');
-  const adminView = document.querySelector('.admin-view');
-  const nav = document.querySelector('nav');
-  const guest = document.querySelector('nav.guest');
-  if (!token) {
-    nav.style.display = 'none';
-    guest.style.display = 'block';
+const userCart = document.querySelector('.cart-items');
+let cartItems;
+const cartTotal = document.querySelector('.cartTotal');
+const totalQuantity = document.querySelector('.counter');
+const toggleCart = document.querySelector('.toggle-cart');
+const cartDashboard = document.querySelector('.cart-dashboard');
+const pageAlert = document.querySelector('.pageAlert');
+
+const decodeUser = (t) => {
+  const token = {};
+  token.raw = t;
+  token.header = JSON.parse(window.atob(t.split('.')[0]));
+  token.payload = JSON.parse(window.atob(t.split('.')[1]));
+  return (token);
+};
+
+const token = localStorage.getItem('token');
+const adminView = document.querySelector('.admin-view');
+const nav = document.querySelector('nav');
+const guest = document.querySelector('nav.guest');
+if (!token) {
+  nav.style.display = 'none';
+  guest.style.display = 'block';
+  adminView.style.display = 'none';
+}
+if (token) {
+  nav.style.display = 'block';
+  guest.style.display = 'none';
+  const decoded = decodeUser(token);
+  const { usertype } = decoded.payload.payload;
+  if (usertype !== 'admin') {
     adminView.style.display = 'none';
   }
-  if (token) {
-    nav.style.display = 'block';
-    guest.style.display = 'none';
-    let decoded = decodeUser(token);
-    const { usertype } = decoded.payload.payload;
-    if (usertype !== 'admin') {
-      adminView.style.display = 'none';
-    }
-  }
+}
 
+const menuContainer = document.querySelector('.foodContainer');
+cartItems = JSON.parse(localStorage.getItem('orderItems'));
+if (cartItems) {
+  pageAlert.style.display = 'none';
+  toggleCart.style.display = 'block';
+  menuContainer.style.marginTop = '60px';
+
+  userCart.innerHTML = '';
+  let totalAmount = 0;
+  let quantitySum = 0;
+  const newOrderDiv = document.createElement('DIV');
+  newOrderDiv.setAttribute('class', 'newOrderDiv');
+  const orderImageDiv = document.createElement('IMG');
+  orderImageDiv.setAttribute('class', 'orderImageDiv');
+  const otherDetails = document.createElement('DIV');
+  otherDetails.setAttribute('class', 'otherDetails');
+
+  cartItems.forEach((cartItem, i, arr) => {
+    orderImageDiv.src = cartItem.imageURL;
+    otherDetails.innerHTML = `
+      <b>Meal:</b> ${cartItem.menuName} <br>
+      <b>Amount:</b> ${cartItem.amount} <br>
+      <b>Quantity:</b>
+      <select class='cartQuantity' id=cartQuantity${i}>
+        <option selected value=${cartItem.quantity}>${cartItem.quantity}</option>
+        <option value='1'>1</option>
+        <option value='2'>2</option>
+        <option value='3'>3</option>
+        <option value='4'>4</option>
+        <option value='5'>5</option>
+        <option value='6'>6</option>
+        <option value='7'>7</option>
+        <option value='8'>8</option>
+        <option value='9'>9</option>
+        <option value='10'>10</option>
+      </select>
+    `;
+    newOrderDiv.appendChild(orderImageDiv);
+    newOrderDiv.appendChild(otherDetails);
+    userCart.innerHTML += newOrderDiv.outerHTML;
+    totalAmount += Number(cartItem.amount);
+    quantitySum += Number(cartItem.quantity);
+
+    const cartQuantity = document.querySelector(`#cartQuantity${i}`);
+    const updateOrderQuantity = () => {
+      noDuplicateItems[i].quantity = cartQuantity.value;
+      localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
+    };
+    cartQuantity.addEventListener('change', updateOrderQuantity);
+  });
+  cartTotal.innerHTML = `TOTAL = &#8358;${totalAmount}`;
+  totalQuantity.innerHTML = quantitySum;
+}
+
+const getAvailableMenu = () => {
   fetch(`${baseURL}/menu`, {
     method: 'GET',
     headers: {
@@ -47,7 +110,6 @@ const getAvailableMenu = () => {
   })
     .then(response => response.json())
     .then((data) => {
-      const menuContainer = document.querySelector('.foodContainer');
       let message = '';
       message = 'Menu list is empty at this time. Please check again later';
       if (data.message === message) {
@@ -130,17 +192,31 @@ const getAvailableMenu = () => {
           const amount = orderQty * item.price;
           price.innerHTML = `&#8358;${amount}`;
           price.style.textDecoration = 'underline';
-          price.style.textDecorationStyle = 'double';
-          price.style.textDecorationColor = 'lime';
+          price.style.textDecorationColor = '#fff';
           price.style.fontWeight = 'bold';
         };
         document.querySelector(`.qty${item.id}`).addEventListener('change', orderAmount);
 
         const orderItemsFunction = (eventObject) => {
           eventObject.preventDefault();
+          price.style.textDecoration = 'underline';
+          price.style.textDecorationStyle = 'double';
+          price.style.textDecorationColor = 'lime';
+
           const newOrder = {};
           newOrder.menuId = document.querySelector(`#menuId${item.id}`).value;
           newOrder.quantity = document.querySelector(`.qty${item.id}`).value;
+          newOrder.menuName = `${item.menu}`;
+          newOrder.imageURL = `${item.imageurl}`;
+          newOrder.amount = `${item.price * newOrder.quantity}`;
+
+          if (!token) {
+            Utils.notification('Please Signup/Login to continue', 'white', 'red');
+            setTimeout(() => {
+              location.assign('menu.html');
+            }, 4000);
+            return;
+          }
 
           if (orderArray.length > 0) {
             orderArray.forEach((orderObj, count, userOrderArr) => {
@@ -154,44 +230,77 @@ const getAvailableMenu = () => {
             });
             noDuplicateItems = orderArray.filter((order, orderIndex, arr) => orderIndex === arr.indexOf(order));
             localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
-            return;
           }
           orderArray.push(newOrder);
           noDuplicateItems = orderArray.filter((order, orderIndex, arr) => orderIndex === arr.indexOf(order));
 
-          if (!token) {
-            setTimeout(() => {
-              location.assign('menu.html');
-            }, 4000);
-            return;
-          }
           localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
+
+          pageAlert.style.display = 'none';
+          toggleCart.style.display = 'block';
+          menuContainer.style.marginTop = '60px';
+
+          cartItems = JSON.parse(localStorage.getItem('orderItems'));
+          if (cartItems) {
+            userCart.innerHTML = '';
+            let totalAmount = 0;
+            let quantitySum = 0;
+            const newOrderDiv = document.createElement('DIV');
+            newOrderDiv.setAttribute('class', 'newOrderDiv');
+            const orderImageDiv = document.createElement('IMG');
+            orderImageDiv.setAttribute('class', 'orderImageDiv');
+            const otherDetails = document.createElement('DIV');
+            otherDetails.setAttribute('class', 'otherDetails');
+
+            cartItems.forEach((cartItem, i, arr) => {
+              orderImageDiv.src = cartItem.imageURL;
+              otherDetails.innerHTML = `
+                <b>Meal:</b> ${cartItem.menuName} <br>
+                <b>Amount:</b> ${cartItem.amount} <br>
+                <b>Quantity:</b>
+                <select class='cartQuantity' id=cartQuantity${i}>
+                  <option selected value=${cartItem.quantity}>${cartItem.quantity}</option>
+                  <option value='1'>1</option>
+                  <option value='2'>2</option>
+                  <option value='3'>3</option>
+                  <option value='4'>4</option>
+                  <option value='5'>5</option>
+                  <option value='6'>6</option>
+                  <option value='7'>7</option>
+                  <option value='8'>8</option>
+                  <option value='9'>9</option>
+                  <option value='10'>10</option>
+                </select>
+              `;
+              newOrderDiv.appendChild(orderImageDiv);
+              newOrderDiv.appendChild(otherDetails);
+              userCart.innerHTML += newOrderDiv.outerHTML;
+              totalAmount += Number(cartItem.amount);
+              quantitySum += Number(cartItem.quantity);
+
+              const cartQuantity = document.querySelector(`#cartQuantity${i}`);
+              const updateOrderQuantity = () => {
+                noDuplicateItems[i].quantity = cartQuantity.value;
+                localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
+              };
+              cartQuantity.addEventListener('change', updateOrderQuantity);
+            });
+            cartTotal.innerHTML = `TOTAL = &#8358;${totalAmount}`;
+            totalQuantity.innerHTML = quantitySum;
+          }
         };
         document.querySelector(`#submit${item.id}`).addEventListener('click', orderItemsFunction);
-
-        const cartDiv = document.querySelector('#cartDiv');
-        const pageAlert = document.querySelector('.pageAlert');
-        const showCart = () => {
-          if (!token) {
-            Utils.notification('Please Signup/Login to continue', 'white', 'red');
-            return;
-          }
-          cartDiv.style.display = 'block';
-          menuContainer.style.marginTop = '100px';
-          pageAlert.style.display = 'none';
-        };
-        document.querySelector(`#submit${item.id}`).addEventListener('click', showCart);
 
         // Place Order Starts Here
 
         const placeOrder = (event) => {
           event.preventDefault();
 
-          let decoded = decodeUser(token);
+          const decoded = decodeUser(token);
 
           const userId = decoded.payload.payload.id;
           const location = document.querySelector('.deliver-to').value.trim();
-          const orderItems = JSON.parse(localStorage.getItem('orderItems'));
+          const orderItems = JSON.parse(localStorage.getItem('orderItems'));          
 
           if (index === 0) {
             fetch(`${baseURL}/orders`, {
@@ -207,8 +316,6 @@ const getAvailableMenu = () => {
             })
               .then(feedback => feedback.json())
               .then((response) => {
-                let message = '';
-
                 message = 'Invalid location. Input a string character of length 5 to 100 (alphanumeric, whitespace, comma, fullstop, and hypen are allowed)';
                 if (response.message === message) {
                   Utils.notification('Invalid location. Input 5 to 100 characters. Remove all special characters', 'white', 'red');
@@ -278,13 +385,12 @@ const getAvailableMenu = () => {
                 message = 'Order placed successfully';
                 if (response.message === message) {
                   Utils.notification('ORDER PLACED SUCCESSFULLY', 'white', 'green');
+                  cartDashboard.style.display = 'none';
+                  toggleCart.style.display = 'none';
+                  menuContainer.style.marginTop = '25px';
+                  localStorage.removeItem('orderItems');
+                  orderArray = [];
                 }
-                const cartDiv = document.querySelector('#cartDiv');
-                const menuContainer = document.querySelector('.foodContainer');
-                cartDiv.style.display = 'none';
-                menuContainer.style.marginTop = '25px';
-                localStorage.removeItem('orderItems');
-                orderArray = [];
               })
               .catch((error) => {
                 console.log('Catch place order error', error);

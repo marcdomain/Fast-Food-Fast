@@ -88,13 +88,13 @@ const login = (eventBtn) => {
       if (decoded.payload.payload.usertype === 'admin') {
         setTimeout(() => {
           location.assign('orders-admin.html');
-        }, 1000);
+        }, 500);
         return;
       }
 
       setTimeout(() => {
         location.assign('menu.html');
-      }, 1000);
+      }, 500);
     })
     .catch((error) => {
       console.log('Info From Catch', error);

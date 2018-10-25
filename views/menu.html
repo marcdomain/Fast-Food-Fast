@@ -23,8 +23,8 @@
           <li class="dropdown">
             <span>&#8801;</span>
             <div class="dropdown-content">
-                <a href="orders.html">Profile</a>
-                <a href="#" class="logout">Logout</a>
+              <a href="orders.html">Profile</a>
+              <a href="#" class="logout">Logout</a>
             </div>
           </li>
       </nav>
@@ -35,8 +35,8 @@
           <li class="dropdown">
             <span>&#8801;</span>
             <div class="dropdown-content">
-                <a href="#" id="signup-drop">Signup</a>
-                <a href="#" id="login-drop">Login</a>
+              <a href="#" id="signup-drop">Signup</a>
+              <a href="#" id="login-drop">Login</a>
             </div>
           </li>
       </nav>
@@ -45,17 +45,9 @@
   <div class="pageAlert">
 
   </div>
-  <div class="order-cart" id="cartDiv">
-    <span>Deliver to your residence?</span><br>
-    <form class="order-form">
-      Yes: <input type="checkbox" value="" checked>
-      No: <input type="text" placeholder="Input location" class="deliver-to" minlength="5" maxlength="100"><br>
-      <input type="submit" value="Submit Order" id="cartBtn">
-    </form>
-  </div>
-  
+
   <div class="foodContainer">
-    
+
   </div>
 
   <div class="modal">
@@ -95,9 +87,31 @@
 
     </div>
   </div>
-  
+
+  <div class="toggle-cart" id="toggle-cart">
+    <strong>CART </strong><span>&#9832; <em class="counter"></em></span>
+  </div>
+
+  <div class="cart-dashboard">
+    <div class="cart-items">
+
+    </div>
+    <div class="cartTotal"></div>
+    <div class="order-cart" id="cartDiv">
+      <form class="order-form">
+        <div class="decide">
+          Deliver to your residence? &nbsp;&nbsp; Yes: <input type="checkbox" value="" checked><br>
+        </div>
+        No: &nbsp; <input type="text" placeholder="Input location" class="deliver-to" minlength="5" maxlength="100"><br>
+        <input type="submit" value="Submit Order" id="cartBtn">
+      </form>
+    </div>
+  </div>
+
   <div class="scroll-top">&#9652;</div>
-  <a href="menu-admin.html" class="admin-view"><div class="user-front">Admin dashboard</div></a>
+  <a href="menu-admin.html" class="admin-view">
+    <div class="user-front">Admin dashboard</div>
+  </a>
 
   <footer class="footer">
     &copy; <script>
@@ -107,7 +121,8 @@
 
   <script src="js/fetch/utility.js"></script>
   <script src="js/fetch/menu.js"></script>
-  <script src="js/toggle-auth.js"></script>
+  <script src="js/toggle.js"></script>
+  <script src="js/fetch/toggle-cart.js"></script>
   <script src="js/fetch/signup.js"></script>
   <script src="js/fetch/login.js"></script>
   <script src="js/fetch/jwt-decode.min.js"></script>
