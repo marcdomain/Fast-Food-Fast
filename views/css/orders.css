@@ -11,21 +11,6 @@ body {
   min-height: 100vh;
 }
 
-<<<<<<< HEAD
-.dashboard-content {
-  background-image: url('../img/banner1.jpg');
-  background-size: cover;
-  height: 100%;
-}
-
-.dashboard-content-bg {
-  background: rgba(36, 40, 38, 0.8);
-  height: 100%;
-  width: 100%;
-}
-
-=======
->>>>>>> ft-adjust-ui-ux-161302714
 .dashboard-content-bg div.page-title {
   color: #1a1a1a;
   padding-top: 65px;
@@ -298,11 +283,7 @@ tr:first-child {
 .menu-options {
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
-  max-height: 70vh;
-=======
   max-height: 60vh;
->>>>>>> ft-adjust-ui-ux-161302714
   padding: 10px;
   overflow-y: auto;
 }
