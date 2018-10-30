@@ -63,7 +63,7 @@ const getAllOrders = () => {
             ${new Date(order.orderdate).toString().split(' GMT')[0]}
           </td>
           <td>
-            <a href="specific-user-orders-admin.html" class="phone" id="phone${order.id}">
+            <a href="user-orders-admin.html" class="phone" id="phone${order.id}">
               ${order.phone} <span class="tool-tip">view history</span>
             </a>
           </td>

@@ -26,11 +26,20 @@ const correctMenu3 = {
 };
 
 const correctMenu4 = {
-  menu: 'Mixed Drinks',
+  menu: 'Cooca cola',
   description: 'Chilled and refreshing',
   category: 'local',
   imageURL: 'https://res.cloudinary.com/duk5ix8wp/image/upload/v1539063817/mfj9epgqaqbtpqdocet4.jpg',
   quantity: '80',
+  price: '250'
+};
+
+const correctMenu5 = {
+  menu: 'Mixed Drinks',
+  description: 'Chilled and refreshing',
+  category: 'local',
+  imageURL: 'https://res.cloudinary.com/duk5ix8wp/image/upload/v1539063817/mfj9epgqaqbtpqdocet4.jpg',
+  quantity: '200',
   price: '250'
 };
 
@@ -315,5 +324,5 @@ export {
   invalidPriceLength, invalidPrice, invalidPriceCharacter, correctMenu2, correctMenu3,
   unstringedMenu, unstringedDescription, unstringedCategory, unstringedQuantity, unstringedPrice,
   updateMenu, undefinedImageURL, unstringedImageURL, emptyImageURL, invalidImageFormat,
-  correctMenu4
+  correctMenu4, correctMenu5
 };

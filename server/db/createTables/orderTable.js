@@ -15,7 +15,7 @@ const createOrdersTable = `DROP TABLE IF EXISTS orders CASCADE;
 class OrderTableHandler {
   static ordersTable() {
     pool.query(createOrdersTable)
-      .then(result => console.log(`ordersTable: ${result[0].command}PED and ${result[1].command}D`))
+      .then(() => console.log('ordersTable ==>> INITIALIZED'))
       .catch(error => console.log(`orders table ${error}`));
   }
 }

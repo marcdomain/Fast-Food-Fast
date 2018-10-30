@@ -47,58 +47,6 @@ if (token) {
 }
 
 const menuContainer = document.querySelector('.foodContainer');
-cartItems = JSON.parse(localStorage.getItem('orderItems'));
-if (cartItems) {
-  pageAlert.style.display = 'none';
-  toggleCart.style.display = 'block';
-  menuContainer.style.marginTop = '60px';
-
-  userCart.innerHTML = '';
-  let totalAmount = 0;
-  let quantitySum = 0;
-  const newOrderDiv = document.createElement('DIV');
-  newOrderDiv.setAttribute('class', 'newOrderDiv');
-  const orderImageDiv = document.createElement('IMG');
-  orderImageDiv.setAttribute('class', 'orderImageDiv');
-  const otherDetails = document.createElement('DIV');
-  otherDetails.setAttribute('class', 'otherDetails');
-
-  cartItems.forEach((cartItem, i, arr) => {
-    orderImageDiv.src = cartItem.imageURL;
-    otherDetails.innerHTML = `
-      <b>Meal:</b> ${cartItem.menuName} <br>
-      <b>Amount:</b> ${cartItem.amount} <br>
-      <b>Quantity:</b>
-      <select class='cartQuantity' id=cartQuantity${i}>
-        <option selected value=${cartItem.quantity}>${cartItem.quantity}</option>
-        <option value='1'>1</option>
-        <option value='2'>2</option>
-        <option value='3'>3</option>
-        <option value='4'>4</option>
-        <option value='5'>5</option>
-        <option value='6'>6</option>
-        <option value='7'>7</option>
-        <option value='8'>8</option>
-        <option value='9'>9</option>
-        <option value='10'>10</option>
-      </select>
-    `;
-    newOrderDiv.appendChild(orderImageDiv);
-    newOrderDiv.appendChild(otherDetails);
-    userCart.innerHTML += newOrderDiv.outerHTML;
-    totalAmount += Number(cartItem.amount);
-    quantitySum += Number(cartItem.quantity);
-
-    const cartQuantity = document.querySelector(`#cartQuantity${i}`);
-    const updateOrderQuantity = () => {
-      noDuplicateItems[i].quantity = cartQuantity.value;
-      localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
-    };
-    cartQuantity.addEventListener('change', updateOrderQuantity);
-  });
-  cartTotal.innerHTML = `TOTAL = &#8358;${totalAmount}`;
-  totalQuantity.innerHTML = quantitySum;
-}
 
 const getAvailableMenu = () => {
   fetch(`${baseURL}/menu`, {
@@ -208,6 +156,7 @@ const getAvailableMenu = () => {
           newOrder.quantity = document.querySelector(`.qty${item.id}`).value;
           newOrder.menuName = `${item.menu}`;
           newOrder.imageURL = `${item.imageurl}`;
+          newOrder.price = `${item.price}`;
           newOrder.amount = `${item.price * newOrder.quantity}`;
 
           if (!token) {
@@ -255,8 +204,9 @@ const getAvailableMenu = () => {
             cartItems.forEach((cartItem, i, arr) => {
               orderImageDiv.src = cartItem.imageURL;
               otherDetails.innerHTML = `
+                <span class="delete">&#10006; <span class="tool-tip">delete</span></span>
                 <b>Meal:</b> ${cartItem.menuName} <br>
-                <b>Amount:</b> ${cartItem.amount} <br>
+                <b>Amount:</b> <span class="amount"> ${cartItem.amount} </span><br>
                 <b>Quantity:</b>
                 <select class='cartQuantity' id=cartQuantity${i}>
                   <option selected value=${cartItem.quantity}>${cartItem.quantity}</option>
@@ -277,21 +227,41 @@ const getAvailableMenu = () => {
               userCart.innerHTML += newOrderDiv.outerHTML;
               totalAmount += Number(cartItem.amount);
               quantitySum += Number(cartItem.quantity);
-
             });
             cartTotal.innerHTML = `TOTAL = &#8358;${totalAmount}`;
             totalQuantity.innerHTML = quantitySum;
 
             const cartQuantity = document.querySelectorAll('.cartQuantity');
-            const updateOrderQuantity = () => {
+            const itemsAmount = document.querySelectorAll('.amount');
+            const updateOrderCart = () => {
+              totalAmount = 0;
+              quantitySum = 0;
               for (let i = 0; i < cartItems.length; i++) {
                 noDuplicateItems[i].quantity = cartQuantity[i].value;
+                noDuplicateItems[i].amount = cartQuantity[i].value * noDuplicateItems[i].price;
                 localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
+                quantitySum += Number(noDuplicateItems[i].quantity);
+                totalAmount += Number(noDuplicateItems[i].amount);
+                itemsAmount[i].innerHTML = noDuplicateItems[i].amount;
               }
+              totalQuantity.innerHTML = quantitySum;
+              cartTotal.innerHTML = `TOTAL = &#8358;${totalAmount}`;
             };
             for (let j = 0; j < cartItems.length; j++) {
-              cartQuantity[j].addEventListener('change', updateOrderQuantity);
+              cartQuantity[j].addEventListener('change', updateOrderCart);
             }
+
+            const orderDeleteButtons = document.querySelectorAll('.delete');
+            orderDeleteButtons.forEach((btn, i, btnArr) => {
+              const deleteOrder = () => {
+                userCart.removeChild(userCart.childNodes[i]);
+                totalAmount -= Number(noDuplicateItems[i].amount);
+                noDuplicateItems.splice(i, 1);
+                localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
+                cartTotal.innerHTML = `TOTAL = &#8358;${totalAmount}`;
+              };
+              btn.addEventListener('click', deleteOrder);
+            });
           }
         };
         document.querySelector(`#submit${item.id}`).addEventListener('click', orderItemsFunction);

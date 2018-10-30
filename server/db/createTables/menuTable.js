@@ -14,7 +14,7 @@ CREATE TABLE menus (
 class MenuTableHandler {
   static menusTable() {
     const create = pool.query(createMenusTable)
-      .then(result => console.log(`menusTable: ${result[0].command}PED and ${result[1].command}D`))
+      .then(() => console.log('menusTable ==>> INITIALIZED'))
       .catch(error => console.log(`menus table ${error}`));
     return create;
   }
