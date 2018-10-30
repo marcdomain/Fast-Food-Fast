@@ -84,7 +84,7 @@ nav ul li a {
   right: 0;
 }
 
-.dropdown-content a {
+.dropdown-content > a{
   margin-top: 15px;
   padding: 5px;
   border-radius: 10px;
@@ -351,7 +351,7 @@ nav ul li a {
 .menu {
   height: 350px;
   max-width: 280px;
-  margin-top: 10px;
+  margin: 10px;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -437,7 +437,7 @@ form input[type='submit'].input {
 .input {
   outline: none;
 }
-/* /////////////////////////////////////////////////////// */
+
 .toggle-cart {
   background: gray;
   display: none;
@@ -472,7 +472,11 @@ form input[type='submit'].input {
   top: 60px;
   width: 310px;
   z-index: 1;
+<<<<<<< HEAD
   height: 91.2vh;
+=======
+  min-height: 96.5vh;
+>>>>>>> ft-adjust-ui-ux-161302714
   padding: 20px 5px;
   box-shadow: 2px 2px 5px 2px gray;
   transition: 0.5s;
@@ -487,6 +491,7 @@ form input[type='submit'].input {
   overflow-y: auto;
   overflow-x: hidden;
   margin-top: 40px;
+<<<<<<< HEAD
 }
 
 .newOrderDiv {
@@ -520,6 +525,41 @@ form input[type='submit'].input {
   box-shadow: 1px 1px 2px 1px #404040;
 }
 
+=======
+}
+
+.newOrderDiv {
+  display: flex;
+  height: auto;
+  width: 100%;
+  padding: 5px;
+  color: #fff;
+  margin-top: 5px;
+  background: #2091ad;
+}
+
+.otherDetails {
+  margin-left: 5px;
+}
+
+.cartTotal {
+  text-align: center;
+  background: #404040;
+  color: #fff;
+  padding: 5px;
+  font-weight: bold;
+  margin: auto;
+}
+
+.cartQuantity {
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  padding: 2px;
+  box-shadow: 1px 1px 2px 1px #404040;
+}
+
+>>>>>>> ft-adjust-ui-ux-161302714
 .orderImageDiv {
   height: 55px;
   width: 70px;
@@ -560,7 +600,36 @@ input.deliver-to {
   box-shadow: 1px 1px 2px 0 #404040;
   width: 80%
 }
+<<<<<<< HEAD
 /* /////////////////////////////////////////////////////////// */
+=======
+
+.delete {
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 1px 4px;
+  background: #fff;
+  color: red;
+  box-shadow: 1px 1px 2px 1px gray;
+  position: absolute;
+  right: 10px;
+}
+
+.tool-tip {
+  display: none;
+  position: absolute;
+  color: #fff;
+  background: #4a4a4a;
+  padding: 2px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.delete:hover .tool-tip {
+  display: block;
+}
+
+>>>>>>> ft-adjust-ui-ux-161302714
 .pageAlert {
   padding: 10px;
   height: 15px;
@@ -658,6 +727,12 @@ input.deliver-to {
   border-radius: 10px;
   background: #e65c00;
   box-shadow: 1px 1px 2px 1px #404040;
+}
+
+@media(max-width: 920px) {
+  .foodContainer {
+    justify-content: flex-start;
+  }
 }
 
 @media(max-width:898px) {

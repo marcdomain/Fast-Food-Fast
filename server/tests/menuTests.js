@@ -7,7 +7,7 @@ import {
   undefinedDescription, emptyDescription, invalidDescriptionLength, invalidDescriptionCharacter,
   undefinedCategory, emptyCategory, invalidCategory, undefinedQuantity, emptyQuantity,
   invalidQuantityLength, invalidQuantity, invalidQuantityCharacter, undefinedPrice, emptyPrice,
-  invalidPrice, invalidPriceCharacter, correctMenu2, correctMenu3, updateMenu,
+  invalidPrice, invalidPriceCharacter, correctMenu2, correctMenu3, updateMenu, correctMenu5,
   unstringedMenu, unstringedDescription, unstringedCategory, unstringedQuantity, unstringedPrice,
   undefinedImageURL, unstringedImageURL, emptyImageURL, invalidImageFormat, correctMenu4
 } from './mockData/menuMock';
@@ -132,6 +132,18 @@ describe('Test POST MENU endpoint for admin userType', () => {
       .post('/api/v1/menu')
       .set('authorization', generateToken)
       .send(correctMenu4)
+      .end((error, response) => {
+        expect(response).to.have.status(201);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.equal('Menu created successfully');
+        done();
+      });
+  });
+  it('should return 201 for success', (done) => {
+    chai.request(app)
+      .post('/api/v1/menu')
+      .set('authorization', generateToken)
+      .send(correctMenu5)
       .end((error, response) => {
         expect(response).to.have.status(201);
         expect(response.body).to.be.a('object');

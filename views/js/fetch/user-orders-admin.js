@@ -1,8 +1,3 @@
-const userInfo = document.querySelector('.user-info');
-
-const userEmail = localStorage.getItem('email');
-userInfo.innerHTML = `ORDER HISTORY OF <br><em>${userEmail}</em>`;
-
 localStorage.removeItem('menuURL');
 localStorage.removeItem('menuName');
 localStorage.removeItem('menuImageURL');
@@ -11,7 +6,17 @@ localStorage.removeItem('menuDescription');
 localStorage.removeItem('menuQuantity');
 localStorage.removeItem('menuPrice');
 
+const userInfo = document.querySelector('.user-info');
+const userEmail = localStorage.getItem('email');
 const userId = localStorage.getItem('userId');
+
+if (!userEmail || !userId) {
+  Utils.notification('Server restarted! Loading all orders...', 'white', 'red');
+  setTimeout(() => {
+    location.assign('orders-admin.html');
+  }, 5000);
+}
+userInfo.innerHTML = `ORDER HISTORY OF <br><em>${userEmail}</em>`;
 
 const userOrders = () => {
   fetch(`${baseURL}/users/${userId}/orders`, {

@@ -14,7 +14,7 @@ const createUsersTable = `DROP TABLE IF EXISTS users CASCADE;
 class UserTableHandler {
   static usersTable() {
     const create = pool.query(createUsersTable)
-      .then(result => console.log(`usersTable: ${result[0].command}PED and ${result[1].command}D`))
+      .then(() => console.log('usersTable ==>> INITIALIZED'))
       .catch(error => console.log(`users table ${error}`));
     return create;
   }

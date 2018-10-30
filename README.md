@@ -4,6 +4,7 @@
 ## Description
 Fast-Food-Fast​ is a food delivery service app for a restaurant.
 
+<br/><b>Project Plan (PIVOTAL TRACKER STORIES):</b> https://www.pivotaltracker.com/n/projects/2196535
 <br/><b>UI-pages:</b> https://marcdomain.github.io/Fast-Food-Fast/UI
 <br/><b> Hosted API on Heroku: </b> https://marcus-fast-food-fast.herokuapp.com/api/v1
  <br/><b> API documentation: </b> https://marcus-fast-food-fast.herokuapp.com/api-docs
@@ -16,9 +17,9 @@ Below are the features of Fast-Food-Fast Application at this point
 - User can Signup <br>
 - User can Login <br>
 - Admin can post menu <br>
-- User can get all available menu <br>
+- User can get all available menu (all menu with quantity greater than zero)<br>
 - Admin can get all menu (in stock or out of stock)<br>
-- User can post Orders to the app <br>
+- User can post Orders to the app (Orders are deducted from the available menu. When user attempts to place order with quantity beyond the stock, he/she is prompted the maximum quantity that can be ordered at that time.)<br>
 - User can get his/her order history<br/>
 - Admin can also get order history of specific user <br>
 - Admin can get all orders in the app <br>
