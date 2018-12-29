@@ -4,9 +4,11 @@ const authForm = () => {
   const displayModal = document.querySelector('.modal');
   const closeSignup = document.querySelector('.close-signup');
   const closeLogin = document.querySelector('.close-login');
+  const signupDrop = document.querySelector('div > a#signupDrop');
+  const loginDrop = document.querySelector('div > a#loginDrop');
 
   const toggleForm = (event) => {
-    if (event.target.id === 'login') {
+    if (event.target.id === 'login' || event.target === loginDrop) {
       selectDiv[0].style.display = 'none';
       selectDiv[1].style.display = 'block';
       displayModal.style.display = 'block';
@@ -15,7 +17,7 @@ const authForm = () => {
         selectForm[1].setAttribute('class', 'form-after-click');
       }, 50);
     }
-    if (event.target.id === 'signup') {
+    if (event.target.id === 'signup' || event.target === signupDrop) {
       selectDiv[1].style.display = 'none';
       selectDiv[0].style.display = 'block';
       displayModal.style.display = 'block';
@@ -51,13 +53,21 @@ const authForm = () => {
   signupModal.addEventListener('click', toggleForm);
   closeSignup.addEventListener('click', toggleForm);
   closeLogin.addEventListener('click', toggleForm);
+  if (signupDrop && loginDrop) {
+    signupDrop.addEventListener('click', toggleForm);
+    loginDrop.addEventListener('click', toggleForm);
+  }
 
+  const cartModal = document.querySelector('.cart-modal');
   window.onclick = (event) => {
-    if (event.target === displayModal) {
+    if (event.target === displayModal || event.target === cartModal) {
       displayModal.style.display = 'none';
+      if (cartModal && toggleCart) {
+        cartModal.style.display = 'none';
+        toggleCart.style.width = '150px';
+      }
     }
   };
 };
 
-// window.load = authForm();
 authForm();

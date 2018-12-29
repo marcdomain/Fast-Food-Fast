@@ -14,29 +14,32 @@
 
 <body>
   <div class="dashboard">
-    <div class="dashboard-menu">
-      <div class="menu-top">
-        <div class="welcome">
-          <a href="menu.html"><img src="img/logo.png" alt="logo"></a>
-          <span><a href="menu.html">Fast Food Fast</a> </span>
+    <div class="cart-modal">
+      <div class="dashboard-menu">
+        <div class="menu-top">
+          <div class="welcome">
+            <a href="menu.html"><img src="img/logo.png" alt="logo"></a>
+            <span><a href="menu.html">Fast Food Fast</a> </span>
+          </div>
+          <div class="menu-options">
+            <a href="add-menu.html">
+              <div class="menu menu1">Add Item &#10148;</div>
+            </a>
+            <a href="#">
+              <div class="menu menu1">Food Items &#10148;</div>
+            </a>
+            <a href="orders-admin.html">
+              <div class="menu ">All orders &#10148;</div>
+            </a>
+            <a href="#">
+              <div class="menu logout">Logout &#10148;</div>
+            </a>
+          </div>
         </div>
-        <div class="menu-options">
-          <a href="add-menu.html">
-            <div class="menu menu1">Add Item &#10148;</div>
-          </a>
-          <a href="#">
-            <div class="menu menu1">Food Items &#10148;</div>
-          </a>
-          <a href="orders-admin.html">
-            <div class="menu ">All orders &#10148;</div>
-          </a>
-          <a href="#">
-            <div class="menu logout">Logout &#10148;</div>
-          </a>
-        </div>
+        <div class="menu-bottom"></div>
       </div>
-      <div class="menu-bottom"></div>
     </div>
+
     <div class="dashboard-content">
       <div class="toggle-menu" id="toggle-menu">
         <strong>options</strong><span>&#10149;</span>
@@ -67,10 +70,10 @@
     </div>
   </div>
 
-  <div class="modal">
-      <div class="pageAlert">
-        
-      </div>
+  <div class="modal delete-modal">
+    <div class="pageAlert">
+
+    </div>
     <div class="confirm-form">
       <form id="delete-form">
         <div class="confirm-text">Sure you want to delete?</div>
