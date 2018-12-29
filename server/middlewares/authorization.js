@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
 const createToken = (payload) => {
-  const token = jwt.sign({ payload }, process.env.SECRETEKEY);
+  const token = jwt.sign({ payload }, process.env.SECRETKEY);
   return token;
 };
 
@@ -15,7 +15,7 @@ const verifyToken = (request, response, next) => {
         message: 'No token supplied',
       });
   }
-  jwt.verify(token, process.env.SECRETEKEY, (error, authData) => {
+  jwt.verify(token, process.env.SECRETKEY, (error, authData) => {
     if (error) {
       if (error.message.includes('signature')) {
         return response.status(403)

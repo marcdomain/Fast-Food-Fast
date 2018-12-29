@@ -1,4 +1,4 @@
-document.querySelector('.logout').addEventListener('click', () => {
+const logout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('orderItems');
   localStorage.removeItem('userId');
@@ -11,4 +11,10 @@ document.querySelector('.logout').addEventListener('click', () => {
   localStorage.removeItem('menuQuantity');
   localStorage.removeItem('menuPrice');
   location.assign('index.html');
-});
+};
+
+const dropdownLogout = document.querySelector('div > a.logout');
+if (dropdownLogout) {
+  dropdownLogout.addEventListener('click', logout);
+}
+document.querySelector('.logout').addEventListener('click', logout);
