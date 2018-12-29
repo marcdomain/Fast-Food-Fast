@@ -10,7 +10,6 @@ addons:
 services:
   - postgresql
 before_script:
-- psql -c "create user marcus with password 'marcdomain';" -U postgres
 - psql -c 'create database fooddb_test;' -U postgres
 - npm install
 script:
