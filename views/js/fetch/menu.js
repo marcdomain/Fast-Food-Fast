@@ -255,11 +255,15 @@ const getAvailableMenu = () => {
             orderDeleteButtons.forEach((btn, i, btnArr) => {
               const deleteOrder = () => {
                 userCart.removeChild(userCart.childNodes[i]);
+                quantitySum -= Number(noDuplicateItems[i].quantity);
                 totalAmount -= Number(noDuplicateItems[i].amount);
                 noDuplicateItems.splice(i, 1);
                 localStorage.setItem('orderItems', JSON.stringify(noDuplicateItems));
+                totalQuantity.innerHTML = quantitySum;
                 cartTotal.innerHTML = `TOTAL = &#8358;${totalAmount}`;
+                console.log('USER CART CHILDNODES', userCart.childNodes[i], 'INDEX INSIDE', i);
               };
+              console.log('USER CART CHILDNODES', userCart.childNodes[i], 'INDEX', i);
               btn.addEventListener('click', deleteOrder);
             });
           }
@@ -365,9 +369,6 @@ const getAvailableMenu = () => {
                   menuContainer.style.marginTop = '25px';
                   localStorage.removeItem('orderItems');
                   orderArray = [];
-                  // setTimeout(() => {
-                  //   location.assign('menu.html');
-                  // }, 2000);
                 }
               })
               .catch((error) => {
