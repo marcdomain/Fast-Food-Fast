@@ -42,10 +42,12 @@ const updateMenu = 'update menus set menu = $1, description = $2, category = $3,
 
 const deleteMenuById = 'delete from menus where id = $1 returning *';
 
+const deleteOrderById = 'delete from orders where id = $1 and userId = $2 returning *';
+
 export {
   createUser, queryUsersByEmail, queryUsersByPhone, createMenu, queryMenuTableByMenu,
   queryAvailableMenu, createOrder, queryMenuTableById, menuQuantityAfterOrder,
   selectUserOrderHistory, selectAllOrders, selectSpecificOrder, updateOrderStatus,
   queryOrdersById, queryUsersById, returnNewOrder,
-  selectPriceFromMenu, updateMenu, deleteMenuById, selectAllMenu
+  selectPriceFromMenu, updateMenu, deleteMenuById, selectAllMenu, deleteOrderById
 };

@@ -3,6 +3,7 @@ import {
   createOrder, selectUserOrderHistory, selectAllOrders, selectSpecificOrder,
   updateOrderStatus, queryUsersById, returnNewOrder,
   queryUsersByPhone,
+  deleteOrderById,
 } from '../db/sqlQueries';
 
 /**
@@ -225,12 +226,10 @@ class OrderHandler {
   static cancelOrder(request, response) {
     const { orderId } = request.params;
     pool.query(updateOrderStatus, ['Cancelled', orderId])
-      .then((result) => {
-        return response.status(200)
-          .json({
-            message: 'Order is cancelled'
-          });
-      })
+      .then(() => response.status(200)
+        .json({
+          message: 'Order is cancelled'
+        }))
       .catch(error => response.status(500)
         .json({
           status: 'Fail',
@@ -263,14 +262,57 @@ class OrderHandler {
           message: error.message
         }));
   }
+
+  /**
+  * @description - This method is responsible for Deleting order by a user
+  *
+  * @static
+  * @param {object} request - Request sent to the router
+  * @param {object} response - Response sent from the controller
+  *
+  * @returns {object} - status and object representing response message
+  *
+  * @memberof OrderHandler
+  */
+  static deleteOrder(request, response) {
+    const { orderId } = request.params;
+    if (!Number(orderId)) {
+      return response.status(401)
+        .json({
+          status: 'Fail',
+          message: 'Invalid URL. orderId should be a positive integer greater than zero'
+        });
+    }
+    const userId = request.authData.payload.id;
+    pool.query(deleteOrderById, [orderId, userId])
+      .then((result) => {
+        const deletedOrder = result.rows[0];
+        if (!deletedOrder) {
+          return response.status(401)
+            .json({
+              status: 'Fail',
+              message: 'Unauthorized access'
+            });
+        }
+        return response.status(200)
+          .json({
+            message: 'Order deleted successfully'
+          });
+      })
+      .catch(error => response.status(500)
+        .json({
+          status: 'Fail',
+          message: error.message
+        }));
+  }
 }
 
 const {
   placeOrder, getUserOrderHistory, getAllOrders, getSpecificOrder,
-  processOrder, cancelOrder, completeOrder
+  processOrder, cancelOrder, completeOrder, deleteOrder
 } = OrderHandler;
 
 export {
   placeOrder, getUserOrderHistory, getAllOrders, getSpecificOrder,
-  processOrder, cancelOrder, completeOrder
+  processOrder, cancelOrder, completeOrder, deleteOrder
 };

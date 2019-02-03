@@ -21,6 +21,7 @@ Below are the features of Fast-Food-Fast Application at this point
 - Admin can get all menu (in stock or out of stock)<br>
 - User can post Orders to the app (Orders are deducted from the available menu. When user attempts to place order with quantity beyond the stock, he/she is prompted the maximum quantity that can be ordered at that time.)<br>
 - User can get his/her order history<br/>
+- User can delete a Specific order<br/>
 - Admin can also get order history of specific user <br>
 - Admin can get all orders in the app <br>
 - Admin can get a Specific order<br/>
@@ -111,6 +112,12 @@ menuId: "Number"<br>"Authorization": "token"
 <td>GET</td> <td>api/v1/users/:userId/orders</td>  <td>Get user order history</td>
 <td>userId: "Number"<br>"Authorization": "token"</td>
 <td>{<br>message: "string"<br>orderHistory: {object}<br>}</td>
+</tr>
+
+<tr>
+<td>DELETE</td> <td>api/v1/orders/:orderId</td>  <td>Delete specific order</td>
+<td>"Authorization": "token"</td>
+<td>{<br>message: "string"<br>}</td>
 </tr>
 
 <tr>
