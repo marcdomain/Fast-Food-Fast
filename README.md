@@ -5,7 +5,7 @@
 Fast-Food-Fast​ is a food delivery service app for a restaurant.
 
 <br/><b>Project Plan (PIVOTAL TRACKER STORIES):</b> https://www.pivotaltracker.com/n/projects/2196535
-<br/><b>UI-pages:</b> https://marcdomain.github.io/Fast-Food-Fast/UI
+<br/><b>Frontend:</b> https://marcus-fast-food-fast.herokuapp.com
 <br/><b> Hosted API on Heroku: </b> https://marcus-fast-food-fast.herokuapp.com/api/v1
  <br/><b> API documentation: </b> https://marcus-fast-food-fast.herokuapp.com/api-docs
 
