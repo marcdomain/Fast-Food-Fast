@@ -1054,3 +1054,41 @@ nav ul li a {
     height: 200vh;
   }
 }
+
+
+
+@keyframes moveInRight{
+  0%{
+      opacity:0;
+      transform: translateX(100px);
+  }
+  80%{
+      transform:translate(-10px);
+  }
+  100%{
+      opacity:1;
+      transform: translate(0);
+  }
+}
+
+@keyframes moveInLeft{
+  0%{
+      opacity:0;
+      transform: translateX(-100px);
+  }
+  80%{
+      transform:translate(10px);
+  }
+  100%{
+      opacity:1;
+      transform: translate(0);
+  }
+}
+
+#page-title{
+  animation: moveInRight 1s ease-out;
+}
+
+#signup{
+  animation: moveInLeft 1s ease-out;
+}
